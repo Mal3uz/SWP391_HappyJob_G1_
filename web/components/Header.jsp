@@ -70,9 +70,9 @@
                                         <li><a href="PostBlog.jsp">Post a Blog</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li class="d-lg-none"><a href="post-job.html"><span class="mr-2">+</span> Post a Job</a></li>
-                                <li class="d-lg-none"><a href="login.html">Log In</a></li>
+                                <li><a href="Contact.jsp">Contact</a></li>
+                                <li class="d-lg-none"><a href="PostTalent.jsp"><span class="mr-2">+</span> Post a Job</a></li>
+                                <li class="d-lg-none"><a href="Login.jsp">Log In</a></li>
                             </ul>
                         </nav>
 
