@@ -1,11 +1,10 @@
 <%-- 
-    Document   : PostJob
-    Created on : Jan 15, 2024, 7:31:48 PM
+    Document   : PostBlog
+    Created on : Jan 16, 2024, 1:58:27 AM
     Author     : DELL
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -36,11 +35,11 @@
       <div class="container">
         <div class="row">
           <div class="col-md-7">
-            <h1 class="text-white font-weight-bold">Post A Talent</h1>
+            <h1 class="text-white font-weight-bold">Post A Blog</h1>
             <div class="custom-breadcrumbs">
               <a href="#">Home</a> <span class="mx-2 slash">/</span>
               <a href="#">Job</a> <span class="mx-2 slash">/</span>
-              <span class="text-white"><strong>Post a Job</strong></span>
+              <span class="text-white"><strong>Post a Blog</strong></span>
             </div>
           </div>
         </div>
@@ -55,7 +54,7 @@
           <div class="col-lg-8 mb-4 mb-lg-0">
             <div class="d-flex align-items-center">
               <div>
-                <h2>Post A Job</h2>
+                <h2>Post A Blog</h2>
               </div>
             </div>
           </div>
@@ -65,7 +64,7 @@
                 <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Preview</a>
               </div>
               <div class="col-6">
-                <a href="#" class="btn btn-block btn-primary btn-md">Save Job</a>
+                <a href="#" class="btn btn-block btn-primary btn-md">Save Blog</a>
               </div>
             </div>
           </div>
@@ -73,7 +72,7 @@
         <div class="row mb-5">
           <div class="col-lg-12">
             <form class="p-4 p-md-5 border rounded" method="post">
-              <h3 class="text-black mb-5 border-bottom pb-2">Job Details</h3>
+              <h3 class="text-black mb-5 border-bottom pb-2">Blog Details</h3>
               
               <div class="form-group">
                 <label for="company-website-tw d-block">Upload Featured Image</label> <br>
