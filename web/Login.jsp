@@ -53,23 +53,24 @@
 
                     <div class="col-lg-6">
                         <h2 class="mb-4 text-center">Log In To HappyJob</h2>
-                        <form action="#" class="p-4 border rounded">
+                        <form action="LoginControl" class="p-4 border rounded" method ="post">
 
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="text-black" for="fname">Email</label>
-                                    <input type="text" id="fname" class="form-control" placeholder="Email address">
+                                    <input type="text" id="fname" name="user" class="form-control" placeholder="Email address">
                                 </div>
                             </div>
                             <div class="row form-group mb-4">
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="text-black" for="fname">Password</label>
-                                    <input type="password" id="fname" class="form-control" placeholder="Password">
+                                    <input type="password" id="fname" name ="pass" class="form-control" placeholder="Password">
                                 </div>
+                                <h4 class="text-danger">${mess1}</h4>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 d-flex">
-                                    <input type="submit" value="Log In" class="btn px-4 btn-primary text-white w-100">
+                                    <input type="submit" name="action" value="Login" class="btn px-4 btn-primary text-white w-100">
                                 </div>
                             </div>
 
