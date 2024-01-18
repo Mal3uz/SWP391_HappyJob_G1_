@@ -8,7 +8,7 @@
 
        <div class="app-footer">
                     <div class="container">
-                        <span>© Bootstrap Gallery 2024</span>
+                        <span></span>
                     </div>
                 </div>
                 <!-- App footer end -->

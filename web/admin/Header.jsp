@@ -20,7 +20,7 @@
         <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
         <meta property="og:type" content="Website">
         <meta property="og:site_name" content="Bootstrap Gallery">
-        <link rel="shortcut icon" href="assets/images/favicon.svg" />
+<!--        <link rel="shortcut icon" href="assets/images/favicon.svg" />-->
 
         <!-- *************
                             ************ CSS Files *************
@@ -59,7 +59,7 @@
                                 <!-- App brand starts -->
                                 <div class="app-brand">
                                     <h1  class="d-lg-block d-none">
-                                        HappyJob
+                                        <span class="icon-briefcase"></span> HappyJob
                                     </h1>
                                     
                                 </div>
