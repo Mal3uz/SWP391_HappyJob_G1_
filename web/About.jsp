@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
+
+
 <%@include file="components/Header.jsp" %>
 
 
@@ -112,9 +114,12 @@
             <div class="col-12 text-center" data-aos="fade">
                 <h2 class="section-title mb-3">Our Team</h2>
             </div>
+
         </div>
 
         <div class="row align-items-center block__69944">
+
+
 
             <div class="col-md-6">
                 <img src="images/person_6.jpg" alt="Image" class="img-fluid mb-4 rounded">
@@ -151,6 +156,7 @@
 </section>
 
 <%@include file="components/Footer.jsp" %>
+
 
 
 
