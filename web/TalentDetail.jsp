@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
+
 <%@include file="components/Header.jsp" %>
 
 <!-- HOME -->
@@ -368,5 +369,6 @@
 </section>
 
 <%@include file="components/Footer.jsp" %>
+
 
 

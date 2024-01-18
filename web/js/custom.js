@@ -1,3 +1,4 @@
+
 jQuery(function ($) {
 
     'use strict';
@@ -284,4 +285,5 @@ $(document).ready(function () {
 //          $(this).find(".big").show();
 //        }
     );
+
 });

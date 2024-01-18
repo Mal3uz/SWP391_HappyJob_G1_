@@ -8,9 +8,6 @@
 
 
 
-
-
-
 <%@include file="components/Header.jsp" %>
 
 
@@ -208,5 +205,4 @@
 </section>
 
 <%@include file="components/Footer.jsp" %>
-
 

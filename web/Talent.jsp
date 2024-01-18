@@ -8,7 +8,6 @@
 
 
 
-
 <%@include file="components/Header.jsp" %>
 <%@include file="components/Search.jsp" %>
 
@@ -204,4 +203,5 @@
 
 
 <%@include file="components/Footer.jsp" %>
+
 

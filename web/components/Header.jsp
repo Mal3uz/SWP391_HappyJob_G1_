@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <title>HappyJob</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,6 +30,7 @@
     <body id="top">
 
         <div id="overlayer"></div>
+
         <div class="loader">
             <div class="spinner-border text-primary" role="status">
                 <span class="sr-only">Loading...</span>
@@ -57,6 +59,7 @@
                         <nav class="mx-auto site-navigation">
                             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
                                 <li><a href="Home.jsp" class="nav-link active">Home</a></li>
+
                                 <li class="has-children">
                                     <a href="#">Talent </a>
                                     <ul class="dropdown">
@@ -80,6 +83,7 @@
                                 </li>
                                 <li class="has-children">
                                     <a href="#">Blog</a>
+
                                     <ul class="dropdown">
                                         <li><a href="About.jsp">About</a></li>
                                         <li><a href="Blog.jsp">Blog Listings</a></li>
@@ -94,14 +98,13 @@
                                     </ul>
                                 </li>
                                 <li><a href="Contact.jsp">Contact</a></li>
-
-
                             </ul>
                         </nav>
 
                         <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
                             <div class="ml-auto">
                                 <a href="PostTalent.jsp" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
+
 <!--                                <a href="Login.jsp" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>-->
                               
                                 
@@ -122,14 +125,11 @@
                                 </div>
 
                             </div>
+
                         </div>
 
                     </div>
                 </div>
             </header>
-
-
-
-
 
 </html>
