@@ -34,31 +34,31 @@
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="text-black" for="fname">Email</label>
-                                    <input type="text" id="fname" name="user" class="form-control" placeholder="Email address">
+                                    <input type="email" id="fname" name="user" class="form-control" placeholder="Email address" required>
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="text-black" for="fname">Password</label>
-                                    <input type="password" name="pass" id="fname" class="form-control" placeholder="Password">
+                                    <input type="password" name="pass" id="fname" class="form-control" placeholder="Password" required>
                                 </div>
                             </div>
                             <div class="row form-group mb-4">
                                 <div class="col-md-12 mb-3 mb-md-0">
-                                    <label class="text-black" for="fname">Re-Type Password</label>
-                                    <input type="password" name="repass" id="fname" class="form-control" placeholder="Re-type Password">
+                                    <label class="text-black" for="fname" >Re-Type Password</label>
+                                    <input type="password" name="repass" id="fname" class="form-control" placeholder="Re-type Password" required>
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="text-black" for="fname">Name</label>
-                                    <input type="text" name ="name" id="fname" class="form-control" placeholder="Enter your Name">
+                                    <input type="text" name ="name" id="fname" class="form-control" placeholder="Enter your Name" required>
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="text-black" for="gender">Gender</label>
-                                    <select id="gender" name ="gender" class="form-control">
+                                    <select id="gender" name ="gender" class="form-control" required >
                                         <option value="" selected disabled>Select Gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -68,7 +68,7 @@
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
                                     <label class="text-black" for="dob">Date of Birth</label>
-                                    <input type="date" name="dob" id="dob" class="form-control">
+                                    <input type="date" name="dob" id="dob" class="form-control" required>
                                 </div>
                             </div>
                             <div class="row form-group">

@@ -40,6 +40,7 @@ public class LoginControl extends HttpServlet {
             //Kết nối vs DB
             LoginDAO dao = new LoginDAO();
             Account u = dao.login(username, password);
+
             //Kiểm tra
             if (u == null) {
                 //login fail -> Đẩy về trang Login.jsp (nhập lại)
@@ -49,20 +50,21 @@ public class LoginControl extends HttpServlet {
                 //Yêu cầu người dùng Login lại
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             } else {
-                if (u.getRoleID() == 1) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", u);
-                    response.sendRedirect("AdminDashboard.jsp");
-                } else if (u.getRoleID() == 2) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", u);
-                    response.sendRedirect("ProviderDashboard.jsp");
-                } else if (u.getRoleID() == 3) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", u);
-                    response.sendRedirect("Home.jsp");
-                } else {
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                HttpSession session = request.getSession();
+                session.setAttribute("user", u);
+                switch (u.getRoleID()) {
+                    case 1:
+                        response.sendRedirect("AdminDashboard.jsp");
+                        break;
+                    case 2:
+                        response.sendRedirect("ProviderDashboard.jsp");
+                        break;
+                    case 3:
+                        response.sendRedirect("Home.jsp");
+                        break;
+                    default:
+                        request.getRequestDispatcher("Login.jsp").forward(request, response);
+                        break;
                 }
             }
         } else {
