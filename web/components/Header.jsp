@@ -106,6 +106,7 @@
                                 <a href="PostTalent.jsp" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
 
 <!--                                <a href="Login.jsp" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>-->
+
                               
                                 
                                 
@@ -113,7 +114,7 @@
                                 
                                 
 <!--                                profile when login -->
-                                <div class="btn-group">
+<!--                                <div class="btn-group">
                                    
                                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                          <span class="mr-2 icon-person"></span>Phuong123<span class="icon-chevron-down"></span>
@@ -122,7 +123,7 @@
                                         <a class="dropdown-item" href="Profile.jsp">Profile Details</a>
                                         <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
                                     </div>
-                                </div>
+                                </div>-->
 
                             </div>
 
