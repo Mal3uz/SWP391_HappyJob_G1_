@@ -871,6 +871,7 @@ h1, h2, h3, h4 {
         font-size: 1.4rem;
     }
 }
+
 .testimony-full blockquote cite {
     font-size: 1.2rem;
 }
@@ -2054,5 +2055,71 @@ h1, h2, h3, h4 {
 
 .checkbox-primary{
     color:#89ba16 !important;
+}
+
+
+
+mark.big.swing {
+    position: relative; /* Đặt vị trí tương đối so với thẻ a */
+    font-size: 0.8em; /* Làm cho chữ nhỏ hơn */
+    padding: 2px 4px; /* Thêm đệm xung quanh chữ */
+    background-color: #ffc107; /* Đổi màu nền */
+    color: #000; /* Đổi màu chữ */
+    border-radius: 4px; /* Làm cho các góc tròn */
+    top: -15px; /* Đẩy lên trên */
+   
+}
+
+
+.card-body img {
+    border-radius: 50%;
+    max-width: 100%;
+}
+
+.card-body h4 {
+    margin-bottom: 0;
+}
+
+.card-body p {
+    margin-bottom: 10px;
+}
+
+.card-body button {
+    margin-top: 10px;
+}
+
+.list-group-item h6 {
+    margin-bottom: 5px;
+}
+
+.list-group-item span {
+    font-weight: bold;
+}
+.col-md-4 .card {
+    height: 100%;
+}
+
+.col-md-4 .card-body {
+    text-align: center;
+}
+.progress-bar {
+    height: 10px;
+}
+
+.progress + small {
+    display: block;
+    margin-top: 5px;
+}
+.col-sm-6 .card {
+    height: 100%;
+}
+
+.col-sm-6 .card-body {
+    text-align: center;
+}
+
+.col-sm-6 .card-body small {
+    display: block;
+    margin-top: 5px;
 }
 

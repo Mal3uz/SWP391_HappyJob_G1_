@@ -8,11 +8,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <title>HappyJob</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <link rel="shortcut icon" href="ftco-32x32.png">
+
+        <link rel="stylesheet" href="css/custom-bs.css">
+        <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+        <link rel="stylesheet" href="css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="fonts/icomoon/style.css">
+        <link rel="stylesheet" href="fonts/line-icons/style.css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesheet" href="css/animate.min.css">
+
+        <!-- MAIN CSS -->
+        <link rel="stylesheet" href="css/style.css">    
     </head>
-    <body>
-         <div id="overlayer"></div>
+    <body id="top">
+
+        <div id="overlayer"></div>
+
         <div class="loader">
             <div class="spinner-border text-primary" role="status">
                 <span class="sr-only">Loading...</span>
@@ -41,7 +59,7 @@
                         <nav class="mx-auto site-navigation">
                             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
                                 <li><a href="Home.jsp" class="nav-link active">Home</a></li>
-                                <li><a href="About.jsp">About</a></li>
+
                                 <li class="has-children">
                                     <a href="#">Talent </a>
                                     <ul class="dropdown">
@@ -65,31 +83,53 @@
                                 </li>
                                 <li class="has-children">
                                     <a href="#">Blog</a>
-                                      <ul class="dropdown">
+
+                                    <ul class="dropdown">
+                                        <li><a href="About.jsp">About</a></li>
+                                        <li><a href="Blog.jsp">Blog Listings</a></li>
+                                        <li><a href="PostBlog.jsp">Post a Blog</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children">
+                                    <a href="#">Notification <mark class="big swing">7</mark></a>
+                                    <ul class="dropdown autohiden">
                                         <li><a href="Blog.jsp">Blog Listings</a></li>
                                         <li><a href="PostBlog.jsp">Post a Blog</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="Contact.jsp">Contact</a></li>
-                                <li class="d-lg-none"><a href="PostTalent.jsp"><span class="mr-2">+</span> Post a Job</a></li>
-                                <li class="d-lg-none"><a href="Login.jsp">Log In</a></li>
                             </ul>
                         </nav>
 
                         <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
                             <div class="ml-auto">
                                 <a href="PostTalent.jsp" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
-                                <a href="Login.jsp" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
+
+<!--                                <a href="Login.jsp" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>-->
+                              
+                                
+                                
+                                
+                                
+                                
+<!--                                profile when login -->
+                                <div class="btn-group">
+                                   
+                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         <span class="mr-2 icon-person"></span>Phuong123<span class="icon-chevron-down"></span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="Profile.jsp">Profile Details</a>
+                                        <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+                                    </div>
+                                </div>
+
                             </div>
-                            <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+
                         </div>
 
                     </div>
                 </div>
             </header>
-            
-            
-    </body>
-    
-    
+
 </html>

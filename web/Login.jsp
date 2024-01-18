@@ -6,30 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <title>JobBoard &mdash; Website Template by Colorlib</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-        <link rel="stylesheet" href="css/custom-bs.css">
-        <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-        <link rel="stylesheet" href="css/bootstrap-select.min.css">
-        <link rel="stylesheet" href="fonts/icomoon/style.css">
-        <link rel="stylesheet" href="fonts/line-icons/style.css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <link rel="stylesheet" href="css/animate.min.css">
-        <link rel="stylesheet" href="css/quill.snow.css">
-
-
-        <!-- MAIN CSS -->
-        <link rel="stylesheet" href="css/style.css">    
-    </head>
-    <body id="top">
-
-        <%@include file="components/Header.jsp" %>
+<%@include file="components/Header.jsp" %>
 
 
         <!-- HOME -->
@@ -92,27 +69,4 @@
 
         <%@include file="components/Footer.jsp" %>
 
-    </div>
-
-    <!-- SCRIPTS -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/stickyfill.min.js"></script>
-    <script src="js/jquery.fancybox.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/quill.min.js"></script>
-
-
-    <script src="js/bootstrap-select.min.js"></script>
-
-    <script src="js/custom.js"></script>
-
-
-
-</body>
-</html>
+   
