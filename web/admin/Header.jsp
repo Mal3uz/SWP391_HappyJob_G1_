@@ -11,13 +11,11 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Bootstrap Gallery - Support Desk Admin Template</title>
+        <title>HappyJob</title>
 
         <!-- Meta -->
         <meta name="description" content="Marketplace for Bootstrap Admin Dashboards" />
         <meta name="author" content="Bootstrap Gallery" />
-        <link rel="canonical" href="https://www.bootstrap.gallery/">
-        <meta property="og:url" content="https://www.bootstrap.gallery">
         <meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
         <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
         <meta property="og:type" content="Website">
@@ -60,12 +58,10 @@
 
                                 <!-- App brand starts -->
                                 <div class="app-brand">
-                                    <a href="index.html" class="d-lg-block d-none">
-                                        <img src="assets/images/logo.svg" class="logo" alt="Bootstrap Gallery" />
-                                    </a>
-                                    <a href="index.html" class="d-lg-none d-md-block">
-                                        <img src="assets/images/logo-sm.svg" class="logo" alt="Bootstrap Gallery" />
-                                    </a>
+                                    <h1  class="d-lg-block d-none">
+                                        HappyJob
+                                    </h1>
+                                    
                                 </div>
                                 <!-- App brand ends -->
 
