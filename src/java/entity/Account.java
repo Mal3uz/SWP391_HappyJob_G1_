@@ -15,23 +15,23 @@ public class Account {
     private String Password;
     private String Email;
     private String Name;
-    private Date Dob;
+    private String Dob;
     private String Gender;
-    private String SecurityQuestion;
+   // private String SecurityQuestion;
     private int RoleID;
     private String Status;
 
     public Account() {
     }
 
-    public Account(int AccountID, String Password, String Email, String Name, Date Dob, String Gender, String SecurityQuestion, int RoleID, String Status) {
+    public Account(int AccountID, String Password, String Email, String Name, String Dob, String Gender, int RoleID, String Status) {
         this.AccountID = AccountID;
         this.Password = Password;
         this.Email = Email;
         this.Name = Name;
         this.Dob = Dob;
         this.Gender = Gender;
-        this.SecurityQuestion = SecurityQuestion;
+      //  this.SecurityQuestion = SecurityQuestion;
         this.RoleID = RoleID;
         this.Status = Status;
     }
@@ -68,11 +68,11 @@ public class Account {
         this.Name = Name;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return Dob;
     }
 
-    public void setDob(Date Dob) {
+    public void setDob(String Dob) {
         this.Dob = Dob;
     }
 
@@ -84,13 +84,7 @@ public class Account {
         this.Gender = Gender;
     }
 
-    public String getSecurityQuestion() {
-        return SecurityQuestion;
-    }
-
-    public void setSecurityQuestion(String SecurityQuestion) {
-        this.SecurityQuestion = SecurityQuestion;
-    }
+  
 
     public int getRoleID() {
         return RoleID;

@@ -14,7 +14,7 @@ public class Talent {
     private int TalentID;
     private String Title;
     private String  Description;
-    private Date CreatedAt;
+    private String CreatedAt;
     private int AccountID;
     private String Status;
     private String img;
@@ -22,7 +22,7 @@ public class Talent {
     public Talent() {
     }
 
-    public Talent(int TalentID, String Title, String Description, Date CreatedAt, int AccountID, String Status, String img) {
+    public Talent(int TalentID, String Title, String Description, String CreatedAt, int AccountID, String Status, String img) {
         this.TalentID = TalentID;
         this.Title = Title;
         this.Description = Description;
@@ -58,11 +58,11 @@ public class Talent {
         this.Description = Description;
     }
 
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return CreatedAt;
     }
 
-    public void setCreatedAt(Date CreatedAt) {
+    public void setCreatedAt(String CreatedAt) {
         this.CreatedAt = CreatedAt;
     }
 

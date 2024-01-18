@@ -12,13 +12,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
 
 /**
  *
  * @author ASUS
  */
-public class LoginControl extends HttpServlet {
+public class RegisterControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,49 +32,40 @@ public class LoginControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //Lấy dữ liệu từ jsp
-        String action = request.getParameter("action");
-        if ("Login".equals(action)) {
-            String username = request.getParameter("user");
-            String password = request.getParameter("pass");
-            //Kết nối vs DB
-            LoginDAO dao = new LoginDAO();
-            Account u = dao.login(username, password);
-            //Kiểm tra
-            if (u == null) {
-                //login fail -> Đẩy về trang Login.jsp (nhập lại)
-                //Message thông báo Login sai: thay đổi giá trị của biến mess
-                request.setAttribute("mess1", "Login fail!");
-                //ko thì quay trở lại trang login.jsp
-                //Yêu cầu người dùng Login lại
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            } else {
-                if (u.getRoleID() == 1) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", u);
-                    response.sendRedirect("AdminDashboard.jsp");
-                } else if (u.getRoleID() == 2) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", u);
-                    response.sendRedirect("ProviderDashboard.jsp");
-                } else if (u.getRoleID() == 3) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", u);
-                    response.sendRedirect("Home.jsp");
-                } else {
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
-                }
-            }
-        } else {
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-        }
-    }
+        String user = request.getParameter("user");
+        String pass = request.getParameter("pass");
+        String name = request.getParameter("name");
+        String gender = request.getParameter("gender");
+        String dob = request.getParameter("dob");
+        String re_pass = request.getParameter("repass");
+    //    String email = request.getParameter("email");
 
-    public static void main(String[] args) {
-        LoginDAO dao = new LoginDAO();
-        Account u = dao.login("dat@gmail.com", "123456");
-        System.out.println(u);
-    }
+         if (pass.matches("^[a-zA-Z0-9]*[a-zA-Z]+[a-zA-Z0-9]*$") && pass.matches("^[a-zA-Z0-9]*[0-9]+[a-zA-Z0-9]*$")) {
+        if (!pass.equals(re_pass)) {
+            request.setAttribute("mess1", "password and repeat password must be same!");
+            response.sendRedirect("SignUp.jsp");
+        } else {
+            LoginDAO dao = new LoginDAO();
+            Account u = dao.checkUserExist(user);
+            
+            if (u == null) {
+                //dc register
+
+                dao.register(pass, user, name, dob, gender);
+                request.setAttribute("mess1", "Create a successful account!");
+                request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+            } else //day ve login
+            {
+                
+                request.setAttribute("mess1", "Email already exists!");
+            request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+            }
+        }
+    } else{
+            request.setAttribute("mess2", "Password must be between 8 and 31 characters and must be alphanumeric!");
+              request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+       }
+     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
