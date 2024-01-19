@@ -12505,11 +12505,11 @@ img.login-logo{
 }
 
 /* Thêm vào phần CSS của bạn */
-.card {
+.card-talent {
     transition: box-shadow 0.3s ease; /* Tạo hiệu ứng chuyển động cho box-shadow */
 }
 
-.card:hover {
+.card-talent:hover {
     box-shadow: 0 4px 8px #b8bfc2; /* Điều chỉnh độ đổ bóng khi hover */
 }
 

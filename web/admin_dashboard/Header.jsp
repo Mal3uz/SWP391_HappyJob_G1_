@@ -25,18 +25,18 @@
         <!-- *************
                             ************ CSS Files *************
                     ************* -->
-        <!-- Icomoon Font Icons css -->
-        <link rel="stylesheet" href="assets/fonts/icomoon/style.css" />
+<!-- Icomoon Font Icons css -->
+<link rel="stylesheet" href="../admin_dashboard/assets/fonts/icomoon/style.css" />
 
-        <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/main.min.css" />
+<!-- Main CSS -->
+<link rel="stylesheet" href="../admin_dashboard/assets/css/main.min.css" />
 
         <!-- *************
                             ************ Vendor Css Files *************
                     ************ -->
 
         <!-- Scrollbar CSS -->
-        <link rel="stylesheet" href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css" />
+        <link rel="stylesheet" href="../admin_dashboard/assets/vendor/overlay-scroll/OverlayScrollbars.min.css" />
     </head>
     
        <body>

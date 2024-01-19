@@ -34,7 +34,7 @@
         <!-- Row start -->
         <div class="row gx-2">
             <div class="col-sm-3 p-2">
-                <div class="card">
+                <div class="card card-talent">
                     <img src="assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery">
                     <div class="card-body">
                         <h5>Header</h5>
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="col-sm-3 p-2">
-                <div class="card ">
+                <div class="card card-talent ">
                     <img src="assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery">
                     <div class="card-body">
                         <h5>Header</h5>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="col-sm-3 p-2">
-                <div class="card">
+                <div class="card card-talent">
                     <img src="assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery">
                     <div class="card-body">
                         <h5>Header</h5>
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="col-sm-3 p-2">
-                <div class="card ">
+                <div class="card card-talent">
                     <img src="assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery">
                     <div class="card-body">
                         <h5>Header</h5>
@@ -90,20 +90,23 @@
 
 
         <!-- Row start -->
-        <div class="row">
-            <div class="col-sm-6 text-center text-md-right">
-                <div class="custom-pagination ml-auto">
-                    <a href="#" class="prev">Prev</a>
-                    <div class="d-inline-block">
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                    </div>
-                    <a href="#" class="next">Next</a>
-                </div>
-            </div>
-        </div>
+        <nav aria-label="Page navigation example ">
+            <ul class="pagination justify-content-end ">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         <!-- Row end -->
 
     </div>
