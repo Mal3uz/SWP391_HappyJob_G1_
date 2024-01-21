@@ -55,10 +55,10 @@ public class RejectTalentControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String id = request.getParameter("tid");
-          
+        String reason = request.getParameter("reason");
         //pass sid to dao
         AdminDAO dao = new AdminDAO();
-        dao.rejectTalent(id);
+        dao.rejectTalent(id,reason);
         response.sendRedirect("listTalent");
     } 
 

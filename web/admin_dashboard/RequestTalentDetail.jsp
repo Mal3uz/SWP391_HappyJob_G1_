@@ -60,10 +60,10 @@
                     <div class="col-6">
 
                         <a onclick="showMess('${Talent.talentID}',
-                                        'acceptTalent?tid=', '${Talent.title}', '${account.name}','accept')"  
+                                        'acceptTalent?tid=', '${Talent.title}', '${account.name}', 'accept')"  
                            class="btn btn-block btn-primary btn-md">Accept Talent</a>
                         <a onclick="showMess('${Talent.talentID}',
-                                        'rejectTalent?tid=', '${Talent.title}', '${account.name}','reject')"  
+                                        'rejectTalent?tid=', '${Talent.title}', '${account.name}', 'reject')"  
                            class="btn btn-block btn-danger btn-md">Reject Talent</a>
                     </div>
                 </div>
@@ -91,18 +91,64 @@
 
     </div>
     <!-- Container ends -->
+    <!-- Popup Start -->
+    <div class="modal" tabindex="-1" role="dialog" id="rejectModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reject Reason</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="rejectForm">
+                        <div class="form-group">
+                            <label for="rejectReason">Reason:</label>
+                            <textarea class="form-control" id="rejectReason" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="saveBtn">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup End -->
 
 </div>
 <!-- App body ends -->
 <script>
-    function showMess(id, url, title, name,key) {
-        var option = confirm('Are you sure you want to '+ key+' this talent?\n' +
-                'Title: ' + title + '\n' +
-                'Account name: ' + name);
-        if (option === true) {
-            window.location.href = url + id;
+    function showMess(id, url, title, name, key) {
+        if (key === "reject") {
+            var option = confirm('Are you sure you want to ' + key + ' this talent?\n' +
+                    'Title: ' + title + '\n' +
+                    'Account name: ' + name);
+            if (option === true) {
+                $('#saveBtn').click(function () {
+                    var reason = $('#rejectReason').val();
+                    $.ajax({
+                        url: url + id,
+                        type: 'POST',
+                        data: {
+                            'reason': reason
+                        }
+                    });
+                });
+
+            }
+        } else if (key === "accept") {
+            var option = confirm('Are you sure you want to ' + key + ' this talent?\n' +
+                    'Title: ' + title + '\n' +
+                    'Account name: ' + name);
+            if (option === true) {
+                window.location.href = url + id;
+            }
         }
-        
     }
+
 </script>
 <%@include file="Footer.jsp" %>

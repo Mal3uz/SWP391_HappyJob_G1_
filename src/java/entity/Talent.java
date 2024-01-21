@@ -16,11 +16,12 @@ public class Talent {
     private String createdAt;
     private int accountID;
     private String status;
+    private String reason;
 
     public Talent() {
     }
 
-    public Talent(int talentID, String title, String img, String description, String createdAt, int accountID, String status) {
+    public Talent(int talentID, String title, String img, String description, String createdAt, int accountID, String status, String reason) {
         this.talentID = talentID;
         this.title = title;
         this.img = img;
@@ -28,7 +29,10 @@ public class Talent {
         this.createdAt = createdAt;
         this.accountID = accountID;
         this.status = status;
+        this.reason = reason;
     }
+    
+    
 
     public int getTalentID() {
         return talentID;
@@ -86,9 +90,17 @@ public class Talent {
         this.status = status;
     }
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
     @Override
     public String toString() {
-        return "Talent{" + "talentID=" + talentID + ", title=" + title + ", img=" + img + ", description=" + description + ", createdAt=" + createdAt + ", accountID=" + accountID + ", status=" + status + '}';
+        return "Talent{" + "talentID=" + talentID + ", title=" + title + ", img=" + img + ", description=" + description + ", createdAt=" + createdAt + ", accountID=" + accountID + ", status=" + status + ", reason=" + reason + '}';
     }
     
 

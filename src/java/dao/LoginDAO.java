@@ -38,8 +38,10 @@ public class LoginDAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9),
+                        rs.getString(10));
 
             }
         } catch (Exception e) {
@@ -64,8 +66,10 @@ public class LoginDAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9),
+                        rs.getString(10));
             }
         } catch (Exception e) {
         }

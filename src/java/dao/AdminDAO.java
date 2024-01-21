@@ -38,8 +38,10 @@ public class AdminDAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8)));
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9),
+                        rs.getString(10)));
 
             }
         } catch (Exception e) {
@@ -92,8 +94,10 @@ public class AdminDAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9),
+                        rs.getString(10));
             }
         } catch (Exception e) {
         }
@@ -118,7 +122,8 @@ public class AdminDAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getString(7)));
+                        rs.getString(7),
+                        rs.getString(8)));
 
             }
         } catch (Exception e) {
@@ -144,7 +149,8 @@ public class AdminDAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getString(7));
+                        rs.getString(7),
+                        rs.getString(8));
             }
         } catch (Exception e) {
         }
@@ -164,15 +170,16 @@ public class AdminDAO {
         } catch (Exception e) {
         }
     }
-    
-     public void rejectTalent(String talentId) {
+
+    public void rejectTalent(String talentId, String reason) {
         String query = "UPDATE Talent\n"
-                + "SET Status = 'Reject'\n"
+                + "SET Status = 'Reject', Reason = N'?'\n"
                 + "WHERE TalentID = ?;";
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
-            ps.setString(1, talentId);
+            ps.setString(1, reason);
+            ps.setString(2, talentId);
             ps.executeUpdate();
         } catch (Exception e) {
         }
