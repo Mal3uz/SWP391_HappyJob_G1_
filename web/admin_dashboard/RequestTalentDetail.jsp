@@ -111,7 +111,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="saveBtn">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -122,12 +122,19 @@
 </div>
 <!-- App body ends -->
 <script>
+
     function showMess(id, url, title, name, key) {
         if (key === "reject") {
             var option = confirm('Are you sure you want to ' + key + ' this talent?\n' +
                     'Title: ' + title + '\n' +
                     'Account name: ' + name);
             if (option === true) {
+                // Show the modal
+                $('#rejectModal').modal('show');
+                $('.close').click(function () {
+                    $('#rejectModal').modal('hide');
+                });
+                // When the save button is clicked
                 $('#saveBtn').click(function () {
                     var reason = $('#rejectReason').val();
                     $.ajax({
@@ -135,10 +142,15 @@
                         type: 'POST',
                         data: {
                             'reason': reason
+                        },contentType: 'application/x-www-form-urlencoded', 
+                        success: function () {
+                            // Close the modal
+                            $('#rejectModal').modal('hide');
+                            window.location.href =  url + id;
+
                         }
                     });
                 });
-
             }
         } else if (key === "accept") {
             var option = confirm('Are you sure you want to ' + key + ' this talent?\n' +
@@ -149,6 +161,7 @@
             }
         }
     }
+
 
 </script>
 <%@include file="Footer.jsp" %>

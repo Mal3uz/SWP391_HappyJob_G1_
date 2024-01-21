@@ -28,19 +28,7 @@ public class RejectTalentControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RejectTalentControl</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RejectTalentControl at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.sendRedirect("listTalent");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,12 +42,7 @@ public class RejectTalentControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String id = request.getParameter("tid");
-        String reason = request.getParameter("reason");
-        //pass sid to dao
-        AdminDAO dao = new AdminDAO();
-        dao.rejectTalent(id,reason);
-        response.sendRedirect("listTalent");
+       processRequest(request, response);
     } 
 
     /** 
@@ -72,7 +55,14 @@ public class RejectTalentControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+          String id = request.getParameter("tid");
+        String reason = request.getParameter("reason");
+        System.out.println(reason);
+        //pass sid to dao
+        AdminDAO dao = new AdminDAO();
+        dao.rejectTalent(id,reason);
+       
+       
     }
 
     /** 

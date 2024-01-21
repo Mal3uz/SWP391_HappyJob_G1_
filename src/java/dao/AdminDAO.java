@@ -173,7 +173,7 @@ public class AdminDAO {
 
     public void rejectTalent(String talentId, String reason) {
         String query = "UPDATE Talent\n"
-                + "SET Status = 'Reject', Reason = N'?'\n"
+                + "SET Status = 'Reject', Reason = ?\n"
                 + "WHERE TalentID = ?;";
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
