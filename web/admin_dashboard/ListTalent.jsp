@@ -33,58 +33,24 @@
 
         <!-- Row start -->
         <div class="row gx-2">
-            <div class="col-sm-3 p-2">
-                <div class="card card-talent">
-                    <img src="assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery">
-                    <div class="card-body">
-                        <h5>Header</h5>
-                        <p>
-                            Some quick example text to build on the card title and
-                            make up the bulk of the card's content and description.
-                        </p>
-                        <a href="RequestTalentDetail.jsp" class="btn btn-outline-primary">Details</a>
+            <c:forEach var="t" items="${listTalent}">
+                <div class="col-sm-3 p-2">
+                    <div class="card card-talent">
+                        <img src="../admin_dashboard/assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery" style="object-fit: cover;">
+                        <div class="card-body">
+                            <h5 style="height: 40px;">${t.title}</h5>
+                            <p style="height: 100px;">
+                                ${t.description}
+                            </p>
+                            <a href="talentDetail?tid=${t.talentID}" class="btn btn-outline-primary">Details</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3 p-2">
-                <div class="card card-talent ">
-                    <img src="assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery">
-                    <div class="card-body">
-                        <h5>Header</h5>
-                        <p>
-                            Some quick example text to build on the card title and
-                            make up the bulk of the card's content and description.
-                        </p>
-                        <a href="javascript:void(0)" class="btn btn-outline-primary">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3 p-2">
-                <div class="card card-talent">
-                    <img src="assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery">
-                    <div class="card-body">
-                        <h5>Header</h5>
-                        <p>
-                            Some quick example text to build on the card title and
-                            make up the bulk of the card's content and description.
-                        </p>
-                        <a href="javascript:void(0)" class="btn btn-outline-primary">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3 p-2">
-                <div class="card card-talent">
-                    <img src="assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery">
-                    <div class="card-body">
-                        <h5>Header</h5>
-                        <p>
-                            Some quick example text to build on the card title and
-                            make up the bulk of the card's content and description.
-                        </p>
-                        <a href="javascript:void(0)" class="btn btn-outline-primary">Details</a>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
+
+
+
+
         </div>
         <!-- Row end -->
 

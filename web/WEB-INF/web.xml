@@ -3,6 +3,14 @@
     <welcome-file-list>
         <welcome-file>Home.jsp</welcome-file>
     </welcome-file-list>
+    <filter>
+        <filter-name>decentralization</filter-name>
+        <filter-class>hierarchy.decentralization</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>decentralization</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginControl</servlet-name>
         <servlet-class>guest.servlet.LoginControl</servlet-class>
@@ -19,6 +27,22 @@
         <servlet-name>AdminAccountControl</servlet-name>
         <servlet-class>admin.AdminAccountControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminListTalent</servlet-name>
+        <servlet-class>admin.AdminListTalent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminTalentDetailControl</servlet-name>
+        <servlet-class>admin.AdminTalentDetailControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RequestTalentControl</servlet-name>
+        <servlet-class>admin.AcceptTalentControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RejectTalentControl</servlet-name>
+        <servlet-class>admin.RejectTalentControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -34,6 +58,22 @@
     <servlet-mapping>
         <servlet-name>AdminAccountControl</servlet-name>
         <url-pattern>/admin/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminListTalent</servlet-name>
+        <url-pattern>/admin/listTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminTalentDetailControl</servlet-name>
+        <url-pattern>/admin/talentDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestTalentControl</servlet-name>
+        <url-pattern>/admin/acceptTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RejectTalentControl</servlet-name>
+        <url-pattern>/admin/rejectTalent</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

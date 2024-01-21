@@ -54,7 +54,7 @@ public class LoginControl extends HttpServlet {
                 session.setAttribute("user", u);
                 switch (u.getRoleID()) {
                     case 1:
-                        response.sendRedirect("AdminDashboard.jsp");
+                         response.sendRedirect("admin/account");
                         break;
                     case 2:
                         response.sendRedirect("ProviderDashboard.jsp");

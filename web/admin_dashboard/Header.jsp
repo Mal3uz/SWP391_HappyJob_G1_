@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -177,7 +178,7 @@
                                         <a class="dropdown-toggle d-flex align-items-center user-settings" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="d-none d-md-block">Kasey Petersen</span>
-                                            <img src="assets/images/user3.png" class="img-3x m-2 me-0 rounded-5" alt="Bootstrap Gallery" />
+                                            <img src="../admin_dashboard/assets/images/user3.png" class="img-3x m-2 me-0 rounded-5" alt="Bootstrap Gallery" />
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-sm shadow-sm gap-3" style="">
                                             <a class="dropdown-item d-flex align-items-center py-2" href="agent-profile.html"><i

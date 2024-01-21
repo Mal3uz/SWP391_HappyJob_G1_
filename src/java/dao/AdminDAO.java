@@ -5,6 +5,7 @@
 package dao;
 
 import entity.Account;
+import entity.Talent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,7 @@ public class AdminDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    //a1
     public List<Account> getListAllAccount() {
         List<Account> listA = new ArrayList<>();
         String query = "select * from Account";
@@ -59,8 +61,8 @@ public class AdminDAO {
         } catch (Exception e) {
         }
     }
-    
-      public void unlockAccount(String accountID) {
+
+    public void unlockAccount(String accountID) {
         String query = "UPDATE Account\n"
                 + "SET Status = 'Active'\n"
                 + "WHERE AccountID = ?;";
@@ -73,10 +75,113 @@ public class AdminDAO {
         }
     }
 
+    public Account getAccountByTalentId(String talentId) {
+        String query = "select * from Account a\n"
+                + "join Talent t on a.AccountID = t.AccountID\n"
+                + "where t.TalentID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, talentId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Account(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    //t1
+    public List<Talent> getListAllTalent() {
+        List<Talent> listT = new ArrayList<>();
+        String query = "select * from Talent\n"
+                + "where Status = 'Pending'";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listT.add(new Talent(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listT;
+
+    }
+
+    public Talent getTalentById(String talentId) {
+        String query = "select * from Talent \n"
+                + "where TalentID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, talentId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Talent(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public void acceptTalent(String talentId) {
+        String query = "UPDATE Talent\n"
+                + "SET Status = 'Active'\n"
+                + "WHERE TalentID = ?;";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, talentId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+     public void rejectTalent(String talentId) {
+        String query = "UPDATE Talent\n"
+                + "SET Status = 'Reject'\n"
+                + "WHERE TalentID = ?;";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, talentId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
-        List<Account> a = dao.getListAllAccount();
-        for (Account account : a) {
+        List<Talent> a = dao.getListAllTalent();
+        for (Talent account : a) {
             System.out.println(account);
         }
     }

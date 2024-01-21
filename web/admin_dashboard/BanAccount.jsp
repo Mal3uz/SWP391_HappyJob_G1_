@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <%@include file="Header.jsp" %>
 
@@ -64,7 +64,7 @@
                                                 <input class="form-check-input" type="checkbox" value="option1" />
                                             </th>
                                             <td>
-                                                <img src="assets/images/user2.png" class="me-2 img-3x rounded-3"
+                                                <img src="../admin_dashboard/assets/images/user2.png" class="me-2 img-3x rounded-3"
                                                      alt="Bootstrap Gallery" />
                                                 ${a.name}
                                             </td>

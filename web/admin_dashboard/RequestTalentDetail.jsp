@@ -17,9 +17,10 @@
             <div class="col-lg-8">
                 <div class="mb-5">
                     <figure class="mb-5"><img src="assets/images/products/product2.jpg" alt="Image" class="img-fluid rounded"></figure>
+                    <h2>${Talent.title}</h2>
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Job Description</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis illum fuga eveniet. Deleniti asperiores, commodi quae ipsum quas est itaque, ipsa, dolore beatae voluptates nemo blanditiis iste eius officia minus.</p>
-                    <p>Velit unde aliquam et voluptas reiciendis non sapiente labore, deleniti asperiores blanditiis nihil quia officiis dolor vero iste dolore vel molestiae saepe. Id nisi, consequuntur sunt impedit quidem, vitae mollitia!</p>
+                    <p>${Talent.description}</p>
+
                 </div>
                 <div class="mb-5">
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-rocket mr-3"></span>Responsibilities</h3>
@@ -54,10 +55,16 @@
                     </ul>
                 </div>
 
-                <div class="row mb-5 justify-content-center">
-                   
+                <div class="row mb-5">
+
                     <div class="col-6">
-                        <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
+
+                        <a onclick="showMess('${Talent.talentID}',
+                                        'acceptTalent?tid=', '${Talent.title}', '${account.name}','accept')"  
+                           class="btn btn-block btn-primary btn-md">Accept Talent</a>
+                        <a onclick="showMess('${Talent.talentID}',
+                                        'rejectTalent?tid=', '${Talent.title}', '${account.name}','reject')"  
+                           class="btn btn-block btn-danger btn-md">Reject Talent</a>
                     </div>
                 </div>
 
@@ -77,7 +84,7 @@
                     </ul>
                 </div>
 
-                
+
 
             </div>
         </div>
@@ -87,4 +94,15 @@
 
 </div>
 <!-- App body ends -->
+<script>
+    function showMess(id, url, title, name,key) {
+        var option = confirm('Are you sure you want to '+ key+' this talent?\n' +
+                'Title: ' + title + '\n' +
+                'Account name: ' + name);
+        if (option === true) {
+            window.location.href = url + id;
+        }
+        
+    }
+</script>
 <%@include file="Footer.jsp" %>
