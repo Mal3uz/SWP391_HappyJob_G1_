@@ -43,6 +43,10 @@
         <servlet-name>RejectTalentControl</servlet-name>
         <servlet-class>admin.RejectTalentControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Notifications</servlet-name>
+        <servlet-class>admin.AdminNotificationsControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -74,6 +78,10 @@
     <servlet-mapping>
         <servlet-name>RejectTalentControl</servlet-name>
         <url-pattern>/admin/rejectTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Notifications</servlet-name>
+        <url-pattern>/admin/notifications</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

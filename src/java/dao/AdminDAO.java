@@ -5,6 +5,7 @@
 package dao;
 
 import entity.Account;
+import entity.Notifications;
 import entity.Talent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -183,6 +184,31 @@ public class AdminDAO {
             ps.executeUpdate();
         } catch (Exception e) {
         }
+    }
+    
+    //n1
+     public List<Notifications> getListNotificationses() {
+        List<Notifications> listN = new ArrayList<>();
+        String query = "select * from Notifications";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listN.add(new Notifications(rs.getInt(1), 
+                        rs.getInt(2), 
+                        rs.getInt(3), 
+                        rs.getInt(4), 
+                        rs.getString(5), 
+                rs.getString(6)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listN;
+
     }
 
     public static void main(String[] args) {

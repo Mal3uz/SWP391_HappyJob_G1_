@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="Header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
         <!-- App body starts -->
         <div class="app-body">
 
@@ -48,121 +51,23 @@
                         <div class="bg-dark px-3 py-2 m-3 mb-1 rounded-2">
                           Today
                         </div>
+                        <c:forEach var="n" items="${listN}">
                         <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block">
-                          <img src="assets/images/user1.png" alt="Admin Panel" class="img-3x rounded-circle" />
+                          <img src="../admin_dashboard/assets/images/user1.png" alt="Admin Panel" class="img-3x rounded-circle" />
                           <div class="flex-1 flex flex-col">
                             <h6 class="fw-semibold mb-1">Angelica Ramos</h6>
                             <p class="mb-1">
                               <small class="opacity-50">Appriciated the project.</small>
-                              "Great work. Keep on developing great themes"
+                               ${n.message}
                             </p>
                             <p class="small mb-1">
-                              <span class="fw-semibold">12:20PM</span>
-                              <span class="opacity-50">March 25th, 2022</span>
+                              <span class="fw-semibold">${fn:substring(n.createdAt, 11, 19)}</span>
+                              <span class="opacity-50">${fn:substring(n.createdAt, 0, 10)}</span>
                             </p>
                           </div>
                         </div>
-                        <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block">
-                          <img src="assets/images/user2.png" alt="Admin Panel" class="img-3x rounded-circle" />
-                          <div class="flex-1 flex flex-col">
-                            <h6 class="fw-semibold mb-1">Brenden Wagner</h6>
-                            <p class="mb-1">
-                              <small class="opacity-50">Appriciated the project.</small>
-                              "Great theme."
-                            </p>
-                            <p class="small mb-1">
-                              <span class="fw-semibold">12:30PM</span>
-                              <span class="opacity-50">March 25th, 2022</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block">
-                          <img src="assets/images/user3.png" alt="Admin Panel" class="img-3x rounded-circle" />
-                          <div class="flex-1 flex flex-col">
-                            <h6 class="fw-semibold mb-1">Cedric Kelly</h6>
-                            <p class="mb-1">
-                              <small class="opacity-50">Appriciated the project.</small>
-                              "For dedication and hard work."
-                            </p>
-                            <p class="small mb-1">
-                              <span class="fw-semibold">02:45PM</span>
-                              <span class="opacity-50">March 25th, 2022</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block">
-                          <img src="assets/images/user4.png" alt="Admin Panel" class="img-3x rounded-circle" />
-                          <div class="flex-1 flex flex-col">
-                            <h6 class="fw-semibold mb-1">Paul Byrd</h6>
-                            <p class="mb-1">
-                              <small class="opacity-50">Appriciated the project.</small>
-                              "For creativity and outstanding work."
-                            </p>
-                            <p class="small mb-1">
-                              <span class="fw-semibold">03:20PM</span>
-                              <span class="opacity-50">March 25th, 2022</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block">
-                          <img src="assets/images/user5.png" alt="Admin Panel" class="img-3x rounded-circle" />
-                          <div class="flex-1 flex flex-col">
-                            <h6 class="fw-semibold mb-1">Sonya Frost</h6>
-                            <p class="mb-1">
-                              <small class="opacity-50">Appriciated the project.</small>
-                              "For quality work and effort."
-                            </p>
-                            <p class="small mb-1">
-                              <span class="fw-semibold">03:20PM</span>
-                              <span class="opacity-50">March 25th, 2022</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="bg-dark px-3 py-2 m-3 mb-1 rounded-2">
-                          Yesterday
-                        </div>
-                        <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block">
-                          <img src="assets/images/user3.png" alt="Admin Panel" class="img-3x rounded-circle" />
-                          <div class="flex-1 flex flex-col">
-                            <h6 class="fw-semibold mb-1">Cedric Kelly</h6>
-                            <p class="mb-1">
-                              <small class="opacity-50">Appriciated the project.</small>
-                              "For dedication and hard work."
-                            </p>
-                            <p class="small mb-1">
-                              <span class="fw-semibold">02:45PM</span>
-                              <span class="opacity-50">March 25th, 2022</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block">
-                          <img src="assets/images/user2.png" alt="Admin Panel" class="img-3x rounded-circle" />
-                          <div class="flex-1 flex flex-col">
-                            <h6 class="fw-semibold mb-1">Paul Byrd</h6>
-                            <p class="mb-1">
-                              <small class="opacity-50">Appriciated the project.</small>
-                              "For creativity and outstanding work."
-                            </p>
-                            <p class="small mb-1">
-                              <span class="fw-semibold">03:20PM</span>
-                              <span class="opacity-50">March 25th, 2022</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block">
-                          <img src="assets/images/user5.png" alt="Admin Panel" class="img-3x rounded-circle" />
-                          <div class="flex-1 flex flex-col">
-                            <h6 class="fw-semibold mb-1">Sonya Frost</h6>
-                            <p class="mb-1">
-                              <small class="opacity-50">Appriciated the project.</small>
-                              "For quality work and effort."
-                            </p>
-                            <p class="small mb-1">
-                              <span class="fw-semibold">03:20PM</span>
-                              <span class="opacity-50">March 25th, 2022</span>
-                            </p>
-                          </div>
-                        </div>
+                        </c:forEach>
+                       
                       </div>
                     </div>
                     <!-- Contacts Container End -->
