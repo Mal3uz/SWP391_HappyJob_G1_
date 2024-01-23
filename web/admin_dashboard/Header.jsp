@@ -21,16 +21,16 @@
         <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
         <meta property="og:type" content="Website">
         <meta property="og:site_name" content="Bootstrap Gallery">
-<!--        <link rel="shortcut icon" href="assets/images/favicon.svg" />-->
+        <!--        <link rel="shortcut icon" href="assets/images/favicon.svg" />-->
 
         <!-- *************
                             ************ CSS Files *************
                     ************* -->
-<!-- Icomoon Font Icons css -->
-<link rel="stylesheet" href="../admin_dashboard/assets/fonts/icomoon/style.css" />
+        <!-- Icomoon Font Icons css -->
+        <link rel="stylesheet" href="../admin_dashboard/assets/fonts/icomoon/style.css" />
 
-<!-- Main CSS -->
-<link rel="stylesheet" href="../admin_dashboard/assets/css/main.min.css" />
+        <!-- Main CSS -->
+        <link rel="stylesheet" href="../admin_dashboard/assets/css/main.min.css" />
 
         <!-- *************
                             ************ Vendor Css Files *************
@@ -39,8 +39,8 @@
         <!-- Scrollbar CSS -->
         <link rel="stylesheet" href="../admin_dashboard/assets/vendor/overlay-scroll/OverlayScrollbars.min.css" />
     </head>
-    
-       <body>
+
+    <body>
         <!-- Page wrapper start -->
         <div class="page-wrapper">
 
@@ -62,7 +62,7 @@
                                     <h1  class="d-lg-block d-none">
                                         <span class="icon-briefcase"></span> HappyJob
                                     </h1>
-                                    
+
                                 </div>
                                 <!-- App brand ends -->
 
@@ -79,7 +79,7 @@
                                     </div>
                                     <!-- Search container end -->
 
-                                 
+
                                     <div class="dropdown d-sm-block d-none">
                                         <a class="dropdown-toggle d-flex p-3 position-relative" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -222,34 +222,50 @@
                                 </button>
                             </div>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                  <li class="nav-item ">
+                                <li class="nav-item ">
                                     <a class="nav-link " href="DashBoard.jsp">
                                         Dashboards
                                     </a>
                                 </li>
+                                
+                                 <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                       aria-expanded="false">
+                                        Talent
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="listTalent">
+                                                <span>Pending Talent</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="activeTalent"><span>Active Talent</span></a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="BanAccount.jsp">
+                                    <a class="nav-link " href="account">
                                         Ban Account
                                     </a>
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link " href="InvoiceList.jsp">
-                                       Invoice
+                                        Invoice
                                     </a>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="ListTalent.jsp" >
-                                        List Talent
-                                    </a>
-                                    
-                                </li>
+                               
+                               
+
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Notifications.jsp">Notifications </a>
+                                    <a class="nav-link" href="notifications">Notifications </a>
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link" href="RequestProduct.jsp"> List Product </a>
                                 </li>
-                               
+
                             </ul>
                         </div>
                     </div>

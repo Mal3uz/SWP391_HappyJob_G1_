@@ -55,7 +55,7 @@ public class RejectTalentControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-          String id = request.getParameter("tid");
+        String id = request.getParameter("tid");
         String reason = request.getParameter("reason");
         System.out.println(reason);
         //pass sid to dao
