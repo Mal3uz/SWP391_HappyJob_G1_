@@ -32,6 +32,7 @@
     <div class="container d-flex justify-content-center">
 
     <div class="verification-container">
+  
         <h3 class="mt-3">Enter the verification code</h3>
                 <p class="mt-3">To confirm your account, enter the 6-digit code we sent to: ${email}</p>
         <c:set var="currentTimeMillis" value="<%= System.currentTimeMillis() %>" scope="session" />

@@ -36,7 +36,7 @@ public class LoginControl extends HttpServlet {
         String action = request.getParameter("action");
         String username = request.getParameter("user");
         String password = request.getParameter("pass");
-
+        HttpSession session = request.getSession();
         LoginDAO dao = new LoginDAO();
         Account account = new Account();
         account = dao.getAccountByEmail(username);
@@ -44,8 +44,18 @@ public class LoginControl extends HttpServlet {
         // System.out.println("Hello");
         System.out.println("Pending".equals(status));
         if ("Pending".equals(status)) {
-             response.sendRedirect("Verify.jsp");
-             
+            Account u = dao.login(username, password);
+            session.setAttribute("user", u);
+            String code = dao.generateVerificationCode();
+            dao.updateNewVerificationCode(code, username);
+            SendEmailUtil.sendVerificationCode(username, code);
+            Long time = (System.currentTimeMillis() + 15 * 60 * 1000); // 15 minutes
+            session.setAttribute("time", time);
+            request.setAttribute("email", username);
+            request.setAttribute("mess1", "Your account isn't authenticated, authenticate to sign in");
+            //  response.sendRedirect("Verify.jsp");
+            request.getRequestDispatcher("Verify.jsp").forward(request, response);
+
         } else {
             if ("Login".equals(action)) {
 
@@ -61,7 +71,7 @@ public class LoginControl extends HttpServlet {
                     //Yêu cầu người dùng Login lại
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 } else {
-                    HttpSession session = request.getSession();
+
                     session.setAttribute("user", u);
                     switch (u.getRoleID()) {
                         case 1:
