@@ -34,41 +34,53 @@ public class LoginControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //Lấy dữ liệu từ jsp
         String action = request.getParameter("action");
-        if ("Login".equals(action)) {
-            String username = request.getParameter("user");
-            String password = request.getParameter("pass");
-            //Kết nối vs DB
-            LoginDAO dao = new LoginDAO();
-            Account u = dao.login(username, password);
+        String username = request.getParameter("user");
+        String password = request.getParameter("pass");
 
-            //Kiểm tra
-            if (u == null) {
-                //login fail -> Đẩy về trang Login.jsp (nhập lại)
-                //Message thông báo Login sai: thay đổi giá trị của biến mess
-                request.setAttribute("mess1", "Login fail!");
-                //ko thì quay trở lại trang login.jsp
-                //Yêu cầu người dùng Login lại
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", u);
-                switch (u.getRoleID()) {
-                    case 1:
-                        response.sendRedirect("AdminDashboard.jsp");
-                        break;
-                    case 2:
-                        response.sendRedirect("ProviderDashboard.jsp");
-                        break;
-                    case 3:
-                        response.sendRedirect("Home.jsp");
-                        break;
-                    default:
-                        request.getRequestDispatcher("Login.jsp").forward(request, response);
-                        break;
-                }
-            }
+        LoginDAO dao = new LoginDAO();
+        Account account = new Account();
+        account = dao.getAccountByEmail(username);
+        String status = account.getStatus();
+        // System.out.println("Hello");
+        System.out.println("Pending".equals(status));
+        if ("Pending".equals(status)) {
+             response.sendRedirect("Verify.jsp");
+             
         } else {
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            if ("Login".equals(action)) {
+
+                //Kết nối vs DB
+                Account u = dao.login(username, password);
+
+                //Kiểm tra
+                if (u == null) {
+                    //login fail -> Đẩy về trang Login.jsp (nhập lại)
+                    //Message thông báo Login sai: thay đổi giá trị của biến mess
+                    request.setAttribute("mess1", "Login fail!");
+                    //ko thì quay trở lại trang login.jsp
+                    //Yêu cầu người dùng Login lại
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                } else {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("user", u);
+                    switch (u.getRoleID()) {
+                        case 1:
+                            response.sendRedirect("AdminDashboard.jsp");
+                            break;
+                        case 2:
+                            response.sendRedirect("ProviderDashboard.jsp");
+                            break;
+                        case 3:
+                            response.sendRedirect("Home.jsp");
+                            break;
+                        default:
+                            request.getRequestDispatcher("Login.jsp").forward(request, response);
+                            break;
+                    }
+                }
+            } else {
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
         }
     }
 

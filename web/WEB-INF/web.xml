@@ -15,6 +15,10 @@
         <servlet-name>LogoutControl</servlet-name>
         <servlet-class>guest.servlet.LogoutControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VerifyServlet</servlet-name>
+        <servlet-class>guest.servlet.VerifyServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -26,6 +30,10 @@
     <servlet-mapping>
         <servlet-name>LogoutControl</servlet-name>
         <url-pattern>/LogoutControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyServlet</servlet-name>
+        <url-pattern>/verify</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
