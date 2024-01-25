@@ -12505,11 +12505,20 @@ img.login-logo{
 }
 
 /* Thêm vào phần CSS của bạn */
-.card {
+.card-talent {
     transition: box-shadow 0.3s ease; /* Tạo hiệu ứng chuyển động cho box-shadow */
 }
 
-.card:hover {
+.card-talent:hover {
     box-shadow: 0 4px 8px #b8bfc2; /* Điều chỉnh độ đổ bóng khi hover */
 }
 
+ .card-body p ,h5 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Số dòng hiển thị tối đa */
+        -webkit-box-orient: vertical;
+    }
+    
+  

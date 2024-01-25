@@ -11,7 +11,6 @@ import java.sql.Date;
  * @author ASUS
  */
 public class Account {
-
     private int accountID;
     private String password;
     private String email;
@@ -94,6 +93,7 @@ public class Account {
         this.dob = dob;
     }
 
+
     public String getGender() {
         return gender;
     }
@@ -120,7 +120,9 @@ public class Account {
 
     @Override
     public String toString() {
+
         return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", gender=" + gender + ", roleID=" + roleID + ", status=" + status + ", verificationCode=" + verificationCode + '}';
     }
+
 
 }

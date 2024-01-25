@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,26 +21,26 @@
         <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
         <meta property="og:type" content="Website">
         <meta property="og:site_name" content="Bootstrap Gallery">
-<!--        <link rel="shortcut icon" href="assets/images/favicon.svg" />-->
+        <!--        <link rel="shortcut icon" href="assets/images/favicon.svg" />-->
 
         <!-- *************
                             ************ CSS Files *************
                     ************* -->
         <!-- Icomoon Font Icons css -->
-        <link rel="stylesheet" href="assets/fonts/icomoon/style.css" />
+        <link rel="stylesheet" href="../admin_dashboard/assets/fonts/icomoon/style.css" />
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/main.min.css" />
+        <link rel="stylesheet" href="../admin_dashboard/assets/css/main.min.css" />
 
         <!-- *************
                             ************ Vendor Css Files *************
                     ************ -->
 
         <!-- Scrollbar CSS -->
-        <link rel="stylesheet" href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css" />
+        <link rel="stylesheet" href="../admin_dashboard/assets/vendor/overlay-scroll/OverlayScrollbars.min.css" />
     </head>
-    
-       <body>
+
+    <body>
         <!-- Page wrapper start -->
         <div class="page-wrapper">
 
@@ -61,7 +62,7 @@
                                     <h1  class="d-lg-block d-none">
                                         <span class="icon-briefcase"></span> HappyJob
                                     </h1>
-                                    
+
                                 </div>
                                 <!-- App brand ends -->
 
@@ -78,7 +79,7 @@
                                     </div>
                                     <!-- Search container end -->
 
-                                 
+
                                     <div class="dropdown d-sm-block d-none">
                                         <a class="dropdown-toggle d-flex p-3 position-relative" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -177,7 +178,7 @@
                                         <a class="dropdown-toggle d-flex align-items-center user-settings" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="d-none d-md-block">Kasey Petersen</span>
-                                            <img src="assets/images/user3.png" class="img-3x m-2 me-0 rounded-5" alt="Bootstrap Gallery" />
+                                            <img src="../admin_dashboard/assets/images/user3.png" class="img-3x m-2 me-0 rounded-5" alt="Bootstrap Gallery" />
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-sm shadow-sm gap-3" style="">
                                             <a class="dropdown-item d-flex align-items-center py-2" href="agent-profile.html"><i
@@ -221,34 +222,50 @@
                                 </button>
                             </div>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                  <li class="nav-item ">
+                                <li class="nav-item ">
                                     <a class="nav-link " href="DashBoard.jsp">
                                         Dashboards
                                     </a>
                                 </li>
+                                
+                                 <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                       aria-expanded="false">
+                                        Talent
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="listTalent">
+                                                <span>Pending Talent</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="activeTalent"><span>Active Talent</span></a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="BanAccount.jsp">
+                                    <a class="nav-link " href="account">
                                         Ban Account
                                     </a>
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link " href="InvoiceList.jsp">
-                                       Invoice
+                                        Invoice
                                     </a>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="ListTalent.jsp" >
-                                        List Talent
-                                    </a>
-                                    
-                                </li>
+                               
+                               
+
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Notifications.jsp">Notifications </a>
+                                    <a class="nav-link" href="notifications">Notifications </a>
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link" href="RequestProduct.jsp"> List Product </a>
                                 </li>
-                               
+
                             </ul>
                         </div>
                     </div>

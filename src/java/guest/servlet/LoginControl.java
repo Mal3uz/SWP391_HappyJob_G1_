@@ -56,6 +56,7 @@ public class LoginControl extends HttpServlet {
             //  response.sendRedirect("Verify.jsp");
             request.getRequestDispatcher("Verify.jsp").forward(request, response);
 
+
         } else {
             if ("Login".equals(action)) {
 
