@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 
 /**
@@ -50,10 +51,20 @@ public class RegisterControl extends HttpServlet {
             
             if (u == null) {
                 //dc register
-
-                dao.register(pass, user, name, dob, gender);
-                request.setAttribute("mess1", "Create a successful account!");
-                request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+              String code = dao.generateVerificationCode();
+              Long time = (System.currentTimeMillis() + 15 * 60 * 1000); // 15 minutes in seconds
+                dao.register(pass, user, name, dob, gender,code);
+                SendEmailUtil.sendVerificationCode(user, code);
+                request.setAttribute("email", user);
+                //request.setAttribute("code", code);
+               // request.setAttribute("time", time);
+               HttpSession session = request.getSession();
+               session.setAttribute("time", time);
+                  request.getRequestDispatcher("Verify.jsp").forward(request, response);
+                 // request.getRequestDispatcher("./guest.servlet/verify").forward(request, response);
+                //request.setAttribute("mess1", "Create a successful account!");
+               // request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+               
             } else //day ve login
             {
                 
@@ -66,7 +77,10 @@ public class RegisterControl extends HttpServlet {
               request.getRequestDispatcher("SignUp.jsp").forward(request, response);
        }
      }
-
+    public static void main(String[] args) {
+         Long time = (System.currentTimeMillis() + 15 * 60 * 1000L) / 1000; // 15 minutes in seconds
+         System.out.println(time);
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

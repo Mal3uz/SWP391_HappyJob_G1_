@@ -11,104 +11,116 @@ import java.sql.Date;
  * @author ASUS
  */
 public class Account {
-    private int AccountID;
-    private String Password;
-    private String Email;
-    private String Name;
-    private String Dob;
-    private String Gender;
-   // private String SecurityQuestion;
-    private int RoleID;
-    private String Status;
+
+    private int accountID;
+    private String password;
+    private String email;
+    private String name;
+    private String dob;
+    private String gender;
+    // private String SecurityQuestion;
+    private int roleID;
+    private String status;
+    private String verificationCode;
+    //private long verificationCodeExpirationTime;
 
     public Account() {
     }
 
-    public Account(int AccountID, String Password, String Email, String Name, String Dob, String Gender, int RoleID, String Status) {
-        this.AccountID = AccountID;
-        this.Password = Password;
-        this.Email = Email;
-        this.Name = Name;
-        this.Dob = Dob;
-        this.Gender = Gender;
-      //  this.SecurityQuestion = SecurityQuestion;
-        this.RoleID = RoleID;
-        this.Status = Status;
+    public Account(int accountID, String password, String email, String name, String dob, String gender, int roleID, String status, String verificationCode) {
+        this.accountID = accountID;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.dob = dob;
+        this.gender = gender;
+        this.roleID = roleID;
+        this.status = status;
+        this.verificationCode = verificationCode;
+        // this.verificationCodeExpirationTime = verificationCodeExpirationTime;
     }
 
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+//    public long getVerificationCodeExpirationTime() {
+//        return verificationCodeExpirationTime;
+//    }
+//    public void setVerificationCodeExpirationTime(long verificationCodeExpirationTime) {
+//        this.verificationCodeExpirationTime = verificationCodeExpirationTime;
+//    }
     public int getAccountID() {
-        return AccountID;
+        return accountID;
     }
 
-    public void setAccountID(int AccountID) {
-        this.AccountID = AccountID;
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public void setPassword(String Password) {
-        this.Password = Password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDob() {
-        return Dob;
+        return dob;
     }
 
-    public void setDob(String Dob) {
-        this.Dob = Dob;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public String getGender() {
-        return Gender;
+        return gender;
     }
 
-    public void setGender(String Gender) {
-        this.Gender = Gender;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
-
-  
 
     public int getRoleID() {
-        return RoleID;
+        return roleID;
     }
 
-    public void setRoleID(int RoleID) {
-        this.RoleID = RoleID;
+    public void setRoleID(int roleID) {
+        this.roleID = roleID;
     }
 
     public String getStatus() {
-         if (Status == "1") {
-            return "Active";
-        } else if (Status == "2") {
-            return "Locked";
-        } else if (Status == "3") {
-            return "Gmail Login";
-        } else {
-            return "Unverified";
-        }
+        return status;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public void setStatus(String status) {
+        this.status = status;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", gender=" + gender + ", roleID=" + roleID + ", status=" + status + ", verificationCode=" + verificationCode + '}';
+    }
+
 }

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -105,25 +106,31 @@
                             <div class="ml-auto">
                                 <a href="PostTalent.jsp" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
 
-<!--                                <a href="Login.jsp" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>-->
+                                <c:if test="${sessionScope.user == null}">
+                                    <a href="Login.jsp" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
+                                </c:if>
 
-                              
-                                
-                                
-                                
-                                
-                                
-<!--                                profile when login -->
-<!--                                <div class="btn-group">
-                                   
-                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                         <span class="mr-2 icon-person"></span>Phuong123<span class="icon-chevron-down"></span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="Profile.jsp">Profile Details</a>
-                                        <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+
+
+
+
+
+
+
+                                <!--                                profile when login -->
+                                <c:if test="${sessionScope.user != null}">
+                                    <div class="btn-group">
+
+                                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="mr-2 icon-person"></span>${sessionScope.user.getName()}<span class="icon-chevron-down"></span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="Profile.jsp">Profile Details</a>
+                                            <a class="dropdown-item" href="LogoutControl" >Logout</a>
+                                        </div>
                                     </div>
-                                </div>-->
+                                </c:if>
+
 
                             </div>
 
