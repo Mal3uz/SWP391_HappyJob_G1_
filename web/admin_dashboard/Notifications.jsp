@@ -38,13 +38,7 @@
             <div class="col-12">
                 <div class="card mb-2">
                     <div class="card-body">
-                        <!-- Search container start -->
-                        <div class="search-container d-sm-block d-none">
-                            <input type="text" class="form-control" placeholder="Search" />
-                            <i class="icon-search"></i>
-                        </div>
-                        <!-- Search container end -->
-
+                      
                         <!-- Contacts Container Start -->
                         <div class="notification-container mt-3">
                             <div class="notification-list">
@@ -100,12 +94,5 @@
 </div>
 <!-- App body ends -->
 
-<!-- App footer start -->
-<div class="app-footer">
-    <div class="container">
-        <span>© Bootstrap Gallery 2024</span>
-    </div>
-</div>
-<!-- App footer end -->
 
 <%@include file="Footer.jsp" %>
