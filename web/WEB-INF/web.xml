@@ -24,6 +24,7 @@
         <servlet-class>guest.servlet.LogoutControl</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>AdminAccountControl</servlet-name>
         <servlet-class>admin.AdminAccountControl</servlet-class>
     </servlet>
@@ -46,6 +47,10 @@
     <servlet>
         <servlet-name>Notifications</servlet-name>
         <servlet-class>admin.AdminNotificationsControl</servlet-class>
+
+        <servlet-name>VerifyServlet</servlet-name>
+        <servlet-class>guest.servlet.VerifyServlet</servlet-class>
+
     </servlet>
     <servlet>
         <servlet-name>DeleteTalentActiveControl</servlet-name>
@@ -68,6 +73,7 @@
         <url-pattern>/LogoutControl</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>AdminAccountControl</servlet-name>
         <url-pattern>/admin/account</url-pattern>
     </servlet-mapping>
@@ -90,6 +96,9 @@
     <servlet-mapping>
         <servlet-name>Notifications</servlet-name>
         <url-pattern>/admin/notifications</url-pattern>
+        <servlet-name>VerifyServlet</servlet-name>
+        <url-pattern>/verify</url-pattern>
+
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteTalentActiveControl</servlet-name>

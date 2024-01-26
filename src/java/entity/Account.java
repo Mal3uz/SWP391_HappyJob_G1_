@@ -16,29 +16,43 @@ public class Account {
     private String email;
     private String name;
     private String dob;
-    private String verifycode;
-    private String availableTime;
     private String gender;
-   // private String SecurityQuestion;
+    // private String SecurityQuestion;
     private int roleID;
     private String status;
+    private String verificationCode;
+    //private long verificationCodeExpirationTime;
 
     public Account() {
     }
 
-    public Account(int accountID, String password, String email, String name, String dob, String verifycode, String availableTime, String gender, int roleID, String status) {
+    public Account(int accountID, String password, String email, String name, String dob, String gender, int roleID, String status, String verificationCode) {
         this.accountID = accountID;
         this.password = password;
         this.email = email;
         this.name = name;
         this.dob = dob;
-        this.verifycode = verifycode;
-        this.availableTime = availableTime;
         this.gender = gender;
         this.roleID = roleID;
         this.status = status;
+        this.verificationCode = verificationCode;
+        // this.verificationCodeExpirationTime = verificationCodeExpirationTime;
     }
 
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+//    public long getVerificationCodeExpirationTime() {
+//        return verificationCodeExpirationTime;
+//    }
+//    public void setVerificationCodeExpirationTime(long verificationCodeExpirationTime) {
+//        this.verificationCodeExpirationTime = verificationCodeExpirationTime;
+//    }
     public int getAccountID() {
         return accountID;
     }
@@ -79,21 +93,6 @@ public class Account {
         this.dob = dob;
     }
 
-    public String getVerifycode() {
-        return verifycode;
-    }
-
-    public void setVerifycode(String verifycode) {
-        this.verifycode = verifycode;
-    }
-
-    public String getAvailableTime() {
-        return availableTime;
-    }
-
-    public void setAvailableTime(String availableTime) {
-        this.availableTime = availableTime;
-    }
 
     public String getGender() {
         return gender;
@@ -121,11 +120,9 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", verifycode=" + verifycode + ", availableTime=" + availableTime + ", gender=" + gender + ", roleID=" + roleID + ", status=" + status + '}';
+
+        return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", gender=" + gender + ", roleID=" + roleID + ", status=" + status + ", verificationCode=" + verificationCode + '}';
     }
 
 
-   
-    
-    
 }
