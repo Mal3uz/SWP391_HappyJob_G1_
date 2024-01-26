@@ -19,6 +19,18 @@
         <servlet-name>AdminAccountControl</servlet-name>
         <servlet-class>admin.AdminAccountControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileControl</servlet-name>
+        <servlet-class>guest.servlet.ProfileControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>guest.servlet.NewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileEdit</servlet-name>
+        <servlet-class>user.servlet.ProfileEditControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -34,6 +46,18 @@
     <servlet-mapping>
         <servlet-name>AdminAccountControl</servlet-name>
         <url-pattern>/admin/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileControl</servlet-name>
+        <url-pattern>/ProfileControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileEdit</servlet-name>
+        <url-pattern>/profileEdit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

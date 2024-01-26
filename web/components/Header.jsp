@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:useBean id="CategoryDAOInstance" scope="request" class="dao.CategoryDAO" />
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -72,14 +75,11 @@
                                 <li class="has-children">
                                     <a href="services.html">Category</a>
                                     <ul class="dropdown">
-                                        <li><a href="services.html">Services</a></li>
-                                        <li><a href="service-single.html">Service Single</a></li>
-                                        <li><a href="blog-single.html">Blog Single</a></li>
-                                        <li><a href="portfolio.html">Portfolio</a></li>
-                                        <li><a href="portfolio-single.html">Portfolio Single</a></li>
-                                        <li><a href="testimonials.html">Testimonials</a></li>
-                                        <li><a href="faq.html">Frequently Ask Questions</a></li>
-                                        <li><a href="gallery.html">Gallery</a></li>
+                                        <c:forEach var="item" items="${CategoryDAOInstance.getListAllCategories()}">
+                                            <li>
+                                                <a href="#">${item.name}</a>
+                                            </li>
+                                        </c:forEach>
                                     </ul>
                                 </li>
                                 <li class="has-children">
