@@ -41,7 +41,7 @@ public class LoginControl extends HttpServlet {
         Account account = new Account();
         account = dao.getAccountByEmail(username);
         String status = account.getStatus();
-        // System.out.println("Hello");
+          System.out.println(status);
         System.out.println("Pending".equals(status));
         if ("Pending".equals(status)) {
             Account u = dao.login(username, password);

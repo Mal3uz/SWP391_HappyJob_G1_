@@ -33,7 +33,8 @@ public class AdminDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                listA.add(new Account(rs.getInt(1),
+                listA.add(new Account(
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -268,8 +269,8 @@ public class AdminDAO {
 
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
-        List<Talent> a = dao.getListPendingTalent();
-        for (Talent account : a) {
+        List<Account> a = dao.getListAllAccount();
+        for (Account account : a) {
             System.out.println(account);
         }
     }

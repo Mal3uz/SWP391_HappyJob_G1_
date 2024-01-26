@@ -42,6 +42,7 @@
                                 <input type="text" class="form-control" placeholder="Search" />
                                 <i class="icon-search"></i>
                             </div>
+                           
                             <table class="table table-bordered table-striped align-middle m-0">
                                 <thead>
                                     <tr>
