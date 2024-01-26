@@ -100,45 +100,45 @@ public class decentralization implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-         chain.doFilter(request, response);
-//        HttpServletRequest req = (HttpServletRequest) request;
-//        HttpServletResponse res = (HttpServletResponse) response;
-//        HttpSession ses = req.getSession();
-//        String url = req.getRequestURI();
-//
-////        
-//        // chain.doFilter(request, response);
-//        if (ses.getAttribute("user") == null) {
-//
-//            // If user is not logged in, allow access to non-restricted pages
-//            if (!url.contains("/admin") && !url.contains("/provider")) {
-//                chain.doFilter(request, response);
-//            } else {
-//                // If user is not logged in and tries to access restricted pages, redirect to login
-//                res.sendRedirect(req.getContextPath() + "/LoginControl");
-//            }
-//        } else {
-//            Account u = (Account) ses.getAttribute("user");
-//            if (u.getRoleID()== 1) {
-//                chain.doFilter(request, response);
-//            } else {
-//                if (u.getRoleID()== 2) {
-//                    if (url.contains("admin")) {
-//                        res.sendRedirect(req.getContextPath() + "/provider/postTalent");
-//                    } else {
-//                        chain.doFilter(request, response);
-//                    }
-//
-//                } else if (u.getRoleID()== 3) {
-//                    if (url.contains("admin") || url.contains("member")) {
-//                        res.sendRedirect(req.getContextPath() + "/Home.jsp");
-//                    } else {
-//                        chain.doFilter(request, response);
-//                    }
-//
-//                }
-//            }
-//        }
+//         chain.doFilter(request, response);
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        HttpSession ses = req.getSession();
+        String url = req.getRequestURI();
+
+//        
+        // chain.doFilter(request, response);
+        if (ses.getAttribute("user") == null) {
+
+            // If user is not logged in, allow access to non-restricted pages
+            if (!url.contains("/admin") && !url.contains("/provider")) {
+                chain.doFilter(request, response);
+            } else {
+                // If user is not logged in and tries to access restricted pages, redirect to login
+                res.sendRedirect(req.getContextPath() + "/LoginControl");
+            }
+        } else {
+            Account u = (Account) ses.getAttribute("user");
+            if (u.getRoleID()== 1) {
+                chain.doFilter(request, response);
+            } else {
+                if (u.getRoleID()== 2) {
+                    if (url.contains("admin")) {
+                        res.sendRedirect(req.getContextPath() + "/provider/postTalent");
+                    } else {
+                        chain.doFilter(request, response);
+                    }
+
+                } else if (u.getRoleID()== 3) {
+                    if (url.contains("admin") || url.contains("member")) {
+                        res.sendRedirect(req.getContextPath() + "/Home.jsp");
+                    } else {
+                        chain.doFilter(request, response);
+                    }
+
+                }
+            }
+        }
 
     }
 

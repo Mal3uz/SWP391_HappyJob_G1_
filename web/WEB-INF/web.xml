@@ -29,7 +29,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminListTalent</servlet-name>
-        <servlet-class>admin.AdminListTalent</servlet-class>
+        <servlet-class>admin.AdminListTalentControl</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminTalentDetailControl</servlet-name>
@@ -46,6 +46,14 @@
     <servlet>
         <servlet-name>Notifications</servlet-name>
         <servlet-class>admin.AdminNotificationsControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTalentActiveControl</servlet-name>
+        <servlet-class>admin.DeleteTalentActiveControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListTalentActiveControl</servlet-name>
+        <servlet-class>admin.ListTalentActiveControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
@@ -82,6 +90,14 @@
     <servlet-mapping>
         <servlet-name>Notifications</servlet-name>
         <url-pattern>/admin/notifications</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTalentActiveControl</servlet-name>
+        <url-pattern>/admin/deleteTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListTalentActiveControl</servlet-name>
+        <url-pattern>/admin/activeTalent</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

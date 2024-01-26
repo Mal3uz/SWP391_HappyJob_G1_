@@ -63,7 +63,7 @@ public class AdminTalentDetailControl extends HttpServlet {
         Talent tDetail = dao.getTalentById(talentId);
        Account account = dao.getAccountByTalentId(talentId);
  
-
+         request.setAttribute("dao", dao);
         request.setAttribute("Talent", tDetail);
         request.setAttribute("account", account);
         request.getRequestDispatcher("../admin_dashboard/RequestTalentDetail.jsp").forward(request, response);

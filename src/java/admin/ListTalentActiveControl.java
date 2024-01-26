@@ -6,7 +6,7 @@
 package admin;
 
 import dao.AdminDAO;
-import entity.Notifications;
+import entity.Talent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author DELL
  */
-public class AdminNotificationsControl extends HttpServlet {
+public class ListTalentActiveControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +36,10 @@ public class AdminNotificationsControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Notifications</title>");  
+            out.println("<title>Servlet ListTalentActiveControl</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Notifications at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ListTalentActiveControl at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,13 +56,12 @@ public class AdminNotificationsControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        AdminDAO dao = new AdminDAO();
-        List<Notifications> allNofication = dao.getListNotificationses();
+         AdminDAO dao = new AdminDAO();
+        List<Talent> allTalent = dao.getListActiveTalent();
        
- 
-          request.setAttribute("dao", dao);
-        request.setAttribute("listN", allNofication);
-        request.getRequestDispatcher("../admin_dashboard/Notifications.jsp").forward(request, response);
+         request.setAttribute("dao", dao);
+        request.setAttribute("listTalent", allTalent);
+        request.getRequestDispatcher("../admin_dashboard/ListTalentActive.jsp").forward(request, response);
     } 
 
     /** 

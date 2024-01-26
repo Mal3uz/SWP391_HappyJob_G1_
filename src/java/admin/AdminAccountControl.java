@@ -62,7 +62,7 @@ public class AdminAccountControl extends HttpServlet {
         List<Account> allAccount = dao.getListAllAccount();
        
  
-
+          request.setAttribute("dao", dao);
         request.setAttribute("account", allAccount);
         request.getRequestDispatcher("../admin_dashboard/BanAccount.jsp").forward(request, response);
          

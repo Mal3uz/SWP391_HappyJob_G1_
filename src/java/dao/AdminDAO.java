@@ -107,10 +107,38 @@ public class AdminDAO {
     }
 
     //t1
-    public List<Talent> getListAllTalent() {
+    public List<Talent> getListPendingTalent() {
         List<Talent> listT = new ArrayList<>();
         String query = "select * from Talent\n"
                 + "where Status = 'Pending'";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listT.add(new Talent(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listT;
+
+    }
+
+    public List<Talent> getListActiveTalent() {
+        List<Talent> listT = new ArrayList<>();
+        String query = "select * from Talent\n"
+                + "where Status = 'Active'\n"
+                + "order by CreatedAt desc";
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
@@ -185,23 +213,52 @@ public class AdminDAO {
         } catch (Exception e) {
         }
     }
-    
+
     //n1
-     public List<Notifications> getListNotificationses() {
+    public List<Notifications> getListNotificationses() {
         List<Notifications> listN = new ArrayList<>();
-        String query = "select * from Notifications";
+        String query = "select * from Notifications\n"
+                + "where RoleID = 1\n"
+                + "order by CreatedAt desc";
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                listN.add(new Notifications(rs.getInt(1), 
-                        rs.getInt(2), 
-                        rs.getInt(3), 
-                        rs.getInt(4), 
-                        rs.getString(5), 
-                rs.getString(6)));
+                listN.add(new Notifications(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listN;
+
+    }
+
+    public List<Notifications> getNewNotificationses() {
+        List<Notifications> listN = new ArrayList<>();
+        String query = "SELECT TOP 3 *\n"
+                + "FROM Notifications\n"
+                + "WHERE RoleID = 1 AND Message NOT LIKE 'You have %' \n"
+                + "ORDER BY CreatedAt DESC";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listN.add(new Notifications(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6)));
 
             }
         } catch (Exception e) {
@@ -213,7 +270,7 @@ public class AdminDAO {
 
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
-        List<Talent> a = dao.getListAllTalent();
+        List<Talent> a = dao.getListPendingTalent();
         for (Talent account : a) {
             System.out.println(account);
         }
