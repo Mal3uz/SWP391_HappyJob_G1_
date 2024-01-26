@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,12 +75,6 @@
                                 <!-- App header actions start -->
                                 <div class="header-actions d-flex align-items-center justify-content-end">
 
-                                    <!-- Search container start -->
-                                    <div class="search-container d-none d-lg-block">
-                                        <input type="text" class="form-control" placeholder="Search" />
-                                        <i class="icon-search"></i>
-                                    </div>
-                                    <!-- Search container end -->
 
 
                                     <div class="dropdown d-sm-block d-none">
@@ -88,6 +85,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-md shadow-sm">
                                             <h5 class="fw-semibold px-3 py-2 m-0">Messages</h5>
+
                                             <a href="javascript:void(0)" class="dropdown-item">
                                                 <div class="d-flex align-items-start py-2">
                                                     <div class="p-3 bg-danger rounded-circle me-3">
@@ -137,38 +135,21 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-md shadow-sm">
                                             <h5 class="fw-semibold px-3 py-2 m-0">Notifications</h5>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                <div class="d-flex align-items-start py-2">
-                                                    <img src="assets/images/user.png" class="img-3x me-3 rounded-3" alt="Admin Themes" />
-                                                    <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">Sophie Michiels</h6>
-                                                        <p class="mb-1">Membership has been ended.</p>
-                                                        <p class="small m-0 opacity-50">Today, 07:30pm</p>
+                                            <c:set var="newNotification" value="${dao.getNewNotificationses()}" />
+                                            <c:forEach var="n" items="${newNotification}">
+                                                <a href="javascript:void(0)" class="dropdown-item">
+                                                    <div class="d-flex align-items-start py-2" style=" white-space: nowrap;
+                                                         overflow: hidden;
+                                                         text-overflow: ellipsis; ">
+                                                        <img src="assets/images/user.png" class="img-3x me-3 rounded-3" alt="Admin Themes" />
+                                                        <div class="m-0">
+                                                            <h6 class="mb-1 fw-semibold">${fn:substring(n.createdAt, 0, 10)}</h6>
+                                                            <p class="mb-1">${n.message}</p>
+                                                            <p class="small m-0 opacity-50">${fn:substring(n.createdAt, 11, 19)}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                <div class="d-flex align-items-start py-2">
-                                                    <img src="assets/images/user2.png" class="img-3x me-3 rounded-3" alt="Admin Theme" />
-                                                    <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">Sophie Michiels</h6>
-                                                        <p class="mb-1">Congratulate, James for new job.</p>
-                                                        <p class="small m-0 opacity-50">Today, 08:00pm</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                <div class="d-flex align-items-start py-2">
-                                                    <img src="assets/images/user1.png" class="img-3x me-3 rounded-3" alt="Admin Theme" />
-                                                    <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">Sophie Michiels</h6>
-                                                        <p class="mb-1">
-                                                            Lewis added new schedule release.
-                                                        </p>
-                                                        <p class="small m-0 opacity-50">Today, 09:30pm</p>
-                                                    </div>
-                                                </div>
-                                            </a>
+                                                </a>
+                                            </c:forEach>
                                             <div class="d-grid p-3 border-top">
                                                 <a href="javascript:void(0)" class="btn btn-outline-primary">View all</a>
                                             </div>
@@ -227,8 +208,8 @@
                                         Dashboards
                                     </a>
                                 </li>
-                                
-                                 <li class="nav-item dropdown">
+
+                                <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                        aria-expanded="false">
                                         Talent
@@ -245,7 +226,7 @@
 
                                     </ul>
                                 </li>
-                                
+
                                 <li class="nav-item ">
                                     <a class="nav-link " href="account">
                                         Ban Account
@@ -256,8 +237,8 @@
                                         Invoice
                                     </a>
                                 </li>
-                               
-                               
+
+
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="notifications">Notifications </a>
