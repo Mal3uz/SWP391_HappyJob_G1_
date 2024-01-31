@@ -42,7 +42,7 @@ public class LoginControl extends HttpServlet {
         account = dao.getAccountByEmail(username);
         String status = account.getStatus();
         // System.out.println("Hello");
-        System.out.println("Pending".equals(status));
+       // System.out.println("Pending".equals(status));
         if ("Pending".equals(status)) {
             Account u = dao.login(username, password);
             session.setAttribute("user", u);
@@ -51,6 +51,7 @@ public class LoginControl extends HttpServlet {
             SendEmailUtil.sendVerificationCode(username, code);
             Long time = (System.currentTimeMillis() + 15 * 60 * 1000); // 15 minutes
             session.setAttribute("time", time);
+            
             request.setAttribute("email", username);
             request.setAttribute("mess1", "Your account isn't authenticated, authenticate to sign in");
             //  response.sendRedirect("Verify.jsp");
@@ -72,7 +73,7 @@ public class LoginControl extends HttpServlet {
                     //Yêu cầu người dùng Login lại
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 } else {
-
+                    session.setAttribute("email", username);
                     session.setAttribute("user", u);
                     switch (u.getRoleID()) {
                         case 1:

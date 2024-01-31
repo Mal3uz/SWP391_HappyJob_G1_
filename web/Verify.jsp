@@ -58,6 +58,7 @@
                         <input type="hidden" name="email" value="${email}">
                         <button type="submit" class="btn btn-success btn-block">Verify</button>
                     </form>
+                         
                 </c:otherwise>
             </c:choose>
         </div>

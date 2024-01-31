@@ -1,32 +1,27 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package guest.servlet;
 
-
 import dao.LoginDAO;
 import entity.Account;
-//import SMTP.GmailAPI;
-
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-//import javax.mail.MessagingException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author BEAN
+ * @author ASUS
  */
-@WebServlet(name = "ResetPassword", urlPatterns = {"/ResetPassword"})
-public class ResetPassword extends HttpServlet {
+public class ChangePasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,15 +35,15 @@ public class ResetPassword extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ResetPassword</title>");
+            out.println("<title>Servlet ChangePasswordServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ResetPassword at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChangePasswordServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,7 +61,7 @@ public class ResetPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("ForgotPassword.jsp");
+        response.sendRedirect("ChangePassword.jsp");
     }
 
     /**
@@ -80,39 +75,31 @@ public class ResetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        LoginDAO dao = new LoginDAO();
-        SendEmailUtil gmail = new SendEmailUtil();
-
         try {
-            String mailTo = request.getParameter("mail");
-             Account u = dao.checkUserExist(mailTo);
-            if (u == null) {
-                request.setAttribute("warn", "The email did not exist, please try again!");
-                 request.getRequestDispatcher("ForgotPassword.jsp").forward(request, response);
+            HttpSession session = request.getSession();
+            Account user = (Account) session.getAttribute("user");
+            String username = (String) session.getAttribute("email");
+            if (user != null) {
+                String oldPassword = request.getParameter("password");
+                String newPassword = request.getParameter("password1");
+                String repeatNewPassword = request.getParameter("password2");
+                LoginDAO dao = new LoginDAO();
+                Account account = new Account();
+                account = dao.getAccountByEmail(username);
+                System.out.println("Hello");
+                System.out.println(account.getPassword());
+
+                if (account.getPassword().equals(oldPassword)
+                        && newPassword.equals(repeatNewPassword)) {
+                    dao.updatePasswordByEmail(newPassword, username);
+                    response.sendRedirect("Profile.jsp");
+                } else {
+                    request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+                }
             } else {
-                
-                //FIX DEFAULT LENGTH OF PASSWORD 8 CHARACTORS
-                int charactor = 8;
-                String gmailFrom = "heccu10b@gmail.com";
-                String password = "xnkh gguy llfs njkb";
-                String subject = "Reset Password";
-                String newPassword = dao.RandomPassword(charactor);
-                // TO UPDATE PASSWORD
-                dao.updatePasswordByEmail(newPassword, mailTo);
-
-                String message = ("This is your new password: " + newPassword);
-                //SEND NEW PASSWORD
-              
-                //send mail 
-                gmail.send(mailTo, subject, message, gmailFrom, password);
-                
-                 request.setAttribute("warn", "A new password has been sent to your mail ...");
-            request.getRequestDispatcher("ForgotPassword.jsp").forward(request, response);
-
+                response.sendRedirect("error.jsp");
             }
-        } catch (Exception ex) {
-            request.setAttribute("warn", "The email did not exist, please try again!");
-            request.getRequestDispatcher("ForgotPassword.jsp").forward(request, response);
+        } catch (Exception e) {
         }
     }
 
