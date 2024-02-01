@@ -5,21 +5,18 @@
 
 package admin;
 
-import dao.AdminDAO;
-import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author DELL
  */
-public class AcceptTalentControl extends HttpServlet {
+public class AdminMessage extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +33,10 @@ public class AcceptTalentControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RequestTalentControl</title>");  
+            out.println("<title>Servlet AdminMessage</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RequestTalentControl at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AdminMessage at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,16 +53,7 @@ public class AcceptTalentControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String id = request.getParameter("tid");
        
-          
-        //pass sid to dao
-         HttpSession session = request.getSession();
-         Account account = (Account)session.getAttribute("account");
-        String approvedBy  =String.valueOf(account.getAccountID());
-        AdminDAO dao = new AdminDAO();
-        dao.acceptTalent(id,approvedBy);
-        response.sendRedirect("listTalent");
     } 
 
     /** 

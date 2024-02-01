@@ -36,15 +36,17 @@ public class LoginDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
 
-                return new Account(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getString(9)
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString("Password"),
+                        rs.getString("Email"),
+                        rs.getString("Name"),
+                        rs.getString("Dob"),
+                        rs.getString("Gender"),
+                        rs.getInt("RoleID"),
+                        rs.getString("Status"),
+                        rs.getString("Img"),
+                        rs.getString("VerificationCode")
                 );
 
 
@@ -65,15 +67,17 @@ public class LoginDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
 
-                return new Account(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getString(9)
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString("Password"),
+                        rs.getString("Email"),
+                        rs.getString("Name"),
+                        rs.getString("Dob"),
+                        rs.getString("Gender"),
+                        rs.getInt("RoleID"),
+                        rs.getString("Status"),
+                        rs.getString("Img"),
+                        rs.getString("VerificationCode")
                 );
             }
         } catch (Exception e) {
@@ -84,7 +88,7 @@ public class LoginDAO {
 
     public void register(String pass, String user, String name, String dob, String gender, String verificationCode) {
         String query = "insert into Account\n"
-                + "Values(?,?,?,?,?,3,'Pending',?)";
+                + "Values(?,?,?,?,?,3,'Pending',null,?)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -120,15 +124,17 @@ public class LoginDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
 
-                return new Account(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getString(9)
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString("Password"),
+                        rs.getString("Email"),
+                        rs.getString("Name"),
+                        rs.getString("Dob"),
+                        rs.getString("Gender"),
+                        rs.getInt("RoleID"),
+                        rs.getString("Status"),
+                        rs.getString("Img"),
+                        rs.getString("VerificationCode")
                 );
             }
         } catch (Exception e) {
@@ -174,6 +180,7 @@ public class LoginDAO {
                         rs.getString("Gender"),
                         rs.getInt("RoleID"),
                         rs.getString("Status"),
+                        rs.getString("Img"),
                         rs.getString("VerificationCode")
                 );
             }
