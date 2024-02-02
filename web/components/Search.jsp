@@ -22,10 +22,15 @@
                                 <h1 class="text-white font-weight-bold">The Easiest Way To Get Your Dream Job</h1>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate est, consequuntur perferendis.</p>
                             </div>
-                            <form method="post" class="search-jobs-form">
+                            <form action="listTalentServlet" method="post" class="search-jobs-form">
                                 <div class="row mb-5">
                                     <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                                        <input type="text" class="form-control form-control-lg" placeholder="Job title, Company...">
+                                        <input 
+                                            type="text" 
+                                            class="form-control form-control-lg" 
+                                            placeholder="Job title, Company..."
+                                            name="keySearch"   
+                                            >
                                     </div>
                                     <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
                                         <select class="selectpicker" data-style="btn-white btn-lg" data-width="100%" data-live-search="true" title="Select Region">
