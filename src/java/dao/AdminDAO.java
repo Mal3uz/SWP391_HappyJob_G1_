@@ -5,6 +5,7 @@
 package dao;
 
 import entity.Account;
+import entity.Messagess;
 import entity.Notifications;
 import entity.Talent;
 import java.sql.Connection;
@@ -106,6 +107,68 @@ public class AdminDAO {
         }
 
         return null;
+    }
+
+    public Account getAccountById(int id) {
+        String query = "select * from Account\n"
+                + "where AccountID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public List<Account> getListAccountBySenderID(int SenderId) {
+        List<Account> listA = new ArrayList<>();
+        String query = "SELECT DISTINCT A.*, MAX(M.[Timestamp]) AS LatestMessageTime\n"
+                + "FROM Account A\n"
+                + "JOIN Messagess M ON A.AccountID = M.ReceiverID\n"
+                + "WHERE M.SenderID = ?\n"
+                + "GROUP BY A.AccountID, A.[Password], A.Email, A.[Name], A.Dob, A.Gender, A.RoleID, A.Status, A.Img, A.VerificationCode\n"
+                + "ORDER BY LatestMessageTime DESC";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, SenderId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listA.add(new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listA;
     }
 
     public int getTotalAccount() {
@@ -400,11 +463,40 @@ public class AdminDAO {
 
     }
 
+    //m1
+    public List<Messagess> getMessBySendReceiver(int SenderId, int ReceiverId) {
+        List<Messagess> listM = new ArrayList<>();
+        String query = "select * from Messagess\n"
+                + "WHERE SenderID = ? and ReceiverID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, SenderId);
+            ps.setInt(2, ReceiverId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listM.add(new Messagess(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listM;
+
+    }
+
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
-        List<Notifications> a = dao.getListNotificationses("13");
 
-        for (Notifications notifications : a) {
+        List<Messagess> a = dao.getMessBySendReceiver(1, 2);
+
+        for (Messagess notifications : a) {
             System.out.println(notifications);
         }
     }

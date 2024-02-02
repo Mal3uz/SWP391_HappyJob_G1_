@@ -15,12 +15,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 /**
  *
  * @author DELL
  */
-public class AdminMessage extends HttpServlet {
+public class MessageDetail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,24 +36,62 @@ public class AdminMessage extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
-
+        String receiveString = request.getParameter("receiver");
+        if (receiveString == null) {
+            receiveString = "0";
+        }
+        int receiveId = Integer.parseInt(receiveString);
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         AdminDAO dao = new AdminDAO();
-        List<Account> sender = dao.getListAccountBySenderID(account.getAccountID());
-      
+        System.out.println(receiveId);
+        Account receiver = dao.getAccountById(receiveId);
+        List<Messagess> listMessSend = dao.getMessBySendReceiver(account.getAccountID(), receiveId);
+        List<Messagess> listMessReceive = dao.getMessBySendReceiver(account.getAccountID(), receiveId);
 
-        request.setAttribute("sender", sender);
-        request.setAttribute("dao", dao);
-       
-        request.getRequestDispatcher("../admin_dashboard/AdminMessage.jsp").forward(request, response);
+        Gson gson = new Gson();
+        JsonObject jsonObject = new JsonObject();
 
+        // Chuyển đổi Account thành JsonObject
+        JsonObject receiverJson = gson.toJsonTree(receiver).getAsJsonObject();
+
+        // Thêm receiverJson vào jsonObject
+        jsonObject.add("receiver", receiverJson);
+
+        JsonArray listMessSendJsonArray = new JsonArray();
+        for (Messagess mess : listMessSend) {
+            listMessSendJsonArray.add(convertMessToJson(mess));
+        }
+        jsonObject.add("listMessSend", listMessSendJsonArray);
+
+        JsonArray listMessReceiveJsonArray = new JsonArray();
+        for (Messagess mess : listMessReceive) {
+            listMessReceiveJsonArray.add(convertMessToJson(mess));
+        }
+        jsonObject.add("listMessReceive", listMessReceiveJsonArray);
+
+        String json = gson.toJson(jsonObject);
+
+        // Gửi JSON về client
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.print(json);
+        out.flush();
     }
-    
- 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    private JsonObject convertMessToJson(Messagess mess) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("id", mess.getMessageID());
+        jsonObject.addProperty("senderid", mess.getSenderID());
+        jsonObject.addProperty("receiverid", mess.getReceiverID());
+        jsonObject.addProperty("timestamp", mess.getTimestamp());
+        jsonObject.addProperty("content", mess.getContent());
+
+        // Thêm các trường khác của đối tượng Messagess vào đây
+        return jsonObject;
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

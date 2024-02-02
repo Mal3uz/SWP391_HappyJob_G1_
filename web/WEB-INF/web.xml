@@ -63,6 +63,10 @@
         <servlet-name>AdminMessage</servlet-name>
         <servlet-class>admin.AdminMessage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MessageDetail</servlet-name>
+        <servlet-class>admin.MessageDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -114,6 +118,10 @@
     <servlet-mapping>
         <servlet-name>AdminMessage</servlet-name>
         <url-pattern>/admin/message</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessageDetail</servlet-name>
+        <url-pattern>/admin/messageDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -10,7 +10,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 
     <head>
         <meta charset="utf-8" />

@@ -11,19 +11,19 @@ package entity;
 public class Messagess {
      private int messageID ;
      private int senderID ;
-     private int ReceiverID;
+     private int receiverID;
      private String timestamp;
-     private String Content;
+     private String content;
 
     public Messagess() {
     }
 
-    public Messagess(int messageID, int senderID, int ReceiverID, String timestamp, String Content) {
+    public Messagess(int messageID, int senderID, int receiverID, String timestamp, String content) {
         this.messageID = messageID;
         this.senderID = senderID;
-        this.ReceiverID = ReceiverID;
+        this.receiverID = receiverID;
         this.timestamp = timestamp;
-        this.Content = Content;
+        this.content = content;
     }
 
     public int getMessageID() {
@@ -43,11 +43,11 @@ public class Messagess {
     }
 
     public int getReceiverID() {
-        return ReceiverID;
+        return receiverID;
     }
 
-    public void setReceiverID(int ReceiverID) {
-        this.ReceiverID = ReceiverID;
+    public void setReceiverID(int receiverID) {
+        this.receiverID = receiverID;
     }
 
     public String getTimestamp() {
@@ -59,18 +59,18 @@ public class Messagess {
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
-    public void setContent(String Content) {
-        this.Content = Content;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
     public String toString() {
-        return "Messagess{" + "messageID=" + messageID + ", senderID=" + senderID + ", ReceiverID=" + ReceiverID + ", timestamp=" + timestamp + ", Content=" + Content + '}';
+        return "Messagess{" + "messageID=" + messageID + ", senderID=" + senderID + ", receiverID=" + receiverID + ", timestamp=" + timestamp + ", content=" + content + '}';
     }
-    
+
      
     
 }
