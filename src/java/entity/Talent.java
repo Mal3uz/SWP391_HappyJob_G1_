@@ -17,11 +17,12 @@ public class Talent {
     private int accountID;
     private String status;
     private String reason;
+    private int approvedBy;
 
     public Talent() {
     }
 
-    public Talent(int talentID, String title, String img, String description, String createdAt, int accountID, String status, String reason) {
+    public Talent(int talentID, String title, String img, String description, String createdAt, int accountID, String status, String reason, int approvedBy) {
         this.talentID = talentID;
         this.title = title;
         this.img = img;
@@ -30,9 +31,8 @@ public class Talent {
         this.accountID = accountID;
         this.status = status;
         this.reason = reason;
+        this.approvedBy = approvedBy;
     }
-    
-    
 
     public int getTalentID() {
         return talentID;
@@ -98,11 +98,20 @@ public class Talent {
         this.reason = reason;
     }
 
+    public int getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(int approvedBy) {
+        this.approvedBy = approvedBy;
+    }
+
     @Override
     public String toString() {
-        return "Talent{" + "talentID=" + talentID + ", title=" + title + ", img=" + img + ", description=" + description + ", createdAt=" + createdAt + ", accountID=" + accountID + ", status=" + status + ", reason=" + reason + '}';
+        return "Talent{" + "talentID=" + talentID + ", title=" + title + ", img=" + img + ", description=" + description + ", createdAt=" + createdAt + ", accountID=" + accountID + ", status=" + status + ", reason=" + reason + ", approvedBy=" + approvedBy + '}';
     }
-    
+
+  
 
   
 }

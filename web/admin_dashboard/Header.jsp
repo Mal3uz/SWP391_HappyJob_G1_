@@ -10,7 +10,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 
     <head>
         <meta charset="utf-8" />
@@ -18,12 +18,8 @@
         <title>HappyJob</title>
 
         <!-- Meta -->
-        <meta name="description" content="Marketplace for Bootstrap Admin Dashboards" />
-        <meta name="author" content="Bootstrap Gallery" />
-        <meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
-        <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
-        <meta property="og:type" content="Website">
-        <meta property="og:site_name" content="Bootstrap Gallery">
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+     
         <!--        <link rel="shortcut icon" href="assets/images/favicon.svg" />-->
 
         <!-- *************

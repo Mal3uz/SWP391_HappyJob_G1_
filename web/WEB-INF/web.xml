@@ -24,7 +24,6 @@
         <servlet-class>guest.servlet.LogoutControl</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>AdminAccountControl</servlet-name>
         <servlet-class>admin.AdminAccountControl</servlet-class>
     </servlet>
@@ -47,11 +46,10 @@
     <servlet>
         <servlet-name>Notifications</servlet-name>
         <servlet-class>admin.AdminNotificationsControl</servlet-class>
-</servlet>
-<servlet>
+    </servlet>
+    <servlet>
         <servlet-name>VerifyServlet</servlet-name>
         <servlet-class>guest.servlet.VerifyServlet</servlet-class>
-
     </servlet>
     <servlet>
         <servlet-name>DeleteTalentActiveControl</servlet-name>
@@ -60,6 +58,14 @@
     <servlet>
         <servlet-name>ListTalentActiveControl</servlet-name>
         <servlet-class>admin.ListTalentActiveControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminMessage</servlet-name>
+        <servlet-class>admin.AdminMessage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MessageDetail</servlet-name>
+        <servlet-class>admin.MessageDetail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
@@ -74,7 +80,6 @@
         <url-pattern>/LogoutControl</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>AdminAccountControl</servlet-name>
         <url-pattern>/admin/account</url-pattern>
     </servlet-mapping>
@@ -98,10 +103,9 @@
         <servlet-name>Notifications</servlet-name>
         <url-pattern>/admin/notifications</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>    
+    <servlet-mapping>
         <servlet-name>VerifyServlet</servlet-name>
         <url-pattern>/verify</url-pattern>
-
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteTalentActiveControl</servlet-name>
@@ -110,6 +114,14 @@
     <servlet-mapping>
         <servlet-name>ListTalentActiveControl</servlet-name>
         <url-pattern>/admin/activeTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminMessage</servlet-name>
+        <url-pattern>/admin/message</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessageDetail</servlet-name>
+        <url-pattern>/admin/messageDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

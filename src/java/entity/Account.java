@@ -20,13 +20,14 @@ public class Account {
     // private String SecurityQuestion;
     private int roleID;
     private String status;
+    private String img;
     private String verificationCode;
     //private long verificationCodeExpirationTime;
 
     public Account() {
     }
 
-    public Account(int accountID, String password, String email, String name, String dob, String gender, int roleID, String status, String verificationCode) {
+    public Account(int accountID, String password, String email, String name, String dob, String gender, int roleID, String status, String img, String verificationCode) {
         this.accountID = accountID;
         this.password = password;
         this.email = email;
@@ -35,24 +36,10 @@ public class Account {
         this.gender = gender;
         this.roleID = roleID;
         this.status = status;
-        this.verificationCode = verificationCode;
-        // this.verificationCodeExpirationTime = verificationCodeExpirationTime;
-    }
-
-    public String getVerificationCode() {
-        return verificationCode;
-    }
-
-    public void setVerificationCode(String verificationCode) {
+        this.img = img;
         this.verificationCode = verificationCode;
     }
 
-//    public long getVerificationCodeExpirationTime() {
-//        return verificationCodeExpirationTime;
-//    }
-//    public void setVerificationCodeExpirationTime(long verificationCodeExpirationTime) {
-//        this.verificationCodeExpirationTime = verificationCodeExpirationTime;
-//    }
     public int getAccountID() {
         return accountID;
     }
@@ -93,7 +80,6 @@ public class Account {
         this.dob = dob;
     }
 
-
     public String getGender() {
         return gender;
     }
@@ -118,11 +104,27 @@ public class Account {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-
-        return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", gender=" + gender + ", roleID=" + roleID + ", status=" + status + ", verificationCode=" + verificationCode + '}';
+    public String getImg() {
+        return img;
     }
 
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", gender=" + gender + ", roleID=" + roleID + ", status=" + status + ", img=" + img + ", verificationCode=" + verificationCode + '}';
+    }
+
+  
 
 }

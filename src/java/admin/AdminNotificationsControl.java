@@ -6,6 +6,7 @@
 package admin;
 
 import dao.AdminDAO;
+import entity.Account;
 import entity.Notifications;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -56,15 +58,19 @@ public class AdminNotificationsControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        AdminDAO dao = new AdminDAO();
-        List<Notifications> allNofication = dao.getListNotificationses();
+          HttpSession session = request.getSession();
+         AdminDAO dao = new AdminDAO();
+         Account account = (Account)session.getAttribute("account");
+        List<Notifications> allNofication = dao.getListNotificationses(String.valueOf(account.getAccountID()));
        
  
-          request.setAttribute("dao", dao);
+        request.setAttribute("dao", dao);
         request.setAttribute("listN", allNofication);
         request.getRequestDispatcher("../admin_dashboard/Notifications.jsp").forward(request, response);
     } 
-
+ 
+   
+  
     /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
