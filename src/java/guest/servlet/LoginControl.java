@@ -71,6 +71,7 @@ public class LoginControl extends HttpServlet {
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
     }
+    
 
     public static void main(String[] args) {
         LoginDAO dao = new LoginDAO();

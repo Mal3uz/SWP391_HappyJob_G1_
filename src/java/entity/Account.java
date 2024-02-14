@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import java.sql.Date;
 
-/**
- *
- * @author ASUS
- */
 public class Account {
     private int accountID;
     private String password;
@@ -17,25 +9,15 @@ public class Account {
     private String name;
     private String dob;
     private String gender;
-   // private String SecurityQuestion;
+    private String img; // New field for image URL
     private int roleID;
     private String status;
+    private String verificationCode;
 
     public Account() {
+        
     }
 
-    public Account(int accountID, String password, String email, String name, String dob, String gender, int roleID, String status) {
-        this.accountID = accountID;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.dob = dob;
-        this.gender = gender;
-        this.roleID = roleID;
-        this.status = status;
-    }
-
-    
     public int getAccountID() {
         return accountID;
     }
@@ -84,6 +66,14 @@ public class Account {
         this.gender = gender;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public int getRoleID() {
         return roleID;
     }
@@ -100,12 +90,31 @@ public class Account {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", gender=" + gender + ", roleID=" + roleID + ", status=" + status + '}';
+    public String getVerificationCode() {
+        return verificationCode;
     }
 
-   
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public Account(int accountID, String password, String email, String name, String dob, String gender, String img, int roleID, String status, String verificationCode) {
+        this.accountID = accountID;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.dob = dob;
+        this.gender = gender;
+        this.img = img;
+        this.roleID = roleID;
+        this.status = status;
+        this.verificationCode = verificationCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", gender=" + gender + ", img=" + img + ", roleID=" + roleID + ", status=" + status + ", verificationCode=" + verificationCode + '}';
+    }
     
-    
-}
+    }
+

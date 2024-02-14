@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import entity.Account;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import jdk.nashorn.internal.ir.TryNode;
 
-/**
- *
- * @author Admin
- */
 public class LoginDAO {
 
     Connection conn = null;
@@ -24,58 +13,66 @@ public class LoginDAO {
 
     public Account login(String user, String pass) {
         try {
-            String query = "select * from Account where Email = ? and [Password] = ?";
+            String query = "SELECT * FROM Account WHERE Email = ? AND [Password] = ?";
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, user);
             ps.setString(2, pass);
             rs = ps.executeQuery();
             while (rs.next()) {
-
-                return new Account(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8));
-
+                return new Account(
+                        rs.getInt("accountID"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("name"),
+                        rs.getString("dob"),
+                        rs.getString("gender"),
+                        rs.getString("img"),
+                        rs.getInt("roleID"),
+                        rs.getString("status"),
+                        rs.getString("verificationCode")
+                );
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
         }
-
         return null;
     }
 
     public Account checkUserExist(String email) {
         try {
-            String query = "select * from Account where Email = ?";
+            String query = "SELECT * FROM Account WHERE Email = ?";
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, email);
 
             rs = ps.executeQuery();
             while (rs.next()) {
-
-                return new Account(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8));
+                return new Account(
+                        rs.getInt("accountID"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("name"),
+                        rs.getString("dob"),
+                        rs.getString("gender"),
+                        rs.getString("img"),
+                        rs.getInt("roleID"),
+                        rs.getString("status"),
+                        rs.getString("verificationCode")
+                );
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
         }
         return null;
-
     }
 
     public void register(String pass, String user, String name, String dob, String gender) {
-        String query = "insert into Account\n"
-                + "Values(?,?,?,?,?,3,'Active')";
+        String query = "INSERT INTO Account (Password, Email, Name, DOB, Gender, RoleID, Status) VALUES (?, ?, ?, ?, ?, 3, 'Active')";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -86,12 +83,14 @@ public class LoginDAO {
             ps.setString(5, gender);
             ps.executeUpdate();
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
         }
     }
 
     public static void main(String[] args) {
         LoginDAO dao = new LoginDAO();
         System.out.println(dao.checkUserExist("aedfrew"));
-
     }
 }
