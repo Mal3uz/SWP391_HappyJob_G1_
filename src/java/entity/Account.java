@@ -9,13 +9,29 @@ public class Account {
     private String name;
     private String dob;
     private String gender;
-    private String img; // New field for image URL
+    // private String SecurityQuestion;
     private int roleID;
     private String status;
+    private String img;
     private String verificationCode;
+    //private long verificationCodeExpirationTime;
 
     public Account() {
         
+    }
+
+
+    public Account(int accountID, String password, String email, String name, String dob, String gender, int roleID, String status, String img, String verificationCode) {
+        this.accountID = accountID;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.dob = dob;
+        this.gender = gender;
+        this.roleID = roleID;
+        this.status = status;
+        this.img = img;
+        this.verificationCode = verificationCode;
     }
 
     public int getAccountID() {
@@ -90,6 +106,15 @@ public class Account {
         this.status = status;
     }
 
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getVerificationCode() {
         return verificationCode;
     }
@@ -98,23 +123,11 @@ public class Account {
         this.verificationCode = verificationCode;
     }
 
-    public Account(int accountID, String password, String email, String name, String dob, String gender, String img, int roleID, String status, String verificationCode) {
-        this.accountID = accountID;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.dob = dob;
-        this.gender = gender;
-        this.img = img;
-        this.roleID = roleID;
-        this.status = status;
-        this.verificationCode = verificationCode;
-    }
-
     @Override
     public String toString() {
-        return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", gender=" + gender + ", img=" + img + ", roleID=" + roleID + ", status=" + status + ", verificationCode=" + verificationCode + '}';
-    }
-    
+        return "Account{" + "accountID=" + accountID + ", password=" + password + ", email=" + email + ", name=" + name + ", dob=" + dob + ", gender=" + gender + ", roleID=" + roleID + ", status=" + status + ", img=" + img + ", verificationCode=" + verificationCode + '}';
     }
 
+  
+
+}

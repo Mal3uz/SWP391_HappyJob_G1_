@@ -5,8 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 
     <head>
         <meta charset="utf-8" />
@@ -14,22 +18,18 @@
         <title>HappyJob</title>
 
         <!-- Meta -->
-        <meta name="description" content="Marketplace for Bootstrap Admin Dashboards" />
-        <meta name="author" content="Bootstrap Gallery" />
-        <meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
-        <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
-        <meta property="og:type" content="Website">
-        <meta property="og:site_name" content="Bootstrap Gallery">
-<!--        <link rel="shortcut icon" href="assets/images/favicon.svg" />-->
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+     
+        <!--        <link rel="shortcut icon" href="assets/images/favicon.svg" />-->
 
         <!-- *************
                             ************ CSS Files *************
                     ************* -->
-<!-- Icomoon Font Icons css -->
-<link rel="stylesheet" href="../admin_dashboard/assets/fonts/icomoon/style.css" />
+        <!-- Icomoon Font Icons css -->
+        <link rel="stylesheet" href="../admin_dashboard/assets/fonts/icomoon/style.css" />
 
-<!-- Main CSS -->
-<link rel="stylesheet" href="../admin_dashboard/assets/css/main.min.css" />
+        <!-- Main CSS -->
+        <link rel="stylesheet" href="../admin_dashboard/assets/css/main.min.css" />
 
         <!-- *************
                             ************ Vendor Css Files *************
@@ -38,8 +38,8 @@
         <!-- Scrollbar CSS -->
         <link rel="stylesheet" href="../admin_dashboard/assets/vendor/overlay-scroll/OverlayScrollbars.min.css" />
     </head>
-    
-       <body>
+
+    <body>
         <!-- Page wrapper start -->
         <div class="page-wrapper">
 
@@ -61,7 +61,7 @@
                                     <h1  class="d-lg-block d-none">
                                         <span class="icon-briefcase"></span> HappyJob
                                     </h1>
-                                    
+
                                 </div>
                                 <!-- App brand ends -->
 
@@ -71,14 +71,8 @@
                                 <!-- App header actions start -->
                                 <div class="header-actions d-flex align-items-center justify-content-end">
 
-                                    <!-- Search container start -->
-                                    <div class="search-container d-none d-lg-block">
-                                        <input type="text" class="form-control" placeholder="Search" />
-                                        <i class="icon-search"></i>
-                                    </div>
-                                    <!-- Search container end -->
 
-                                 
+
                                     <div class="dropdown d-sm-block d-none">
                                         <a class="dropdown-toggle d-flex p-3 position-relative" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -87,6 +81,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-md shadow-sm">
                                             <h5 class="fw-semibold px-3 py-2 m-0">Messages</h5>
+
                                             <a href="javascript:void(0)" class="dropdown-item">
                                                 <div class="d-flex align-items-start py-2">
                                                     <div class="p-3 bg-danger rounded-circle me-3">
@@ -136,38 +131,21 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-md shadow-sm">
                                             <h5 class="fw-semibold px-3 py-2 m-0">Notifications</h5>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                <div class="d-flex align-items-start py-2">
-                                                    <img src="assets/images/user.png" class="img-3x me-3 rounded-3" alt="Admin Themes" />
-                                                    <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">Sophie Michiels</h6>
-                                                        <p class="mb-1">Membership has been ended.</p>
-                                                        <p class="small m-0 opacity-50">Today, 07:30pm</p>
+                                            <c:set var="newNotification" value="${dao.getNewNotificationses()}" />
+                                            <c:forEach var="n" items="${newNotification}">
+                                                <a href="javascript:void(0)" class="dropdown-item">
+                                                    <div class="d-flex align-items-start py-2" style=" white-space: nowrap;
+                                                         overflow: hidden;
+                                                         text-overflow: ellipsis; ">
+                                                        <img src="assets/images/user.png" class="img-3x me-3 rounded-3" alt="Admin Themes" />
+                                                        <div class="m-0">
+                                                            <h6 class="mb-1 fw-semibold">${fn:substring(n.createdAt, 0, 10)}</h6>
+                                                            <p class="mb-1">${n.message}</p>
+                                                            <p class="small m-0 opacity-50">${fn:substring(n.createdAt, 11, 19)}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                <div class="d-flex align-items-start py-2">
-                                                    <img src="assets/images/user2.png" class="img-3x me-3 rounded-3" alt="Admin Theme" />
-                                                    <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">Sophie Michiels</h6>
-                                                        <p class="mb-1">Congratulate, James for new job.</p>
-                                                        <p class="small m-0 opacity-50">Today, 08:00pm</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                <div class="d-flex align-items-start py-2">
-                                                    <img src="assets/images/user1.png" class="img-3x me-3 rounded-3" alt="Admin Theme" />
-                                                    <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">Sophie Michiels</h6>
-                                                        <p class="mb-1">
-                                                            Lewis added new schedule release.
-                                                        </p>
-                                                        <p class="small m-0 opacity-50">Today, 09:30pm</p>
-                                                    </div>
-                                                </div>
-                                            </a>
+                                                </a>
+                                            </c:forEach>
                                             <div class="d-grid p-3 border-top">
                                                 <a href="javascript:void(0)" class="btn btn-outline-primary">View all</a>
                                             </div>
@@ -177,7 +155,7 @@
                                         <a class="dropdown-toggle d-flex align-items-center user-settings" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="d-none d-md-block">Kasey Petersen</span>
-                                            <img src="assets/images/user3.png" class="img-3x m-2 me-0 rounded-5" alt="Bootstrap Gallery" />
+                                            <img src="../admin_dashboard/assets/images/user3.png" class="img-3x m-2 me-0 rounded-5" alt="Bootstrap Gallery" />
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-sm shadow-sm gap-3" style="">
                                             <a class="dropdown-item d-flex align-items-center py-2" href="agent-profile.html"><i
@@ -221,34 +199,50 @@
                                 </button>
                             </div>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                  <li class="nav-item ">
+                                <li class="nav-item ">
                                     <a class="nav-link " href="DashBoard.jsp">
                                         Dashboards
                                     </a>
                                 </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                       aria-expanded="false">
+                                        Talent
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="listTalent">
+                                                <span>Pending Talent</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="activeTalent"><span>Active Talent</span></a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="BanAccount.jsp">
+                                    <a class="nav-link " href="account">
                                         Ban Account
                                     </a>
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link " href="InvoiceList.jsp">
-                                       Invoice
+                                        Invoice
                                     </a>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link " href="ListTalent.jsp" >
-                                        List Talent
-                                    </a>
-                                    
-                                </li>
+
+
+
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Notifications.jsp">Notifications </a>
+                                    <a class="nav-link" href="notifications">Notifications </a>
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link" href="RequestProduct.jsp"> List Product </a>
                                 </li>
-                               
+
                             </ul>
                         </div>
                     </div>

@@ -31,13 +31,19 @@ public class AdminAccountControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AdminDAO dao = new AdminDAO();
-        List<Account> allAccount = dao.getListAllAccount();
-       
- 
-
-        request.setAttribute("account", allAccount);
-        request.getRequestDispatcher("../admin_dashboard/BanAccount.jsp").forward(request, response);
+         response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ModerationTalentControl</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ModerationTalentControl at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,8 +58,21 @@ public class AdminAccountControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         
-        processRequest(request, response);
+        String indexPage = request.getParameter("index");
+        if(indexPage == null) indexPage = "1";
+        int index = Integer.parseInt(indexPage);
+        AdminDAO dao = new AdminDAO();
+        int count = dao.getTotalAccount();
+        int endPage = count/10;
+        if(count % 10 != 0){
+          endPage++;
+        }
+        List<Account> list = dao.pagingAccount(index);  
+        request.setAttribute("account", list);
+        request.setAttribute("endP", endPage);
+        request.setAttribute("dao", dao);
+        request.getRequestDispatcher("../admin_dashboard/BanAccount.jsp").forward(request, response);      
+      
     }
 
     /**

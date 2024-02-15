@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <%@include file="Header.jsp" %>
 
@@ -42,6 +42,7 @@
                                 <input type="text" class="form-control" placeholder="Search" />
                                 <i class="icon-search"></i>
                             </div>
+                           
                             <table class="table table-bordered table-striped align-middle m-0">
                                 <thead>
                                     <tr>
@@ -64,7 +65,7 @@
                                                 <input class="form-check-input" type="checkbox" value="option1" />
                                             </th>
                                             <td>
-                                                <img src="assets/images/user2.png" class="me-2 img-3x rounded-3"
+                                                <img src="../admin_dashboard/assets/images/user2.png" class="me-2 img-3x rounded-3"
                                                      alt="Bootstrap Gallery" />
                                                 ${a.name}
                                             </td>
@@ -118,7 +119,24 @@
             </div>
         </div>
         <!-- Row end -->
-
+    <nav aria-label="Page navigation example ">
+            <ul class="pagination justify-content-end ">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <c:forEach begin="1" end="${endP}" var="i">
+                <li class="page-item"><a class="page-link" href="account?index=${i}">${i}</a></li>
+                </c:forEach>
+  
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
     <!-- Container ends -->
 

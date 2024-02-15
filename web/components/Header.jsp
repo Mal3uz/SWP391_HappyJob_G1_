@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="fonts/line-icons/style.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/animate.min.css">
+        <link rel="stylesheet" href="css/style-of-hoang.css">
 
         <!-- MAIN CSS -->
         <link rel="stylesheet" href="css/style.css">    
@@ -67,7 +68,7 @@
                                 <li class="has-children">
                                     <a href="#">Talent </a>
                                     <ul class="dropdown">
-                                        <li><a href="Talent.jsp">Talent Listings</a></li>
+                                        <li><a href="listTalentServlet">Talent Listings</a></li>
                                         <li><a href="job-single.html">Dashboard</a></li>
                                         <li><a href="PostTalent.jsp">Post a Talent</a></li>
                                     </ul>

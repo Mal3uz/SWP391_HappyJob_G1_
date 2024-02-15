@@ -34,49 +34,76 @@ public class LoginControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //Lấy dữ liệu từ jsp
         String action = request.getParameter("action");
-        if ("Login".equals(action)) {
-            String username = request.getParameter("user");
-            String password = request.getParameter("pass");
-            //Kết nối vs DB
-            LoginDAO dao = new LoginDAO();
+        String username = request.getParameter("user");
+        String password = request.getParameter("pass");
+        HttpSession session = request.getSession();
+        LoginDAO dao = new LoginDAO();
+        Account account = new Account();
+        account = dao.getAccountByEmail(username);
+        session.setAttribute("account", account);
+        session.setMaxInactiveInterval(6*60*60);
+        String status = account.getStatus();
+        System.out.println(status);
+        System.out.println("Pending".equals(status));
+        if ("Pending".equals(status)) {
             Account u = dao.login(username, password);
+            session.setAttribute("user", u);
+            String code = dao.generateVerificationCode();
+            dao.updateNewVerificationCode(code, username);
+            SendEmailUtil.sendVerificationCode(username, code);
+            Long time = (System.currentTimeMillis() + 15 * 60 * 1000); // 15 minutes
+            session.setAttribute("time", time);
+            request.setAttribute("email", username);
+            request.setAttribute("mess1", "Your account isn't authenticated, authenticate to sign in");
+            //  response.sendRedirect("Verify.jsp");
+            request.getRequestDispatcher("Verify.jsp").forward(request, response);
 
-            //Kiểm tra
-            if (u == null) {
-                //login fail -> Đẩy về trang Login.jsp (nhập lại)
-                //Message thông báo Login sai: thay đổi giá trị của biến mess
-                request.setAttribute("mess1", "Login fail!");
-                //ko thì quay trở lại trang login.jsp
-                //Yêu cầu người dùng Login lại
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", u);
-                switch (u.getRoleID()) {
-                    case 1:
-                        response.sendRedirect("AdminDashboard.jsp");
-                        break;
-                    case 2:
-                        response.sendRedirect("ProviderDashboard.jsp");
-                        break;
-                    case 3:
-                        response.sendRedirect("Home.jsp");
-                        break;
-                    default:
-                        request.getRequestDispatcher("Login.jsp").forward(request, response);
-                        break;
-                }
-            }
         } else {
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            if ("Login".equals(action)) {
+
+                //Kết nối vs DB
+                Account u = dao.login(username, password);
+
+                //Kiểm tra
+                if (u == null) {
+                    //login fail -> Đẩy về trang Login.jsp (nhập lại)
+                    //Message thông báo Login sai: thay đổi giá trị của biến mess
+                    request.setAttribute("mess1", "Login fail!");
+                    //ko thì quay trở lại trang login.jsp
+                    //Yêu cầu người dùng Login lại
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                } else {
+                 
+                    
+                    session.setAttribute("user", u);
+                    System.out.println(u);
+                    switch (u.getRoleID()) {
+                        case 1:
+                            response.sendRedirect("admin/account");
+                            break;
+                        case 2:
+                            response.sendRedirect("ProviderDashboard.jsp");
+                            break;
+                        case 3:
+                            response.sendRedirect("Home.jsp");
+                            break;
+                        default:
+                            request.getRequestDispatcher("Login.jsp").forward(request, response);
+                            break;
+                    }
+                }
+            } else {
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
         }
     }
     
 
     public static void main(String[] args) {
         LoginDAO dao = new LoginDAO();
-        Account u = dao.login("dat@gmail.com", "123456");
-        System.out.println(u);
+        Account a = dao.getAccountByEmail("phuongnampham7823@gmail.com");
+//        Account u = dao.login("admin1@example.com", "123456");
+        System.out.println(a);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

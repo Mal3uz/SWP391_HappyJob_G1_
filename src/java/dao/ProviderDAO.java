@@ -24,11 +24,12 @@ public class ProviderDAO {
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
- 
+
     // Add new job
-      public void AddTalent(String Title ,String  Description, String CreatedAt, int AccountID, String Status,String img) throws Exception {
-       String   query = " INSERT INTO Talent VALUES (?,?,?,?,?,?)";
-        try { conn = new DBContext().getConnection();
+    public void AddTalent(String Title, String Description, String CreatedAt, int AccountID, String Status, String img) throws Exception {
+        String query = " INSERT INTO Talent VALUES (?,?,?,?,?,?)";
+        try {
+            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, Title);
             ps.setString(2, Description);
@@ -36,7 +37,7 @@ public class ProviderDAO {
             ps.setInt(4, AccountID);
             ps.setString(5, Status);
             ps.setString(6, img);
-            
+
             ps.executeUpdate();
         } catch (SQLException e) {
         }
@@ -51,14 +52,15 @@ public class ProviderDAO {
             ps.setString(1, postid);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return (new Talent(
-                        rs.getInt(1),
+                return (new  Talent(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
-                        rs.getInt(5),
-                        rs.getString(6),
-                        rs.getString(7)));
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                rs.getInt(9)));
 
             }
         } catch (SQLException e) {
@@ -71,7 +73,6 @@ public class ProviderDAO {
 // Delete Post
     public void deleteTalent(int pid) {
         String query = "delete from Talent where TalentID = ? ";
-         
 
         try {
             conn = new DBContext().getConnection();
@@ -101,25 +102,27 @@ public class ProviderDAO {
     }
 
 // Edit Provider post
-   public void updateTalent(int TalentID,  String Title ,String  Description, String CreatedAt, int AccountID, String Status,String img) throws Exception {
-       String   query = "update Talent set Title= ? , Description= ?, CreatedAt= ?, AccountID = ?, Status = ?, img = ?  where TalentID =?";
-        try { conn = new DBContext().getConnection();
-             ps = conn.prepareStatement(query);
+    public void updateTalent(int TalentID, String Title, String Description, String CreatedAt, int AccountID, String Status, String img) throws Exception {
+        String query = "update Talent set Title= ? , Description= ?, CreatedAt= ?, AccountID = ?, Status = ?, img = ?  where TalentID =?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
             ps.setString(1, Title);
             ps.setString(2, Description);
             ps.setString(3, CreatedAt);
             ps.setInt(4, AccountID);
-             ps.setString(5, Status);
+            ps.setString(5, Status);
             ps.setString(6, img);
-            ps.setInt(7 , TalentID);
+            ps.setInt(7, TalentID);
             ps.executeUpdate();
         } catch (SQLException e) {
         }
     }
+
     public static void main(String[] args) throws Exception {
         ProviderDAO p = new ProviderDAO();
-      //  p.AddTalent("Edit Logo", "Make an club logo", "2024-01-13", 7, "Pending", "abc");
-       // p.deleteTalent(2);
-       p.updateTalent(3,"Edit Logo", "Make an club logo", "2024-01-13", 7, "Aviable", "abc");
+        //  p.AddTalent("Edit Logo", "Make an club logo", "2024-01-13", 7, "Pending", "abc");
+        // p.deleteTalent(2);
+        p.updateTalent(3, "Edit Logo", "Make an club logo", "2024-01-13", 7, "Aviable", "abc");
     }
 }
