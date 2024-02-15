@@ -97,6 +97,7 @@ public class LoginControl extends HttpServlet {
             }
         }
     }
+    
 
     public static void main(String[] args) {
         LoginDAO dao = new LoginDAO();
