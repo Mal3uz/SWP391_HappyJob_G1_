@@ -411,7 +411,7 @@ public class AdminDAO {
     }
 
     //n1
-    public List<Notifications> getListNotificationses(String accountID) {
+    public List<Notifications> getListNotificationsesByAccount(String accountID) {
         List<Notifications> listN = new ArrayList<>();
         String query = "select * from Notifications\n"
                 + "where AccountID = ?\n"
@@ -427,7 +427,35 @@ public class AdminDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getString(4),
-                        rs.getString(5)));
+                        rs.getInt(5),
+                        rs.getString(6)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listN;
+
+    }
+
+    public List<Notifications> getListNotificationsesAdmin(String accountID) {
+        List<Notifications> listN = new ArrayList<>();
+        String query = "select * from Notifications\n"
+                + "where AccountID = ? or Message like '% created Talent%'\n"
+                + "order by CreatedAt desc";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, accountID);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listN.add(new Notifications(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6)));
 
             }
         } catch (Exception e) {
@@ -453,13 +481,48 @@ public class AdminDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getString(4),
-                        rs.getString(5)));
+                        rs.getInt(5),
+                        rs.getString(6)));
 
             }
         } catch (Exception e) {
         }
 
         return listN;
+
+    }
+
+    public int getNumberNewNotificationsesAdmin() {
+        String query = "SELECT COUNT(*)\n"
+                + "FROM Notifications\n"
+                + "where ( Message like '% created Talent%') and Status = 0";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+
+        return 0;
+
+    }
+
+    public void readAll(String accountID) {
+        String query = "UPDATE Notifications\n"
+                + "SET Status = 1\n"
+                + "where AccountID = ? or Message like '% created Talent%'";
+
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, accountID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
 
     }
 
@@ -491,12 +554,62 @@ public class AdminDAO {
 
     }
 
+    public void InsertMessage(int sendId, int receiverId, String date, String content) {
+
+        String query = "INSERT INTO Messagess (SenderID, ReceiverID, Timestamp,Content)\n"
+                + "VALUES (?,?,?,?);";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            // Set parameters
+            ps.setInt(1, sendId);
+            ps.setInt(2, receiverId);
+            ps.setString(3, date);
+            ps.setString(4, content);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+        }
+    }
+
+    public Messagess getLastMessageThroughTwoFriendId(int SenderId, int ReceiverId) {
+        String query = "select top 1 * from Messagess where (SenderID = ? and ReceiverID= ?)\n"
+                + "order by Timestamp desc";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, SenderId);
+            ps.setInt(2, ReceiverId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Messagess(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+
+    }
+
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
 
         List<Messagess> a = dao.getMessBySendReceiver(1, 2);
-
+        List<Messagess> b = dao.getMessBySendReceiver(2, 1);
         for (Messagess notifications : a) {
+            System.out.println("1");
+            System.out.println(notifications);
+        }
+
+        for (Messagess notifications : b) {
+            System.out.println("2");
             System.out.println(notifications);
         }
     }
