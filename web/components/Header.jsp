@@ -99,6 +99,7 @@
                                         <li><a href="PostBlog.jsp">Post a Blog</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="message">Message</a></li>
                                 <li><a href="Contact.jsp">Contact</a></li>
                             </ul>
                         </nav>

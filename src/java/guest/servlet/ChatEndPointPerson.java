@@ -1,8 +1,9 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package admin;
+package guest.servlet;
 
 /**
  *
@@ -29,10 +30,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-//@ServerEndpoint(value = "/admin/message")
-@ServerEndpoint(value = "/admin/message/{roomId}")
-public class ChatEndPoint {
+@ServerEndpoint(value = "/message/{roomId}")
+public class ChatEndPointPerson {
      private static final ConcurrentHashMap<String, Set<Session>> roomSessions = new ConcurrentHashMap<>();
 
     @OnOpen
@@ -75,4 +74,5 @@ public void onMessage(String message, @PathParam("roomId") String roomId, Sessio
     public void onError(Session session, Throwable throwable) {
         // Handle error
     }
+    
 }

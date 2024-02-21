@@ -77,8 +77,27 @@
 </div>
 
 <script>
+     var userId = 0;
+ var ws = new WebSocket("ws://localhost:8080/SWP391_HappyJob_G1_/admin/message/" + userId);
 
-    var userId = 0;
+    ws.onopen = function () {
+        // Connection is open
+
+    };
+
+    ws.onmessage = function (evt) {
+        // Received a message from the server
+        var chat = document.getElementById('chat-messages');
+        console.log("onmessage");
+        console.log(evt.data);
+
+        chat.innerHTML += evt.data + '<br>';
+    };
+
+    ws.onclose = function () {
+        // Connection is closed
+    };
+   
     function show(receiverID, senderID) {
         if (ws && ws.readyState === WebSocket.OPEN) {
             ws.close();
@@ -223,25 +242,7 @@
 
 
 
-    var ws = new WebSocket("ws://localhost:8080/SWP391_HappyJob_G1_/admin/message/" + userId);
-
-    ws.onopen = function () {
-        // Connection is open
-
-    };
-
-    ws.onmessage = function (evt) {
-        // Received a message from the server
-        var chat = document.getElementById('chat-messages');
-        console.log("onmessage");
-        console.log(evt.data);
-
-        chat.innerHTML += evt.data + '<br>';
-    };
-
-    ws.onclose = function () {
-        // Connection is closed
-    };
+   
 
 //    function postMessage() {
 //        var msg = document.getElementById('content').value;
@@ -284,10 +285,7 @@
                         '<div class="fst-italic fs-6">' + date + '</div>' +
                         '<div class="fw-bolder mb-1">' + response.mess.nameFriend + '</div>' + response.mess.content + '</div></div>';
                 ws.send(messageDiv);
-                var check = 'left-mess-' + response.mess.id;
-
-                document.getElementById('content').value = ''; // Xóa nội dung tin nhắn đã gửi
-                document.getElementById(check).classList.add('d-none');
+              
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
