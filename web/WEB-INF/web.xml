@@ -80,6 +80,22 @@
         <servlet-name>MessageDetail</servlet-name>
         <servlet-class>admin.MessageDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateMessageControl</servlet-name>
+        <servlet-class>admin.CreateMessageControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChatPersonDetail</servlet-name>
+        <servlet-class>guest.servlet.ChatPersonDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MessageControl</servlet-name>
+        <servlet-class>guest.servlet.MessageControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PersonCreateMessage</servlet-name>
+        <servlet-class>guest.servlet.PersonCreateMessage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -149,6 +165,22 @@
         <servlet-name>MessageDetail</servlet-name>
         <url-pattern>/admin/messageDetail</url-pattern>
 
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateMessageControl</servlet-name>
+        <url-pattern>/admin/createMessage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChatPersonDetail</servlet-name>
+        <url-pattern>/chatPersonDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessageControl</servlet-name>
+        <url-pattern>/message</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PersonCreateMessage</servlet-name>
+        <url-pattern>/personCreateMessage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

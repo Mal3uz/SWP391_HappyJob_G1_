@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package admin;
 
 import dao.AdminDAO;
@@ -14,17 +15,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 /**
  *
  * @author DELL
  */
-public class MessageDetail extends HttpServlet {
-  /**
+public class CreateMessageControl extends HttpServlet {
+   
+   /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -35,39 +37,27 @@ public class MessageDetail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String receiveString = request.getParameter("receiver");
-        if (receiveString == null) {
-            receiveString = "0";
-        }
-        int receiveId = Integer.parseInt(receiveString);
+
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         AdminDAO dao = new AdminDAO();
-        Account receiver = dao.getAccountById(receiveId);
-        List<Messagess> listMessSend = dao.getMessBySendReceiver(account.getAccountID(), receiveId);
-        List<Messagess> listMessReceive = dao.getMessBySendReceiver(receiveId,account.getAccountID());
+        int uId = account.getAccountID();
+        int friendId = Integer.parseInt(request.getParameter("friendId"));
+        String message = request.getParameter("message");
+        Account friend = dao.getAccountById(friendId);
+        String nameFriend = friend.getName();
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String formattedTime = currentTime.format(formatter);
+       dao.InsertMessage(uId, friendId, formattedTime, message);
+        Messagess messageDeatil = dao.getLastMessageThroughTwoFriendId(uId, friendId);
 
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
-
-        // Chuyển đổi Account thành JsonObject
-        JsonObject receiverJson = convertAccountToJson(receiver);
-
-        // Thêm receiverJson vào jsonObject
-        jsonObject.add("receiver", receiverJson);
-
-        JsonArray listMessSendJsonArray = new JsonArray();
-        for (Messagess mess : listMessSend) {
-            listMessSendJsonArray.add(convertMessToJson(mess));
-        }
-        jsonObject.add("listMessSend", listMessSendJsonArray);
-
-        JsonArray listMessReceiveJsonArray = new JsonArray();
-        for (Messagess mess : listMessReceive) {
-            listMessReceiveJsonArray.add(convertMessToJson(mess));
-        }
-        jsonObject.add("listMessReceive", listMessReceiveJsonArray);
-
+        JsonObject senderJson = convertAccountToJson(account);
+        JsonObject messJson = convertMessToJson(messageDeatil, nameFriend);
+        jsonObject.add("mess", messJson);
+        jsonObject.add("sender", senderJson);
         String json = gson.toJson(jsonObject);
 
         // Gửi JSON về client
@@ -75,31 +65,31 @@ public class MessageDetail extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.print(json);
         out.flush();
+
     }
 
-    private JsonObject convertMessToJson(Messagess mess) {
+    private JsonObject convertMessToJson(Messagess mess, String nameFriend) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("id", mess.getMessageID());
         jsonObject.addProperty("senderid", mess.getSenderID());
         jsonObject.addProperty("receiverid", mess.getReceiverID());
         jsonObject.addProperty("timestamp", mess.getTimestamp());
         jsonObject.addProperty("content", mess.getContent());
-
+        jsonObject.addProperty("nameFriend", nameFriend);
         // Thêm các trường khác của đối tượng Messagess vào đây
         return jsonObject;
     }
-    
+
     private JsonObject convertAccountToJson(Account account) {
-    JsonObject jsonObject = new JsonObject();
-    jsonObject.addProperty("accountID", account.getAccountID());
-    jsonObject.addProperty("name", account.getName());
-    jsonObject.addProperty("img", account.getImg());
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("accountID", account.getAccountID());
+        jsonObject.addProperty("name", account.getName());
+        jsonObject.addProperty("img", account.getImg());
 
-    return jsonObject;
-}
+        return jsonObject;
+    }
 
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -112,6 +102,7 @@ public class MessageDetail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**

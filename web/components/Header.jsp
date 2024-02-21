@@ -90,6 +90,7 @@
                                         <li><a href="PostBlog.jsp">Post a Blog</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="message">Message</a></li>
                                 <li class="has-children">
                                     <a href="services.html">Category</a>
                                     <ul class="dropdown horizontal-dropdown"> <!-- Add a CSS class -->
@@ -147,6 +148,7 @@
                                         </c:forEach>
                                     </ul>
                                 </li>
+
                                 <li><a href="Contact.jsp">Contact</a></li>
                             </ul>
                         </nav>

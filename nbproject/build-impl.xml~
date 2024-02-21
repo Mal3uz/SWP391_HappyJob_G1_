@@ -433,6 +433,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             <element name="customize" optional="true"/>
             <sequential>
 
+
                 <junit dir="${basedir}" errorproperty="tests.failed" failureproperty="tests.failed" fork="true" jvm="${platform.java}" showoutput="true" tempdir="${java.io.tmpdir}">
 
                     <test methods="@{testmethods}" name="@{testincludes}" todir="${build.test.results.dir}"/>
@@ -457,6 +458,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             <element name="customize" optional="true"/>
             <sequential>
                 <property name="run.jvmargs.ide" value=""/>
+
 
                 <junit dir="${basedir}" errorproperty="tests.failed" failureproperty="tests.failed" fork="true" jvm="${platform.java}" showoutput="true" tempdir="${build.dir}">
 
@@ -499,6 +501,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
                     </fileset>
                 </union>
                 <taskdef classname="org.testng.TestNGAntTask" classpath="${run.test.classpath}" name="testng"/>
+
 
                 <testng classfilesetref="test.set" failureProperty="tests.failed" jvm="${platform.java}" listeners="org.testng.reporters.VerboseReporter" methods="${testng.methods.arg}" mode="${testng.mode}" outputdir="${build.test.results.dir}" suitename="SWP391_HappyJob_G1_" testname="TestNG tests" workingDir="${basedir}">
 
@@ -730,6 +733,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             <element name="customize" optional="true"/>
             <sequential>
 
+
                 <java classname="@{classname}" fork="true" jvm="${platform.java}">
 
                     <jvmarg line="${endorsed.classpath.cmd.line.arg}"/>
@@ -763,6 +767,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
                     <classpath>
                         <path path="@{classpath}"/>
                     </classpath>
+
 
                     <bootclasspath>
                         <path path="${platform.bootcp}"/>
