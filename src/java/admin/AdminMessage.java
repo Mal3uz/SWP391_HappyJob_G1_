@@ -6,7 +6,6 @@ package admin;
 
 import dao.AdminDAO;
 import entity.Account;
-import entity.Messagess;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,26 +20,18 @@ import java.util.List;
  * @author DELL
  */
 public class AdminMessage extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
 
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         AdminDAO dao = new AdminDAO();
-        List<Account> sender = dao.getListAccountBySenderID(account.getAccountID());
+        List<Account> receiver = dao.getListAccountBySenderID(account.getAccountID());
+        Account sender = dao.getAccountById(account.getAccountID());
       
 
+        request.setAttribute("receiver", receiver);
         request.setAttribute("sender", sender);
         request.setAttribute("dao", dao);
        
@@ -88,5 +79,6 @@ public class AdminMessage extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }
