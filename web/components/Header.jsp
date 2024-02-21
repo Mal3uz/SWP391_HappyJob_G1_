@@ -142,7 +142,7 @@
                                         </style>
                                         <c:forEach var="item" items="${CategoryDAOInstance.getListAllCategories()}">
                                             <li class="horizontal-dropdown-column">
-                                                <a href="#">${item.name}</a>
+                                                <a href="${pageContext.request.contextPath}/listTalentServlet?categoryID=${item.id}">${item.name}</a>
                                             </li>
                                         </c:forEach>
                                     </ul>
@@ -153,6 +153,7 @@
 
                         <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
                             <div class="ml-auto">
+                                <a href="${pageContext.request.contextPath}/waitingList" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-cart-plus"></span>Waiting List</a>
                                 <a href="PostTalent.jsp" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
 
                                 <c:if test="${sessionScope.user == null}">

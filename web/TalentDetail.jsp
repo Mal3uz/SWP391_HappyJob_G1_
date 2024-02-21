@@ -48,12 +48,21 @@
             </div>
             <div class="col-lg-4">
                 <div class="row">
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
-                    </div>
+                    <c:choose>
+                        <c:when test="${isTalentAlreadyExisted eq false}">
+                            <div class="col-6">
+                                <a href="${pageContext.request.contextPath}/waitingList/add?talentID=${talentChoiced.talentID}&packetID=${basicPackage.packageID}" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="col">
+                                <span class="icon-heart-o mr-2 text-danger"></span>Talent is already in waiting list or in-ordered!</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
@@ -98,12 +107,21 @@
                 </div>
 
                 <div class="row mb-5">
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
-                    </div>
+                    <c:choose>
+                        <c:when test="${isTalentAlreadyExisted eq false}">
+                            <div class="col-6">
+                                <a href="${pageContext.request.contextPath}/waitingList/add?talentID=${talentChoiced.talentID}&packetID=${basicPackage.packageID}" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="col">
+                                <span class="icon-heart-o mr-2 text-danger"></span>Talent is already in waiting list or in-ordered!</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 
@@ -141,6 +159,7 @@
                                     </li>
                                 </ul>
                                 <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
+
                             </div>
                         </div>
                     </c:forEach>

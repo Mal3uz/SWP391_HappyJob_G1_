@@ -28,7 +28,6 @@
         <servlet-class>admin.AdminAccountControl</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>ProfileControl</servlet-name>
         <servlet-class>guest.servlet.ProfileControl</servlet-class>
     </servlet>
@@ -39,7 +38,7 @@
     <servlet>
         <servlet-name>ProfileEdit</servlet-name>
         <servlet-class>user.servlet.ProfileEditControl</servlet-class>
-</servlet>
+    </servlet>
     <servlet>
         <servlet-name>AdminListTalent</servlet-name>
         <servlet-class>admin.AdminListTalentControl</servlet-class>
@@ -80,6 +79,14 @@
         <servlet-name>MessageDetail</servlet-name>
         <servlet-class>admin.MessageDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>java</servlet-name>
+        <servlet-class>WaitingListDAO.java</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>java</servlet-name>
+        <servlet-class>WaitingListAdd.java</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -97,7 +104,6 @@
         <url-pattern>/admin/account</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>ProfileControl</servlet-name>
         <url-pattern>/ProfileControl</url-pattern>
     </servlet-mapping>
@@ -108,7 +114,7 @@
     <servlet-mapping>
         <servlet-name>ProfileEdit</servlet-name>
         <url-pattern>/profileEdit</url-pattern>
- </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminListTalent</servlet-name>
         <url-pattern>/admin/listTalent</url-pattern>
@@ -148,7 +154,14 @@
     <servlet-mapping>
         <servlet-name>MessageDetail</servlet-name>
         <url-pattern>/admin/messageDetail</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>java</servlet-name>
+        <url-pattern>/WatingListDAO</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>java</servlet-name>
+        <url-pattern>/java</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
