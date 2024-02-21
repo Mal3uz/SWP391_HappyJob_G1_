@@ -31,16 +31,15 @@ public class TalentDAO {
 
             while (rs.next()) {
                 tList.add(new Talent(rs.getInt(1),
-                        rs.getNString(2),
-                        rs.getNString(3),
-                        rs.getNString(4),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getNString(7),
-                        rs.getNString(8),
-                        rs.getInt(9)
-                )
-                );
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9)));
+
             }
             return tList;
         } catch (Exception e) {
@@ -60,15 +59,15 @@ public class TalentDAO {
 
             while (rs.next()) {
                 return new Talent(rs.getInt(1),
-                        rs.getNString(2),
-                        rs.getNString(3),
-                        rs.getNString(4),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getNString(7),
-                        rs.getNString(8),
-                        rs.getInt(9)
-                );
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9));
+
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -88,16 +87,15 @@ public class TalentDAO {
 
             while (rs.next()) {
                 tList.add(new Talent(rs.getInt(1),
-                        rs.getNString(2),
-                        rs.getNString(3),
-                        rs.getNString(4),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getNString(7),
-                        rs.getNString(8),
-                        rs.getInt(9)
-                )
-                );
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9)));
+
             }
             return tList;
         } catch (Exception e) {
