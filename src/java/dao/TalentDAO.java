@@ -37,7 +37,8 @@ public class TalentDAO {
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getNString(7),
-                        rs.getNString(8)
+                        rs.getNString(8),
+                        rs.getInt(9)
                 )
                 );
             }
@@ -65,7 +66,8 @@ public class TalentDAO {
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getNString(7),
-                        rs.getNString(8)
+                        rs.getNString(8),
+                        rs.getInt(9)
                 );
             }
         } catch (Exception e) {
@@ -92,7 +94,8 @@ public class TalentDAO {
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getNString(7),
-                        rs.getNString(8)
+                        rs.getNString(8),
+                        rs.getInt(9)
                 )
                 );
             }

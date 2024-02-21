@@ -33,7 +33,8 @@ public class AccountDAO {
                         rs.getNString(6),
                         rs.getInt(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10)
                 );
             }
         } catch (Exception e) {
