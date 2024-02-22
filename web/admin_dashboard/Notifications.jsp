@@ -43,13 +43,14 @@
                         <div class="notification-container mt-3">
                             <div class="notification-list">
                                 <c:forEach var="n" items="${listN}">
-                                    <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block">
+                                    <div class="px-3 py-2 d-flex align-items-center gap-3 notify-block ${n.status == 0 ? '':'opacity-50' }">
                                         <img src="../admin_dashboard/assets/images/user1.png" alt="Admin Panel" class="img-3x rounded-circle" />
 
                                         <div class="flex-1 flex flex-col">
                                             <p class="mb-1">
 
                                                 <span class="fw-semibold">${fn:substring(n.createdAt, 0, 10)}</span>
+                                                   <span class="${n.status == 0 ? ' bg-primary badge rounded-pill':'' }"> </span>
                                             </p>
                                             <p class="mb-1">
 
