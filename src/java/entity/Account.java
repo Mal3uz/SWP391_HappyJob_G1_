@@ -107,13 +107,7 @@ public class Account {
     }
 
 
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
+  
 
     public String getVerificationCode() {
         return verificationCode;
