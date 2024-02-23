@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div>???????????</div>  
+
        <div class="app-footer">
                     <div class="container">
                         <span></span>

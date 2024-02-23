@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/TGDD/OneDrive/Documents/NetBeansProjects/SWP391_HappyJob_G1__/web/TalentDetail.jsp</file>
-            <file>file:/C:/Users/TGDD/OneDrive/Documents/NetBeansProjects/SWP391_HappyJob_G1__/web/Home.jsp</file>
-            <file>file:/C:/Users/TGDD/OneDrive/Documents/NetBeansProjects/SWP391_HappyJob_G1__/web/Login.jsp</file>
-            <file>file:/C:/Users/TGDD/OneDrive/Documents/NetBeansProjects/SWP391_HappyJob_G1__/web/PostTalent.jsp</file>
+            <file>file:/Users/tuna/NetBeansProjects/TestProjectHoang/SWP391_HappyJob_G1_/web/TalentDetail.jsp</file>
+            <file>file:/Users/tuna/NetBeansProjects/TestProjectHoang/SWP391_HappyJob_G1_/web/css/style-of-hoang.css</file>
+            <file>file:/Users/tuna/NetBeansProjects/TestProjectHoang/SWP391_HappyJob_G1_/web/components/Search.jsp</file>
+            <file>file:/Users/tuna/NetBeansProjects/TestProjectHoang/SWP391_HappyJob_G1_/src/java/hoang/ListTalentServlet.java</file>
+            <file>file:/Users/tuna/NetBeansProjects/TestProjectHoang/SWP391_HappyJob_G1_/web/Talent.jsp</file>
         </group>
     </open-files>
 </project-private>

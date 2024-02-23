@@ -24,22 +24,10 @@
         <servlet-class>guest.servlet.LogoutControl</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>AdminAccountControl</servlet-name>
         <servlet-class>admin.AdminAccountControl</servlet-class>
     </servlet>
-    <servlet>
-
-        <servlet-name>ProfileControl</servlet-name>
-        <servlet-class>guest.servlet.ProfileControl</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>guest.servlet.NewServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ProfileEdit</servlet-name>
-        <servlet-class>user.servlet.ProfileEditControl</servlet-class>
-</servlet>
     <servlet>
         <servlet-name>AdminListTalent</servlet-name>
         <servlet-class>admin.AdminListTalentControl</servlet-class>
@@ -59,10 +47,11 @@
     <servlet>
         <servlet-name>Notifications</servlet-name>
         <servlet-class>admin.AdminNotificationsControl</servlet-class>
-    </servlet>
-    <servlet>
+</servlet>
+<servlet>
         <servlet-name>VerifyServlet</servlet-name>
         <servlet-class>guest.servlet.VerifyServlet</servlet-class>
+
     </servlet>
     <servlet>
         <servlet-name>DeleteTalentActiveControl</servlet-name>
@@ -71,30 +60,6 @@
     <servlet>
         <servlet-name>ListTalentActiveControl</servlet-name>
         <servlet-class>admin.ListTalentActiveControl</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AdminMessage</servlet-name>
-        <servlet-class>admin.AdminMessage</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>MessageDetail</servlet-name>
-        <servlet-class>admin.MessageDetail</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CreateMessageControl</servlet-name>
-        <servlet-class>admin.CreateMessageControl</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChatPersonDetail</servlet-name>
-        <servlet-class>guest.servlet.ChatPersonDetail</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>MessageControl</servlet-name>
-        <servlet-class>guest.servlet.MessageControl</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>PersonCreateMessage</servlet-name>
-        <servlet-class>guest.servlet.PersonCreateMessage</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
@@ -109,22 +74,10 @@
         <url-pattern>/LogoutControl</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>AdminAccountControl</servlet-name>
         <url-pattern>/admin/account</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-
-        <servlet-name>ProfileControl</servlet-name>
-        <url-pattern>/ProfileControl</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>NewServlet</servlet-name>
-        <url-pattern>/NewServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProfileEdit</servlet-name>
-        <url-pattern>/profileEdit</url-pattern>
- </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminListTalent</servlet-name>
         <url-pattern>/admin/listTalent</url-pattern>
@@ -145,9 +98,10 @@
         <servlet-name>Notifications</servlet-name>
         <url-pattern>/admin/notifications</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+    <servlet-mapping>    
         <servlet-name>VerifyServlet</servlet-name>
         <url-pattern>/verify</url-pattern>
+
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteTalentActiveControl</servlet-name>
@@ -156,31 +110,6 @@
     <servlet-mapping>
         <servlet-name>ListTalentActiveControl</servlet-name>
         <url-pattern>/admin/activeTalent</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AdminMessage</servlet-name>
-        <url-pattern>/admin/message</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MessageDetail</servlet-name>
-        <url-pattern>/admin/messageDetail</url-pattern>
-
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CreateMessageControl</servlet-name>
-        <url-pattern>/admin/createMessage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChatPersonDetail</servlet-name>
-        <url-pattern>/chatPersonDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MessageControl</servlet-name>
-        <url-pattern>/message</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PersonCreateMessage</servlet-name>
-        <url-pattern>/personCreateMessage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

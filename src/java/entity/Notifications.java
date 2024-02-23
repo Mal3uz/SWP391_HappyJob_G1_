@@ -12,19 +12,19 @@ public class Notifications {
     private int notificationID;
     private int accountID ;
     private int talentID;
+    private int roleID;
     private String message;
-    private int status;
     private String createdAt;
 
     public Notifications() {
     }
 
-    public Notifications(int notificationID, int accountID, int talentID, String message, int status, String createdAt) {
+    public Notifications(int notificationID, int accountID, int talentID, int roleID, String message, String createdAt) {
         this.notificationID = notificationID;
         this.accountID = accountID;
         this.talentID = talentID;
+        this.roleID = roleID;
         this.message = message;
-        this.status = status;
         this.createdAt = createdAt;
     }
 
@@ -52,20 +52,20 @@ public class Notifications {
         this.talentID = talentID;
     }
 
+    public int getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(int roleID) {
+        this.roleID = roleID;
+    }
+
     public String getMessage() {
         return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public String getCreatedAt() {
@@ -78,11 +78,8 @@ public class Notifications {
 
     @Override
     public String toString() {
-        return "Notifications{" + "notificationID=" + notificationID + ", accountID=" + accountID + ", talentID=" + talentID + ", message=" + message + ", status=" + status + ", createdAt=" + createdAt + '}';
+        return "Notifications{" + "notificationID=" + notificationID + ", accountID=" + accountID + ", talentID=" + talentID + ", roleID=" + roleID + ", message=" + message + ", createdAt=" + createdAt + '}';
     }
-
-   
-
     
     
 }

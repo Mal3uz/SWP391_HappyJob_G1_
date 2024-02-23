@@ -72,7 +72,9 @@ public class ListTalentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        String keyParam = new String(request.getParameter("keySearch").getBytes("iso-8859-1"), "utf-8");
+        String keyParam = new String(request.getParameter("keySearch"));
+//        String keyParamCheck = new String(request.getParameter("keySearch"));
+//        System.out.println(keyParamCheck);
         System.out.println(keyParam);
 
         TalentDAO td = new TalentDAO();

@@ -6,14 +6,12 @@
 package admin;
 
 import dao.AdminDAO;
-import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -59,12 +57,10 @@ public class DeleteTalentActiveControl extends HttpServlet {
     throws ServletException, IOException {
         String id = request.getParameter("tid");
         String reason = request.getParameter("reason");
-         HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        String approvedBy = String.valueOf(account.getAccountID());
+        System.out.println(reason);
         //pass sid to dao
         AdminDAO dao = new AdminDAO();
-        dao.rejectTalent(id,reason,approvedBy);
+        dao.rejectTalent(id,reason);
     }
 
     /** 
