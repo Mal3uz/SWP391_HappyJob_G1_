@@ -33,24 +33,30 @@
 
         <!-- Row start -->
         <div class="row gx-2">
+            
             <c:forEach var="t" items="${listTalent}">
                 <div class="col-sm-3 p-2">
-                    <div class="card card-talent">
-                        <img src="../admin_dashboard/assets/images/products/product2.jpg" class="card-img-top" alt="Bootstrap Gallery" style="object-fit: cover;">
-                        <div class="card-body">
-                            <h5 style="height: 40px;">${t.title}</h5>
-                            <p style="height: 100px;">
-                                ${t.description}
-                            </p>
-                            <a href="talentDetail?tid=${t.talentID}" class="btn btn-outline-primary">Details</a>
+                    <a href="talentDetail?tid=${t.talentID}" class="text-decoration-none">
+                        <div class="card card-talent ">
+                            <img src="../admin_dashboard/assets/images/products/product2.jpg" class="card-img-top custom-height img-thumbnail" alt="Bootstrap Gallery" style="object-fit: cover;">
+                            <div class="card-body">
+                                <div class="talent-person d-flex align-items-center">
+                                    <img class="talent-person-avt rounded-circle" style="height: 30px;margin: 5px;" src="../images/person_1.jpg">
+                                    <c:set value="${dao.getAccountByTalentId(t.talentID)}" var="account"></c:set>
+                                    <div class="talent-person-name ml-2 text-primary"> ${account.name}</div>
+                                </div>
+                                <h5 class="text-primary mt-2" style="height: 20px;">${t.title}</h5>
+                                <p class="text-secondary" style="height: 100px;">
+                                    ${t.description}
+                                </p>
+                                <p class="text-success">
+                                    From 100$
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </c:forEach>
-
-
-
-
         </div>
         <!-- Row end -->
 

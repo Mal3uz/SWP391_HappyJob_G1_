@@ -13,15 +13,28 @@
     <!-- Container starts -->
     <div class="container">
 
-        <div class="row">
+      <div class="row">
             <div class="col-lg-8">
                 <div class="mb-5">
-                    <figure class="mb-5"><img src="assets/images/products/product2.jpg" alt="Image" class="img-fluid rounded"></figure>
-                    <h2>${Talent.title}</h2>
+                    <h2 class="text-primary">${Talent.title}</h2>
+                    <div class="col-lg-8 mb-4 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div class="d-inline-block mr-3">
+                                <img src="../images/person_1.jpg" alt="Image" class="rounded-circle me-3" style="height:64px;margin: 5px;">
+                            </div>
+                            <div>
+                                <p class="ml-2 text-primary fs-3">${account.name}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="py-5 bg-image overlay-primary fixed overlay d-flex align-items-center justify-content-center" style="background-image: url('../admin_dashboard/assets/images/placeholder.jpg'); height: 50vh;">
+                        <img src="../admin_dashboard/assets/images/products/product2.jpg" alt="Image" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+                    </section>
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Job Description</h3>
                     <p>${Talent.description}</p>
-
                 </div>
+
+
                 <div class="mb-5">
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-rocket mr-3"></span>Responsibilities</h3>
                     <ul class="list-unstyled m-0 p-0">
@@ -69,23 +82,94 @@
                 </div>
 
             </div>
-            <div class="col-lg-4">
-                <div class="bg-light p-3 border rounded mb-4">
-                    <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Job Summary</h3>
-                    <ul class="list-unstyled pl-3 mb-0">
-                        <li class="mb-2"><strong class="text-primary">Published on:</strong> April 14, 2019</li>
-                        <li class="mb-2"><strong class="text-primary">Vacancy:</strong> 20</li>
-                        <li class="mb-2"><strong class="text-primary">Employment Status:</strong> Full-time</li>
-                        <li class="mb-2"><strong class="text-primary">Experience:</strong> 2 to 3 year(s)</li>
-                        <li class="mb-2"><strong class="text-primary">Job Location:</strong> New ork City</li>
-                        <li class="mb-2"><strong class="text-primary">Salary:</strong> $60k - $100k</li>
-                        <li class="mb-2"><strong class="text-primary">Gender:</strong> Any</li>
-                        <li class="mb-2"><strong class="text-primary">Application Deadline:</strong> April 28, 2019</li>
-                    </ul>
+         <div class="col-lg-4" >
+                <div class="card" style="position: sticky; top: 130px;">
+                    <div class="card-header">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-basic-tab" data-bs-toggle="tab" data-bs-target="#nav-basic" type="button" role="tab" aria-controls="nav-basic" aria-selected="true">Basic</button>
+                                <button class="nav-link" id="nav-standard-tab" data-bs-toggle="tab" data-bs-target="#nav-standard" type="button" role="tab" aria-controls="nav-standard" aria-selected="false">Standard</button>
+                                <button class="nav-link" id="nav-standard-tab" data-bs-toggle="tab" data-bs-target="#nav-premium" type="button" role="tab" aria-controls="nav-standard" aria-selected="false">Standard</button>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-basic-tab">
+                                <div class="bg-light p-3 border rounded mb-4">
+                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                        <h3 class="text-primary">Gói dịch thuật</h3>
+                                        <h4>US$400</h4>
+                                    </div>
+                                    <ul class="list-unstyled pl-3 mb-0">
+                                        <li class="mb-2">Dịch thuật tiếng Anh chính xác</li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-clock" style="color: white"></div>
+                                                <div class="text-white">4 Days Delivery</div>
+                                            </strong>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-repeat"  style="color: white"></div>
+                                                <div class="text-white">2 Revisions</div>
+                                            </strong>
+                                        </li>
+                                    </ul>
+                                    <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
+                                </div>
+                            </div>  
+                            <div class="tab-pane fade" id="nav-standard" role="tabpanel" aria-labelledby="nav-standard-tab">
+                                <div class="bg-light p-3 border rounded mb-4">
+                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                        <h3 class="text-primary">RAD</h3>
+                                        <h4>US$200</h4>
+                                    </div>
+                                    <ul class="list-unstyled pl-3 mb-0">
+                                        <li class="mb-2">Upgraded to some minor editing. Not for overly specific images.</li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-clock" style="color: white"></div>
+                                                <div class="text-white">3 Days Delivery</div>
+                                            </strong>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-repeat" style="color: white"></div>
+                                                <div class="text-white">3 Revisions</div>
+                                            </strong>
+                                        </li>
+                                    </ul>
+                                    <button class="w-100  p-3 bg-dark text-white border-0 rounded-10">Continue</button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="nav-premium" role="tabpanel" aria-labelledby="nav-premium-tab">
+                                <div class="bg-light p-3 border rounded mb-4">
+                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                        <h3 class="text-primary">Premium Package</h3>
+                                        <h4>US$600</h4>
+                                    </div>
+                                    <ul class="list-unstyled pl-3 mb-0">
+                                        <li class="mb-2">Highly accurate English translation</li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-clock" style="color: white"></div>
+                                                <div class="text-white">2 Days Delivery</div>
+                                            </strong>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-repeat"  style="color: white"></div>
+                                                <div class="text-white">Unlimited Revisions</div>
+                                            </strong>
+                                        </li>
+                                    </ul>
+                                    <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-
-
             </div>
         </div>
 
