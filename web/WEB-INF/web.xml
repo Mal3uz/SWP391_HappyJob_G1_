@@ -29,7 +29,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminListTalent</servlet-name>
-        <servlet-class>admin.AdminListTalent</servlet-class>
+        <servlet-class>admin.AdminListTalentControl</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminTalentDetailControl</servlet-name>
@@ -52,8 +52,36 @@
         <servlet-class>guest.servlet.VerifyServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ChangePasswordServlet</servlet-name>
-        <servlet-class>guest.servlet.ChangePasswordServlet</servlet-class>
+        <servlet-name>DeleteTalentActiveControl</servlet-name>
+        <servlet-class>admin.DeleteTalentActiveControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListTalentActiveControl</servlet-name>
+        <servlet-class>admin.ListTalentActiveControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminMessage</servlet-name>
+        <servlet-class>admin.AdminMessage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MessageDetail</servlet-name>
+        <servlet-class>admin.MessageDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddTalentControl</servlet-name>
+        <servlet-class>provider.AddTalentControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Dashboard</servlet-name>
+        <servlet-class>provider.Dashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>seeker.Checkout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QrcodeControl</servlet-name>
+        <servlet-class>QrcodeControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
@@ -96,8 +124,36 @@
         <url-pattern>/verify</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ChangePasswordServlet</servlet-name>
-        <url-pattern>/ChangePasswordServlet</url-pattern>
+        <servlet-name>DeleteTalentActiveControl</servlet-name>
+        <url-pattern>/admin/deleteTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListTalentActiveControl</servlet-name>
+        <url-pattern>/admin/activeTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminMessage</servlet-name>
+        <url-pattern>/admin/message</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessageDetail</servlet-name>
+        <url-pattern>/admin/messageDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddTalentControl</servlet-name>
+        <url-pattern>/AddTalentControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Dashboard</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QrcodeControl</servlet-name>
+        <url-pattern>/qrcode</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

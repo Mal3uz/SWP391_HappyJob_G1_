@@ -1,0 +1,87 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jan 25, 2024, 12:17:48 AM
+    Author     : tuna
+*/
+
+.container-list-talent{
+    padding-top: 10px;
+    margin-top: 10px;
+    width: 100%;
+    /*background-color: red;*/
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.talent-items{
+    width: 300px;
+    height: 325px;
+    /*background-color: blue;*/
+    border-radius: 10px; 
+}
+
+.talent-img{
+    margin-top: 10px;
+    width:100%;
+    height: 150px;
+    border-radius: 10px; 
+}
+
+.talent-person{
+    width: 100%;
+    height: 50px;
+    /*background-color: grey;*/
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    /*justify-content: space-between;*/
+}
+
+.talent-person-avt{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.talent-person-name{
+    font-weight: bold;
+    color: black;
+}
+
+.talent-title{
+    margin-left: 10px;
+    color: #7f848c;
+}
+
+.talent-star{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.black-color{
+    margin-left: 10px;
+    color: black;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.title-page{
+    padding-left: 10px;
+    font-weight: bold;
+    color: black;
+    font-size: 30px;
+}
+
+.img-person-talent{
+    width: 100px;
+    height: 100px;
+}

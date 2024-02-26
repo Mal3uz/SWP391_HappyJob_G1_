@@ -6,12 +6,14 @@
 package admin;
 
 import dao.AdminDAO;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -55,10 +57,14 @@ public class AcceptTalentControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String id = request.getParameter("tid");
+       
           
         //pass sid to dao
+         HttpSession session = request.getSession();
+         Account account = (Account)session.getAttribute("account");
+        String approvedBy  =String.valueOf(account.getAccountID());
         AdminDAO dao = new AdminDAO();
-        dao.acceptTalent(id);
+        dao.acceptTalent(id,approvedBy);
         response.sendRedirect("listTalent");
     } 
 

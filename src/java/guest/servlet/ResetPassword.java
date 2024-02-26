@@ -98,7 +98,7 @@ public class ResetPassword extends HttpServlet {
                 String subject = "Reset Password";
                 String newPassword = dao.RandomPassword(charactor);
                 // TO UPDATE PASSWORD
-                dao.updatePasswordByEmail(newPassword, mailTo);
+                dao.updatePasswordByEmail(mailTo, newPassword);
 
                 String message = ("This is your new password: " + newPassword);
                 //SEND NEW PASSWORD
@@ -106,8 +106,7 @@ public class ResetPassword extends HttpServlet {
                 //send mail 
                 gmail.send(mailTo, subject, message, gmailFrom, password);
                 
-                 request.setAttribute("warn", "A new password has been sent to your mail ...");
-            request.getRequestDispatcher("ForgotPassword.jsp").forward(request, response);
+                response.sendRedirect("Login.jsp");
 
             }
         } catch (Exception ex) {

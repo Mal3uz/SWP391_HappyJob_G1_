@@ -42,6 +42,7 @@
                                 <input type="text" class="form-control" placeholder="Search" />
                                 <i class="icon-search"></i>
                             </div>
+                           
                             <table class="table table-bordered table-striped align-middle m-0">
                                 <thead>
                                     <tr>
@@ -118,7 +119,24 @@
             </div>
         </div>
         <!-- Row end -->
-
+    <nav aria-label="Page navigation example ">
+            <ul class="pagination justify-content-end ">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <c:forEach begin="1" end="${endP}" var="i">
+                <li class="page-item"><a class="page-link" href="account?index=${i}">${i}</a></li>
+                </c:forEach>
+  
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
     <!-- Container ends -->
 

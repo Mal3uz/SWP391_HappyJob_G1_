@@ -4,12 +4,10 @@
     Author     : DELL
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="components/Header.jsp" %>
-
 <!-- HOME -->
 <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
     <div class="container">
@@ -29,18 +27,21 @@
 
 <section class="site-section">
     <div class="container">
+        <div class="pl-2 font-weight-bold text-dark" 
+             style="font-size: 30px"
+             >${talentChoiced.getTitle()}</div>
         <div class="row align-items-center mb-5">
             <div class="col-lg-8 mb-4 mb-lg-0">
                 <div class="d-flex align-items-center">
-                    <div class="border p-2 d-inline-block mr-3 rounded">
-                        <img src="images/job_logo_5.jpg" alt="Image">
+                    <div class="border p-2 d-inline-block mr-3 rounded ">
+                        <img src="images/person_2.jpg" alt="Image" class="img-person-talent">
                     </div>
                     <div>
-                        <h2>Product Designer</h2>
+                        <h2>${accountTalent.getName()}</h2>
                         <div>
-                            <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Puma</span>
+                            <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span><span class="text-primary">${accountTalent.getStatus()}</span></span>
                             <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
-                            <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">Full Time</span></span>
+                            <span class="m-2"><span class="icon-clock-o mr-2"></span>${accountTalent.getDob()}</span>
                         </div>
                     </div>
                 </div>
@@ -61,8 +62,7 @@
                 <div class="mb-5">
                     <figure class="mb-5"><img src="images/job_single_img_1.jpg" alt="Image" class="img-fluid rounded"></figure>
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Job Description</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis illum fuga eveniet. Deleniti asperiores, commodi quae ipsum quas est itaque, ipsa, dolore beatae voluptates nemo blanditiis iste eius officia minus.</p>
-                    <p>Velit unde aliquam et voluptas reiciendis non sapiente labore, deleniti asperiores blanditiis nihil quia officiis dolor vero iste dolore vel molestiae saepe. Id nisi, consequuntur sunt impedit quidem, vitae mollitia!</p>
+                    <p>${talentChoiced.getDescription()}</p>
                 </div>
                 <div class="mb-5">
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-rocket mr-3"></span>Responsibilities</h3>
@@ -105,23 +105,50 @@
                         <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
                     </div>
                 </div>
-
             </div>
-            <div class="col-lg-4">
-                <div class="bg-light p-3 border rounded mb-4">
-                    <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Job Summary</h3>
-                    <ul class="list-unstyled pl-3 mb-0">
-                        <li class="mb-2"><strong class="text-black">Published on:</strong> April 14, 2019</li>
-                        <li class="mb-2"><strong class="text-black">Vacancy:</strong> 20</li>
-                        <li class="mb-2"><strong class="text-black">Employment Status:</strong> Full-time</li>
-                        <li class="mb-2"><strong class="text-black">Experience:</strong> 2 to 3 year(s)</li>
-                        <li class="mb-2"><strong class="text-black">Job Location:</strong> New ork City</li>
-                        <li class="mb-2"><strong class="text-black">Salary:</strong> $60k - $100k</li>
-                        <li class="mb-2"><strong class="text-black">Gender:</strong> Any</li>
-                        <li class="mb-2"><strong class="text-black">Application Deadline:</strong> April 28, 2019</li>
-                    </ul>
-                </div>
 
+
+            <div class="col-lg-4">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-basic" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Basic</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-standard" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Standard</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-premium" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Premium</button>
+                        <!--<button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>-->
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <c:forEach items="${listPackage}" var="p">
+                        <div class="tab-pane fade show active" id="nav-${p.getType()}" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                            <div class="bg-light p-3 border rounded mb-4">
+                                <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                    <h3 class="text-primary  ">${p.getTitle()}</h3>
+                                    <h4>US$${p.getPrice()}</h4>
+                                </div>
+                                <ul class="list-unstyled pl-3 mb-0">
+                                    <li class="mb-2">${p.getDescription()}</li>
+                                    <li class="mb-2">
+                                        <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                            <div class="icon-clock-o"></div>
+                                            <div>${p.getDeadline()} Days Delivery</div>
+                                        </strong>
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                            <div class="icon-repeat"></div>
+                                            <div>${p.getRevisions()} Revisions</div>
+                                        </strong>
+                                    </li>
+                                </ul>
+                                  <form action="checkout" method="post">
+                    <input type="hidden" name="id" value="${p.getPackageID()}">
+                    <button type="submit" class="btn w-100 bg-dark text-white border-0 rounded-10">Continue</button>
+                    <!--<a class="btn w-100 bg-dark text-white border-0 rounded-10" href="checkout?id=${p.getPackageID()}">Continue</a>-->
+                </form>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
                 <div class="bg-light p-3 border rounded">
                     <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Share</h3>
                     <div class="px-3">
@@ -131,10 +158,11 @@
                         <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-pinterest"></span></a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </section>
 
 <section class="site-section" id="next">
@@ -316,8 +344,6 @@
 <section class="bg-light pt-5 testimony-full">
 
     <div class="owl-carousel single-carousel">
-
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 align-self-center text-center text-lg-left">

@@ -71,12 +71,6 @@
                         </div>
                           <button type="submit" class="btn mt-5">Reset Password</button> 
                     </form>
-                    <div class="form-group mt-4">
-                                <div class="w-100 text-center">
-                                    <p class="mb-1">Don't have an account? <a href="SignUp.jsp">Sign Up</a></p>
-                                    <p><a href="Login.jsp">Login</a></p>
-                                </div>
-                            </div>
                   
                 </div>
             </div>

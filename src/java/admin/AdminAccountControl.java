@@ -58,14 +58,20 @@ public class AdminAccountControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         AdminDAO dao = new AdminDAO();
-        List<Account> allAccount = dao.getListAllAccount();
-       
- 
-
-        request.setAttribute("account", allAccount);
-        request.getRequestDispatcher("../admin_dashboard/BanAccount.jsp").forward(request, response);
-         
+        String indexPage = request.getParameter("index");
+        if(indexPage == null) indexPage = "1";
+        int index = Integer.parseInt(indexPage);
+        AdminDAO dao = new AdminDAO();
+        int count = dao.getTotalAccount();
+        int endPage = count/10;
+        if(count % 10 != 0){
+          endPage++;
+        }
+        List<Account> list = dao.pagingAccount(index);  
+        request.setAttribute("account", list);
+        request.setAttribute("endP", endPage);
+        request.setAttribute("dao", dao);
+        request.getRequestDispatcher("../admin_dashboard/BanAccount.jsp").forward(request, response);      
       
     }
 

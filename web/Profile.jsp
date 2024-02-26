@@ -21,8 +21,8 @@
                                     <h4>Nam Phuong</h4>
                                     <p class="text-secondary mb-1">Full Stack Developer</p>
                                     <p class="text-muted font-size-sm">Da Nang, Viet Nam</p> 
-                                  <%--   <button class="btn btn-primary">Follow</button> --%>
-                                    <a class="btn btn-outline-primary" href="ChangePassword.jsp">Change Password</a>
+                                    <button class="btn btn-primary">Follow</button> 
+                                    <button class="btn btn-outline-primary">Message</button>
                                 </div>
                             </div>
                         </div>

@@ -5,6 +5,8 @@
 package guest.servlet;
 
 import dao.LoginDAO;
+import dao.ProviderDAO;
+import dao.WalletDAO;
 import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +34,7 @@ public class LoginControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         //Lấy dữ liệu từ jsp
         String action = request.getParameter("action");
@@ -40,9 +44,13 @@ public class LoginControl extends HttpServlet {
         LoginDAO dao = new LoginDAO();
         Account account = new Account();
         account = dao.getAccountByEmail(username);
+        session.setAttribute("account", account);
+        ProviderDAO pdao = new ProviderDAO();
+        int id = pdao.getIdByEmai(username);
+        session.setMaxInactiveInterval(6*60*60);
         String status = account.getStatus();
-        // System.out.println("Hello");
-       // System.out.println("Pending".equals(status));
+        System.out.println(status);
+        System.out.println("Pending".equals(status));
         if ("Pending".equals(status)) {
             Account u = dao.login(username, password);
             session.setAttribute("user", u);
@@ -51,12 +59,10 @@ public class LoginControl extends HttpServlet {
             SendEmailUtil.sendVerificationCode(username, code);
             Long time = (System.currentTimeMillis() + 15 * 60 * 1000); // 15 minutes
             session.setAttribute("time", time);
-            
             request.setAttribute("email", username);
             request.setAttribute("mess1", "Your account isn't authenticated, authenticate to sign in");
             //  response.sendRedirect("Verify.jsp");
             request.getRequestDispatcher("Verify.jsp").forward(request, response);
-
 
         } else {
             if ("Login".equals(action)) {
@@ -73,11 +79,15 @@ public class LoginControl extends HttpServlet {
                     //Yêu cầu người dùng Login lại
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 } else {
-                    session.setAttribute("email", username);
+                 
+                    WalletDAO wdao = new WalletDAO();
+                  int  balance =  wdao.getBalance(id);
+                    session.setAttribute("balance", balance);
                     session.setAttribute("user", u);
+                    System.out.println(u);
                     switch (u.getRoleID()) {
                         case 1:
-                            response.sendRedirect("AdminDashboard.jsp");
+                            response.sendRedirect("admin/account");
                             break;
                         case 2:
                             response.sendRedirect("ProviderDashboard.jsp");
@@ -98,8 +108,9 @@ public class LoginControl extends HttpServlet {
 
     public static void main(String[] args) {
         LoginDAO dao = new LoginDAO();
-        Account u = dao.login("dat@gmail.com", "123456");
-        System.out.println(u);
+        Account a = dao.getAccountByEmail("phuongnampham7823@gmail.com");
+//        Account u = dao.login("admin1@example.com", "123456");
+        System.out.println(a);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -114,7 +125,11 @@ public class LoginControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -128,7 +143,11 @@ public class LoginControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

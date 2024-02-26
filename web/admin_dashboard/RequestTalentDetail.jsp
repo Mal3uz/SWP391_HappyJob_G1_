@@ -105,7 +105,7 @@
                     <form id="rejectForm">
                         <div class="form-group">
                             <label for="rejectReason">Reason:</label>
-                            <textarea class="form-control" id="rejectReason" rows="3"></textarea>
+                            <textarea class="form-control" id="rejectReason" rows="3" required></textarea>
                         </div>
                     </form>
                 </div>
@@ -134,20 +134,25 @@
                 $('.close').click(function () {
                     $('#rejectModal').modal('hide');
                 });
+
+
                 // When the save button is clicked
                 $('#saveBtn').click(function () {
                     var reason = $('#rejectReason').val();
+                    if (reason.trim() === "") {
+                        alert("Must input reason to continue");
+                        return;
+                    }
                     $.ajax({
                         url: url + id,
                         type: 'POST',
                         data: {
                             'reason': reason
-                        },contentType: 'application/x-www-form-urlencoded', 
+                        }, contentType: 'application/x-www-form-urlencoded',
                         success: function () {
                             // Close the modal
                             $('#rejectModal').modal('hide');
-                            window.location.href =  url + id;
-
+                            window.location.href = url + id;
                         }
                     });
                 });
