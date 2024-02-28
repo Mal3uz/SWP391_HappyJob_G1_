@@ -29,11 +29,13 @@
     </head>
 
     <body>
-
+       
         <!-- Main Wrapper Start -->
         <!--Offcanvas menu area start-->
-        <div class="off_canvars_overlay"></div>
-        <jsp:include page="components/Header.jsp"/>
+
+        <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+          <jsp:include page="components/Header.jsp"/>
+        </section>
         <!--breadcrumbs area start-->
         <div class="breadcrumbs_area other_bread">
             <div class="container">
@@ -161,5 +163,6 @@
         <!-- Main JS -->
         <script src="provider/js/main.js"></script>
     </body>
+    
 
 </html>

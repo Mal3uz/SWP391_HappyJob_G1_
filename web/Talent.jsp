@@ -39,7 +39,7 @@
     <div class="container-list-talent">
 
 
-        <c:forEach items="${listTalent}" var="t" begin="0" end="9">
+        <c:forEach items="${listTalent}" var="t" >
             <div class="talent-items">
                 <a href="detailTalentServlet?tID=${t.getTalentID()}#nav-basic"><img class="talent-img" src="${t.getImg()}"></a>
 

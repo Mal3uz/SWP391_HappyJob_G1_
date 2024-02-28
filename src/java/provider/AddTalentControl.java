@@ -49,7 +49,7 @@ public class AddTalentControl extends HttpServlet {
         // img handler
         Part file = request.getPart("ProductImgURL");
         String imageFileName = file.getSubmittedFileName();
-        String uploadPath = "E:/SWP391_HappyJob_G1_-master/web/images/" + imageFileName;
+        String uploadPath = "F:/SWP391_HappyJob_G1_/web/images/" + imageFileName;
 
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("user");
@@ -66,7 +66,7 @@ public class AddTalentControl extends HttpServlet {
             fos.write(data);
             fos.close();
             ProviderDAO pdao = new ProviderDAO();
-            pdao.AddTalent(title, imageFileName, Description, createAt, id);
+            pdao.AddTalent(title,"images/"+imageFileName, Description, createAt, id);
             response.sendRedirect("Home.jsp");
         } catch (Exception e) {
         }

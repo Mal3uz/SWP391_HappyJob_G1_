@@ -40,7 +40,7 @@ public class Dashboard extends HttpServlet {
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("user");
            
-            if ( account.getRoleID()==3) {
+            if ( account.getRoleID()==2 ) {
               //  productDAO dao = new productDAO();
               //  billDAO bdao = new billDAO();
               //  int count = dao.CountProduct();

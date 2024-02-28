@@ -61,6 +61,8 @@
             <div class="col-lg-8">
                 <div class="mb-5">
                     <figure class="mb-5"><img src="${talentChoiced.getImg()}" alt="Image" class="img-fluid rounded img-talent-choiced"></figure>
+                    <p>${talentChoiced.getImg()}</p>
+                         
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Job Description</h3>
                     <p>${talentChoiced.getDescription()}</p>
                 </div>
@@ -142,7 +144,7 @@
                                             </strong>
                                         </li>
                                     </ul>
-                                    <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
+                                    <a href="checkout?id=${p.getPackageID()}" class="btn w-100 bg-dark text-white border-0 rounded-10">Continue</a>
                                 </div>
                             </div>
                         </c:if>
@@ -168,7 +170,8 @@
                                             </strong>
                                         </li>
                                     </ul>
-                                    <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
+                                    <a href="checkout?id=${p.getPackageID()}" class="btn w-100 bg-dark text-white border-0 rounded-10">Continue</a>
+
                                 </div>
                             </div>
                         </c:if>
@@ -194,7 +197,9 @@
                                             </strong>
                                         </li>
                                     </ul>
-                                    <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
+                                    <a href="checkout?id=${p.getPackageID()}" class="btn w-100 bg-dark text-white border-0 rounded-10">Continue</a>
+
+
                                 </div>
                             </div>
                         </c:if>

@@ -69,8 +69,7 @@
                                     <a href="#">Talent </a>
                                     <ul class="dropdown">
                                         <li><a href="listTalentServlet">Talent Listings</a></li>
-                                        <li><a href="dashboard">Dashboard</a></li>
-                                        <li><a href="job-single.html">Dashboard</a></li>
+                                        <li><a href="dashboard">Dashboard</a></li>                                    
                                         <li><a href="PostTalent.jsp">Post a Talent</a></li>
                                     </ul>
                                 </li>
