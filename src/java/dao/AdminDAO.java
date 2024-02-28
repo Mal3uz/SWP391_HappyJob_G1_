@@ -1,8 +1,11 @@
+
+
 package dao;
 
 import entity.Account;
 import entity.Messagess;
 import entity.Notifications;
+import entity.ServicePackage;
 import entity.Talent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +30,6 @@ public class AdminDAO {
 
             while (rs.next()) {
                 listA.add(new Account(
-
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -409,6 +411,88 @@ public class AdminDAO {
         return list;
     }
 
+    //sp1
+    public List<ServicePackage> ServicePackagesByTalentId(String talentId) {
+        List<ServicePackage> list = new ArrayList<>();
+        String query = "select * from ServicePackage s\n"
+                + "join Talent t on s.TalentID = t.TalentID\n"
+                + "where t.TalentID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, talentId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new ServicePackage(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public ServicePackage BasicPackageById(String talentId) {
+        String query = "select * from ServicePackage s\n"
+                + "join Talent t on s.TalentID = t.TalentID\n"
+                + "where t.TalentID = ? and Type = 'Basic'";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, talentId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new ServicePackage(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    //s1
+    public List<Account> searchByMail(String email) {
+        List<Account> list = new ArrayList<>();
+
+        String query = "select * from Account\n"
+                + "where Email like ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + email + "%"); // Truyền tham số vào câu truy vấn
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
     //n1
     public List<Notifications> getListNotificationsesByAccount(String accountID) {
         List<Notifications> listN = new ArrayList<>();
@@ -597,6 +681,15 @@ public class AdminDAO {
 
     }
 
-    
+
+    public static void main(String[] args) {
+        AdminDAO dao = new AdminDAO();
+
+        List<ServicePackage> a = dao.ServicePackagesByTalentId("1");
+        for (ServicePackage servicePackage : a) {
+            System.out.println(servicePackage);
+        }
+
+
     }
 
