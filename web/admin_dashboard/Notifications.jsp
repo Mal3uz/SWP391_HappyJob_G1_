@@ -50,7 +50,9 @@
                                             <p class="mb-1">
 
                                                 <span class="fw-semibold">${fn:substring(n.createdAt, 0, 10)}</span>
+
                                                    <span class="${n.status == 0 ? ' bg-primary badge rounded-pill':'' }"> </span>
+
                                             </p>
                                             <p class="mb-1">
 
@@ -96,4 +98,6 @@
 <!-- App body ends -->
 
 
+
 <%@include file="Footer.jsp" %>
+

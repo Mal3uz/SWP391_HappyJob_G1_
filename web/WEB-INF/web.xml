@@ -98,6 +98,20 @@
     <servlet>
         <servlet-name>AdminNotificationReadAll</servlet-name>
         <servlet-class>admin.AdminNotificationReadAll</servlet-class>
+        <servlet-name>AddTalentControl</servlet-name>
+        <servlet-class>provider.AddTalentControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Dashboard</servlet-name>
+        <servlet-class>provider.Dashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>seeker.Checkout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QrcodeControl</servlet-name>
+        <servlet-class>QrcodeControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
@@ -168,6 +182,22 @@
         <url-pattern>/admin/messageDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
+        <servlet-name>AddTalentControl</servlet-name>
+        <url-pattern>/AddTalentControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Dashboard</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QrcodeControl</servlet-name>
+        <url-pattern>/qrcode</url-pattern>
+
         <servlet-name>CreateMessageControl</servlet-name>
         <url-pattern>/admin/createMessage</url-pattern>
     </servlet-mapping>
@@ -186,6 +216,7 @@
     <servlet-mapping>
         <servlet-name>AdminNotificationReadAll</servlet-name>
         <url-pattern>/admin/readAll</url-pattern>
+
     </servlet-mapping>
     <session-config>
         <session-timeout>

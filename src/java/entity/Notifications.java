@@ -78,11 +78,10 @@ public class Notifications {
 
     @Override
     public String toString() {
+
         return "Notifications{" + "notificationID=" + notificationID + ", accountID=" + accountID + ", talentID=" + talentID + ", message=" + message + ", status=" + status + ", createdAt=" + createdAt + '}';
+
     }
 
-   
 
-    
-    
 }

@@ -6,12 +6,10 @@ package entity;
 
 /**
  *
- * @author ns
+ * @author ASUS
  */
 public class Category {
-
     private int id;
-
     private String name;
 
     public Category() {
@@ -38,4 +36,10 @@ public class Category {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "Category{" + "id=" + id + ", name=" + name + '}';
+    }
+    
+    
 }

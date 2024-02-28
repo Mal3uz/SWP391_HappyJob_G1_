@@ -597,19 +597,6 @@ public class AdminDAO {
 
     }
 
-    public static void main(String[] args) {
-        AdminDAO dao = new AdminDAO();
-
-        List<Messagess> a = dao.getMessBySendReceiver(1, 2);
-        List<Messagess> b = dao.getMessBySendReceiver(2, 1);
-        for (Messagess notifications : a) {
-            System.out.println("1");
-            System.out.println(notifications);
-        }
-
-        for (Messagess notifications : b) {
-            System.out.println("2");
-            System.out.println(notifications);
-        }
+    
     }
-}
+

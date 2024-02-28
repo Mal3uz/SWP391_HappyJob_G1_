@@ -37,9 +37,12 @@
         </div>
     </div>
     <div class="container-list-talent">
+
+
         <c:forEach items="${listTalent}" var="t" begin="0" end="9">
             <div class="talent-items">
                 <a href="detailTalentServlet?tID=${t.getTalentID()}#nav-basic"><img class="talent-img" src="${t.getImg()}"></a>
+
                 <div class="talent-person">
                     <img class="talent-person-avt" src="images/person_1.jpg">
                     <div class="talent-person-name"> ${showAccount.getAccountById(t.getAccountID()).getName()}</div>

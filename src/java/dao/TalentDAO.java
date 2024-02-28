@@ -39,7 +39,6 @@ public class TalentDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getInt(9)));
-
             }
             return tList;
         } catch (Exception e) {
@@ -67,7 +66,6 @@ public class TalentDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getInt(9));
-
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -95,7 +93,6 @@ public class TalentDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getInt(9)));
-
             }
             return tList;
         } catch (Exception e) {
@@ -106,7 +103,7 @@ public class TalentDAO {
 
     public static void main(String[] args) {
         TalentDAO td = new TalentDAO();
-        ArrayList<Talent> tList = td.searchTalent("cáo");
+        ArrayList<Talent> tList = td.listAllTalent();
         System.out.println(tList);
     }
 }
