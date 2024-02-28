@@ -69,6 +69,7 @@
                                     <a href="#">Talent </a>
                                     <ul class="dropdown">
                                         <li><a href="listTalentServlet">Talent Listings</a></li>
+                                        <li><a href="dashboard">Dashboard</a></li>
                                         <li><a href="job-single.html">Dashboard</a></li>
                                         <li><a href="PostTalent.jsp">Post a Talent</a></li>
                                     </ul>
@@ -176,7 +177,11 @@
                                             <span class="mr-2 icon-person"></span>${sessionScope.user.getName()}<span class="icon-chevron-down"></span>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="Profile.jsp" id="profileLink">Profile Details</a>
+
+                                            <a class="dropdown-item" href="Profile.jsp">Profile Details</a>
+                                            <a class="dropdown-item" href="Wallet.jsp"> Balance: ${sessionScope.balance}</a>
+
+                                       
 
                                             <script>
                                                 document.getElementById("profileLink").addEventListener("click", function (event) {
@@ -185,6 +190,7 @@
                                                     window.location.href = "profileEdit";
                                                 });
                                             </script>
+
                                             <a class="dropdown-item" href="LogoutControl" >Logout</a>
                                         </div>
                                     </div>

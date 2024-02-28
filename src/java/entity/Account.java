@@ -107,10 +107,12 @@ public class Account {
     }
 
 
+
   
 
     public String getVerificationCode() {
         return verificationCode;
+
     }
 
     public void setVerificationCode(String verificationCode) {
@@ -123,5 +125,7 @@ public class Account {
     }
 
   
-
 }
+
+
+

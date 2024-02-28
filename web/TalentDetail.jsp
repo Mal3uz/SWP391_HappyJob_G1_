@@ -60,7 +60,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="mb-5">
-                    <figure class="mb-5"><img src="images/job_single_img_1.jpg" alt="Image" class="img-fluid rounded"></figure>
+                    <figure class="mb-5"><img src="${talentChoiced.getImg()}" alt="Image" class="img-fluid rounded img-talent-choiced"></figure>
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Job Description</h3>
                     <p>${talentChoiced.getDescription()}</p>
                 </div>
@@ -119,30 +119,85 @@
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <c:forEach items="${listPackage}" var="p">
-                        <div class="tab-pane fade show active" id="nav-${p.getType()}" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                            <div class="bg-light p-3 border rounded mb-4">
-                                <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
-                                    <h3 class="text-primary  ">${p.getTitle()}</h3>
-                                    <h4>US$${p.getPrice()}</h4>
+
+                        <c:if test="${p.getType()=='basic'}">
+                            <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                <div class="bg-light p-3 border rounded mb-4">
+                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                        <h3 class="text-primary  ">${p.getTitle()}</h3>
+                                        <h4>US$${p.getPrice()}</h4>
+                                    </div>
+                                    <ul class="list-unstyled pl-3 mb-0">
+                                        <li class="mb-2">${p.getDescription()}</li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-clock-o"></div>
+                                                <div>${p.getDeadline()} Days Delivery</div>
+                                            </strong>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-repeat"></div>
+                                                <div>${p.getRevisions()} Revisions</div>
+                                            </strong>
+                                        </li>
+                                    </ul>
+                                    <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
                                 </div>
-                                <ul class="list-unstyled pl-3 mb-0">
-                                    <li class="mb-2">${p.getDescription()}</li>
-                                    <li class="mb-2">
-                                        <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                            <div class="icon-clock-o"></div>
-                                            <div>${p.getDeadline()} Days Delivery</div>
-                                        </strong>
-                                    </li>
-                                    <li class="mb-2">
-                                        <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                            <div class="icon-repeat"></div>
-                                            <div>${p.getRevisions()} Revisions</div>
-                                        </strong>
-                                    </li>
-                                </ul>
-                                <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
                             </div>
-                        </div>
+                        </c:if>
+                        <c:if test="${p.getType()=='standard'}">
+                            <div class="tab-pane fade show" id="nav-standard" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                <div class="bg-light p-3 border rounded mb-4">
+                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                        <h3 class="text-primary  ">${p.getTitle()}</h3>
+                                        <h4>US$${p.getPrice()}</h4>
+                                    </div>
+                                    <ul class="list-unstyled pl-3 mb-0">
+                                        <li class="mb-2">${p.getDescription()}</li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-clock-o"></div>
+                                                <div>${p.getDeadline()} Days Delivery</div>
+                                            </strong>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-repeat"></div>
+                                                <div>${p.getRevisions()} Revisions</div>
+                                            </strong>
+                                        </li>
+                                    </ul>
+                                    <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${p.getType()=='premium'}">
+                            <div class="tab-pane fade show" id="nav-premium" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                <div class="bg-light p-3 border rounded mb-4">
+                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                        <h3 class="text-primary  ">${p.getTitle()}</h3>
+                                        <h4>US$${p.getPrice()}</h4>
+                                    </div>
+                                    <ul class="list-unstyled pl-3 mb-0">
+                                        <li class="mb-2">${p.getDescription()}</li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-clock-o"></div>
+                                                <div>${p.getDeadline()} Days Delivery</div>
+                                            </strong>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                <div class="icon-repeat"></div>
+                                                <div>${p.getRevisions()} Revisions</div>
+                                            </strong>
+                                        </li>
+                                    </ul>
+                                    <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
+                                </div>
+                            </div>
+                        </c:if>
                     </c:forEach>
                 </div>
                 <div class="bg-light p-3 border rounded">
@@ -159,6 +214,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
 </section>
 
 <section class="site-section" id="next">
@@ -334,10 +390,11 @@
         </div>
 
     </div>
+
 </section>
 
 
-<section class="bg-light pt-5 testimony-full">
+<!--<section class="bg-light pt-5 testimony-full">
 
     <div class="owl-carousel single-carousel">
         <div class="container">
@@ -370,7 +427,7 @@
 
     </div>
 
-</section>
+</section>-->
 
 <section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
     <div class="container">

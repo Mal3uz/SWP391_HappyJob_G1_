@@ -681,6 +681,7 @@ public class AdminDAO {
 
     }
 
+
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
 
@@ -689,5 +690,6 @@ public class AdminDAO {
             System.out.println(servicePackage);
         }
 
+
     }
-}
+
