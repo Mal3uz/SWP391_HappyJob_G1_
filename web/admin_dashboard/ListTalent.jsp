@@ -50,7 +50,8 @@
                                     ${t.description}
                                 </p>
                                 <p class="text-success">
-                                    From 100$
+                                    <c:set value="${dao.BasicPackageById(t.talentID)}" var="basic"></c:set>
+                                    From ${basic.price}$
                                 </p>
                             </div>
                         </div>

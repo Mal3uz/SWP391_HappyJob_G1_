@@ -13,7 +13,7 @@
     <!-- Container starts -->
     <div class="container">
 
-      <div class="row">
+        <div class="row">
             <div class="col-lg-8">
                 <div class="mb-5">
                     <h2 class="text-primary">${Talent.title}</h2>
@@ -82,7 +82,7 @@
                 </div>
 
             </div>
-         <div class="col-lg-4" >
+            <div class="col-lg-4" >
                 <div class="card" style="position: sticky; top: 130px;">
                     <div class="card-header">
                         <nav>
@@ -95,78 +95,86 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-basic-tab">
-                                <div class="bg-light p-3 border rounded mb-4">
-                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
-                                        <h3 class="text-primary">Gói dịch thuật</h3>
-                                        <h4>US$400</h4>
+                            <c:forEach items="${service}" var="p" varStatus="status">
+                                <c:if test="${p.type == 'Basic'}">
+                                    <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-basic-tab">
+                                        <div class="bg-light p-3 border rounded mb-4">
+                                            <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                                <h3 class="text-primary">${p.title}</h3>
+                                                <h4>US${p.price}$</h4>
+                                            </div>
+                                            <ul class="list-unstyled pl-3 mb-0">
+                                                <li class="mb-2">${p.description}</li>
+                                                <li class="mb-2">
+                                                    <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                        <div class="icon-clock" style="color: white"></div>
+                                                        <div class="text-white">${p.deadline} Days Delivery</div>
+                                                    </strong>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                        <div class="icon-repeat"  style="color: white"></div>
+                                                        <div class="text-white">${p.revisions} Revisions</div>
+                                                    </strong>
+                                                </li>
+                                            </ul>
+                                            <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
+                                        </div>
+                                    </div>  
+                                </c:if>
+                                <c:if test="${p.type == 'Standard'}">
+                                    <div class="tab-pane fade" id="nav-standard" role="tabpanel" aria-labelledby="nav-standard-tab">
+                                        <div class="bg-light p-3 border rounded mb-4">
+                                            <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                                <h3 class="text-primary">${p.title}</h3>
+                                                <h4>US${p.price}$</h4>
+                                            </div>
+                                            <ul class="list-unstyled pl-3 mb-0">
+                                                <li class="mb-2">${p.description}</li>
+                                                <li class="mb-2">
+                                                    <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                        <div class="icon-clock" style="color: white"></div>
+                                                        <div class="text-white">${p.deadline} Days Delivery</div>
+                                                    </strong>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                        <div class="icon-repeat"  style="color: white"></div>
+                                                        <div class="text-white">${p.revisions} Revisions</div>
+                                                    </strong>
+                                                </li>
+                                            </ul>
+                                            <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
+                                        </div>
                                     </div>
-                                    <ul class="list-unstyled pl-3 mb-0">
-                                        <li class="mb-2">Dịch thuật tiếng Anh chính xác</li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-clock" style="color: white"></div>
-                                                <div class="text-white">4 Days Delivery</div>
-                                            </strong>
-                                        </li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-repeat"  style="color: white"></div>
-                                                <div class="text-white">2 Revisions</div>
-                                            </strong>
-                                        </li>
-                                    </ul>
-                                    <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
-                                </div>
-                            </div>  
-                            <div class="tab-pane fade" id="nav-standard" role="tabpanel" aria-labelledby="nav-standard-tab">
-                                <div class="bg-light p-3 border rounded mb-4">
-                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
-                                        <h3 class="text-primary">RAD</h3>
-                                        <h4>US$200</h4>
+                                </c:if>
+                                <c:if test="${p.type == 'Premium'}">
+                                    <div class="tab-pane fade" id="nav-premium" role="tabpanel" aria-labelledby="nav-premium-tab">
+                                         <div class="bg-light p-3 border rounded mb-4">
+                                            <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                                <h3 class="text-primary">${p.title}</h3>
+                                                <h4>US${p.price}$</h4>
+                                            </div>
+                                            <ul class="list-unstyled pl-3 mb-0">
+                                                <li class="mb-2">${p.description}</li>
+                                                <li class="mb-2">
+                                                    <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                        <div class="icon-clock" style="color: white"></div>
+                                                        <div class="text-white">${p.deadline} Days Delivery</div>
+                                                    </strong>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                        <div class="icon-repeat"  style="color: white"></div>
+                                                        <div class="text-white">${p.revisions} Revisions</div>
+                                                    </strong>
+                                                </li>
+                                            </ul>
+                                            <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
+                                        </div>
                                     </div>
-                                    <ul class="list-unstyled pl-3 mb-0">
-                                        <li class="mb-2">Upgraded to some minor editing. Not for overly specific images.</li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-clock" style="color: white"></div>
-                                                <div class="text-white">3 Days Delivery</div>
-                                            </strong>
-                                        </li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-repeat" style="color: white"></div>
-                                                <div class="text-white">3 Revisions</div>
-                                            </strong>
-                                        </li>
-                                    </ul>
-                                    <button class="w-100  p-3 bg-dark text-white border-0 rounded-10">Continue</button>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="nav-premium" role="tabpanel" aria-labelledby="nav-premium-tab">
-                                <div class="bg-light p-3 border rounded mb-4">
-                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
-                                        <h3 class="text-primary">Premium Package</h3>
-                                        <h4>US$600</h4>
-                                    </div>
-                                    <ul class="list-unstyled pl-3 mb-0">
-                                        <li class="mb-2">Highly accurate English translation</li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-clock" style="color: white"></div>
-                                                <div class="text-white">2 Days Delivery</div>
-                                            </strong>
-                                        </li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-repeat"  style="color: white"></div>
-                                                <div class="text-white">Unlimited Revisions</div>
-                                            </strong>
-                                        </li>
-                                    </ul>
-                                    <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
-                                </div>
-                            </div>
+                                </c:if>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

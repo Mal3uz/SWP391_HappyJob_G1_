@@ -127,7 +127,8 @@
                                         <a class="dropdown-toggle d-flex p-3 position-relative" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="icon-twitch fs-4 lh-1"></i>
-                                            <span class="count rounded-circle bg-danger">5</span>
+                                            <c:set value="${dao.getNumberNewNotificationsesAdmin()}" var="number"></c:set>
+                                            <span class="count rounded-circle bg-danger">${number}</span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-md shadow-sm">
                                             <h5 class="fw-semibold px-3 py-2 m-0">Notifications
