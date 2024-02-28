@@ -89,7 +89,7 @@ public class ProviderDAO {
             ps.setString(1, postid);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return (new Talent(rs.getInt(1),
+                return (new  Talent(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -97,7 +97,9 @@ public class ProviderDAO {
                         rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8),
+
                         rs.getInt(9)));
+
 
             }
         } catch (SQLException e) {

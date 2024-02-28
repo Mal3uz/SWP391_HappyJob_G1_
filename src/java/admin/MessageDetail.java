@@ -24,8 +24,7 @@ import com.google.gson.JsonObject;
  * @author DELL
  */
 public class MessageDetail extends HttpServlet {
-
-    /**
+  /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -44,16 +43,15 @@ public class MessageDetail extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         AdminDAO dao = new AdminDAO();
-        System.out.println(receiveId);
         Account receiver = dao.getAccountById(receiveId);
         List<Messagess> listMessSend = dao.getMessBySendReceiver(account.getAccountID(), receiveId);
-        List<Messagess> listMessReceive = dao.getMessBySendReceiver(account.getAccountID(), receiveId);
+        List<Messagess> listMessReceive = dao.getMessBySendReceiver(receiveId,account.getAccountID());
 
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
 
         // Chuyển đổi Account thành JsonObject
-        JsonObject receiverJson = gson.toJsonTree(receiver).getAsJsonObject();
+        JsonObject receiverJson = convertAccountToJson(receiver);
 
         // Thêm receiverJson vào jsonObject
         jsonObject.add("receiver", receiverJson);
@@ -90,6 +88,16 @@ public class MessageDetail extends HttpServlet {
         // Thêm các trường khác của đối tượng Messagess vào đây
         return jsonObject;
     }
+    
+    private JsonObject convertAccountToJson(Account account) {
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("accountID", account.getAccountID());
+    jsonObject.addProperty("name", account.getName());
+    jsonObject.addProperty("img", account.getImg());
+
+    return jsonObject;
+}
+
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -129,5 +137,4 @@ public class MessageDetail extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

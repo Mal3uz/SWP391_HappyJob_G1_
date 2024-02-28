@@ -80,9 +80,13 @@ public class LoginControl extends HttpServlet {
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 } else {
                  
+
                     WalletDAO wdao = new WalletDAO();
                   int  balance =  wdao.getBalance(id);
                     session.setAttribute("balance", balance);
+
+                    
+
                     session.setAttribute("user", u);
                     System.out.println(u);
                     switch (u.getRoleID()) {
@@ -105,6 +109,7 @@ public class LoginControl extends HttpServlet {
             }
         }
     }
+    
 
     public static void main(String[] args) {
         LoginDAO dao = new LoginDAO();

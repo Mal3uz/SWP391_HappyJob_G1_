@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import entity.Account;
@@ -14,10 +10,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author DELL
- */
 public class AdminDAO {
 
     Connection conn = null;
@@ -27,14 +19,15 @@ public class AdminDAO {
     //a1
     public List<Account> getListAllAccount() {
         List<Account> listA = new ArrayList<>();
-        String query = "select * from Account";
+        String query = "SELECT * FROM Account";
         try {
-            conn = new DBContext().getConnection();//mo ket noi vs sql
+            conn = new DBContext().getConnection(); // Open connection to SQL
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 listA.add(new Account(
+
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -48,22 +41,25 @@ public class AdminDAO {
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources (rs, ps, conn) in a finally block
+            // Handle exceptions properly
         }
-
         return listA;
-
     }
 
     public void lockAccount(String accountID) {
-        String query = "UPDATE Account\n"
-                + "SET Status = 'Lock'\n"
-                + "WHERE AccountID = ?;";
+        String query = "UPDATE Account SET Status = 'Lock' WHERE AccountID = ?";
         try {
-            conn = new DBContext().getConnection();//mo ket noi vs sql
+            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, accountID);
             ps.executeUpdate();
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
         }
     }
 
@@ -72,11 +68,14 @@ public class AdminDAO {
                 + "SET Status = 'Active'\n"
                 + "WHERE AccountID = ?;";
         try {
-            conn = new DBContext().getConnection();//mo ket noi vs sql
+            conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, accountID);
             ps.executeUpdate();
         } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
         }
     }
 
@@ -411,7 +410,7 @@ public class AdminDAO {
     }
 
     //n1
-    public List<Notifications> getListNotificationses(String accountID) {
+    public List<Notifications> getListNotificationsesByAccount(String accountID) {
         List<Notifications> listN = new ArrayList<>();
         String query = "select * from Notifications\n"
                 + "where AccountID = ?\n"
@@ -427,7 +426,35 @@ public class AdminDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getString(4),
-                        rs.getString(5)));
+                        rs.getInt(5),
+                        rs.getString(6)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listN;
+
+    }
+
+    public List<Notifications> getListNotificationsesAdmin(String accountID) {
+        List<Notifications> listN = new ArrayList<>();
+        String query = "select * from Notifications\n"
+                + "where AccountID = ? or Message like '% created Talent%'\n"
+                + "order by CreatedAt desc";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, accountID);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listN.add(new Notifications(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6)));
 
             }
         } catch (Exception e) {
@@ -453,13 +480,48 @@ public class AdminDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getString(4),
-                        rs.getString(5)));
+                        rs.getInt(5),
+                        rs.getString(6)));
 
             }
         } catch (Exception e) {
         }
 
         return listN;
+
+    }
+
+    public int getNumberNewNotificationsesAdmin() {
+        String query = "SELECT COUNT(*)\n"
+                + "FROM Notifications\n"
+                + "where ( Message like '% created Talent%') and Status = 0";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+
+        return 0;
+
+    }
+
+    public void readAll(String accountID) {
+        String query = "UPDATE Notifications\n"
+                + "SET Status = 1\n"
+                + "where AccountID = ? or Message like '% created Talent%'";
+
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, accountID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
 
     }
 
@@ -491,13 +553,50 @@ public class AdminDAO {
 
     }
 
-    public static void main(String[] args) {
-        AdminDAO dao = new AdminDAO();
+    public void InsertMessage(int sendId, int receiverId, String date, String content) {
 
-        List<Messagess> a = dao.getMessBySendReceiver(1, 2);
+        String query = "INSERT INTO Messagess (SenderID, ReceiverID, Timestamp,Content)\n"
+                + "VALUES (?,?,?,?);";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            // Set parameters
+            ps.setInt(1, sendId);
+            ps.setInt(2, receiverId);
+            ps.setString(3, date);
+            ps.setString(4, content);
+            ps.executeUpdate();
 
-        for (Messagess notifications : a) {
-            System.out.println(notifications);
+        } catch (Exception e) {
         }
     }
-}
+
+    public Messagess getLastMessageThroughTwoFriendId(int SenderId, int ReceiverId) {
+        String query = "select top 1 * from Messagess where (SenderID = ? and ReceiverID= ?)\n"
+                + "order by Timestamp desc";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, SenderId);
+            ps.setInt(2, ReceiverId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Messagess(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+
+    }
+
+    
+    }
+

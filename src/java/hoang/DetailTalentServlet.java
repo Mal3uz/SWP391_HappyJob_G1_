@@ -15,7 +15,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -66,11 +65,8 @@ public class DetailTalentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
- HttpSession session = request.getSession();
         String talentIDParam = (String) request.getParameter("tID");
         int talentID = Integer.parseInt(talentIDParam);
-       
-        session.setAttribute("talentId", talentID);
 //        System.out.println(talentIDParam);
         TalentDAO td = new TalentDAO();
         Talent t = td.getTalentById(talentID);
@@ -83,7 +79,7 @@ public class DetailTalentServlet extends HttpServlet {
         
         ServicePackageDAO sd = new ServicePackageDAO();
         ArrayList<ServicePackage> lPackage = sd.listPackage(talentID);
-      session.setAttribute("listPackage", lPackage);
+        request.getSession().setAttribute("listPackage", lPackage);
 
         request.getRequestDispatcher("TalentDetail.jsp").forward(request, response);
     }
