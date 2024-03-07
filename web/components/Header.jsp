@@ -79,8 +79,8 @@
 
                                     <ul class="dropdown">
                                         <li><a href="About.jsp">About</a></li>
-                                        <li><a href="Blog.jsp">Blog Listings</a></li>
-                                        <li><a href="PostBlog.jsp">Post a Blog</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/view-all-blogs">Blog Listings</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/create-blog">Post a Blog</a></li>
                                     </ul>
                                 </li>
                                 <li class="has-children">
@@ -189,7 +189,7 @@
                                                     window.location.href = "profileEdit";
                                                 });
                                             </script>
-
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/your-blogs" >Your Blog</a>
                                             <a class="dropdown-item" href="LogoutControl" >Logout</a>
                                         </div>
                                     </div>

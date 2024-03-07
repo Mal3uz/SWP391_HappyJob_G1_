@@ -8,6 +8,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="components/Header.jsp" %>
+<%@ page import="entity.Feedback" %>
+<%@ page import="entity.Rating" %>
+
 <!-- HOME -->
 <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
     <div class="container">
@@ -399,58 +402,29 @@
 </section>
 
 
-<!--<section class="bg-light pt-5 testimony-full">
 
-    <div class="owl-carousel single-carousel">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 align-self-center text-center text-lg-left">
-                    <blockquote>
-                        <p>&ldquo;Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae.&rdquo;</p>
-                        <p><cite> &mdash; Corey Woods, @Dribbble</cite></p>
-                    </blockquote>
-                </div>
-                <div class="col-lg-6 align-self-end text-center text-lg-right">
-                    <img src="images/person_transparent_2.png" alt="Image" class="img-fluid mb-0">
-                </div>
-            </div>
+<section class="site-section">
+    <h2>Feedback & Rating</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Feedback</h5>
+            <ul>
+                <c:forEach var="feedback" items="${feedbackList}">
+                    <li>${feedback.content} - ${feedback.accountName}</li>
+                </c:forEach>
+            </ul>
         </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 align-self-center text-center text-lg-left">
-                    <blockquote>
-                        <p>&ldquo;Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae.&rdquo;</p>
-                        <p><cite> &mdash; Chris Peters, @Google</cite></p>
-                    </blockquote>
-                </div>
-                <div class="col-lg-6 align-self-end text-center text-lg-right">
-                    <img src="images/person_transparent.png" alt="Image" class="img-fluid mb-0">
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</section>-->
-
-<section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 align-self-center text-center text-md-left mb-5 mb-md-0">
-                <h2 class="text-white">Get The Mobile Apps</h2>
-                <p class="mb-5 lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora adipisci impedit.</p>
-                <p class="mb-0">
-                    <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-apple mr-3"></span>App Store</a>
-                    <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-android mr-3"></span>Play Store</a>
-                </p>
-            </div>
-            <div class="col-md-6 ml-auto align-self-end">
-                <img src="images/apps.png" alt="Image" class="img-fluid">
-            </div>
+        <div class="card-body">
+            <h5 class="card-title">Rating</h5>
+            <ul>
+                <c:forEach var="rating" items="${ratingList}">
+                    <li>${rating.score} stars - ${rating.accountName}</li>
+                </c:forEach>
+            </ul>
         </div>
     </div>
 </section>
+
 
 <%@include file="components/Footer.jsp" %>
 

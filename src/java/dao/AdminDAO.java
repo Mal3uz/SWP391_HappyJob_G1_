@@ -16,6 +16,9 @@ import java.util.List;
 public class AdminDAO {
 
     Connection conn = null;
+    
+    
+    
     PreparedStatement ps = null;
     ResultSet rs = null;
 

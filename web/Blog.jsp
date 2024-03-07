@@ -1,4 +1,5 @@
-<%-- 
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="entity.Blog" %><%--
     Document   : Blog
     Created on : Jan 16, 2024, 12:21:37 AM
     Author     : DELL
@@ -9,7 +10,7 @@
 
 
 <%@include file="components/Header.jsp" %>
-
+<% ArrayList<Blog> blogs = (ArrayList<Blog>)request.getAttribute("blogs"); %>
 <!-- HOME -->
 <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
     <div class="container">
@@ -24,57 +25,25 @@
         </div>
     </div>
 </section>
-
+<%--<style>--%>
+<%--    .site-section img{--%>
+<%--        width: 100%;--%>
+<%--        height: 100%;--%>
+<%--        object-fit: cover;--%>
+<%--    }--%>
+<%--</style>--%>
 <section class="site-section">
     <div class="container">
         <div class="row mb-5">
-            <div class="col-md-6 col-lg-4 mb-5">
-                <a href="blog-single.html"><img src="images/sq_img_1.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-                <h3><a href="BlogDetail.jsp" class="text-black">7 Factors for Choosing Between Two Jobs</a></h3>
-                <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-5">
-                <a href="blog-single.html"><img src="images/sq_img_2.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-                <h3><a href="blog-single.html" class="text-black">How to Write a Creative Cover Letter</a></h3>
-                <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-5">
-                <a href="blog-single.html"><img src="images/sq_img_4.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-                <h3><a href="blog-single.html" class="text-black">The Right Way to Quit a Job You Started</a></h3>
-                <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-5">
-                <a href="blog-single.html"><img src="images/sq_img_7.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-                <h3><a href="blog-single.html" class="text-black">7 Factors for Choosing Between Two Jobs</a></h3>
-                <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-5">
-                <a href="blog-single.html"><img src="images/sq_img_5.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-                <h3><a href="blog-single.html" class="text-black">How to Write a Creative Cover Letter</a></h3>
-                <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-5">
-                <a href="blog-single.html"><img src="images/sq_img_6.jpg" alt="Image" class="img-fluid rounded mb-4"></a>
-                <h3><a href="blog-single.html" class="text-black">The Right Way to Quit a Job You Started</a></h3>
-                <div>April 15, 2019 <span class="mx-2">|</span> <a href="#">2 Comments</a></div>
-            </div>
-        </div>
-        <div class="row pagination-wrap mt-5">
 
-            <div class="col-md-12 text-center ">
-                <div class="custom-pagination ml-auto">
-                    <a href="#" class="prev">Prev</a>
-                    <div class="d-inline-block">
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                    </div>
-                    <a href="#" class="next">Next</a>
+            <% for (int i = 0; i < blogs.size(); i++) { %>
+                <div class="col-md-6 col-lg-4 mb-5">
+                    <a href="<%=request.getContextPath()%>/view-blog?id=<%=blogs.get(i).BlogID%>"><img src="<%=request.getContextPath()%>/<%=blogs.get(i).thumbnail%>" alt="Image" class="img-fluid rounded mb-4"></a>
+                    <h3><a href="<%=request.getContextPath()%>/view-blog?id=<%=blogs.get(i).BlogID%>" class="text-black"><%=blogs.get(i).title%></a></h3>
+                    <div><%=blogs.get(i).created_at%> <span class="mx-2">|</span><%=blogs.get(i).admin_name%></div>
                 </div>
-            </div>
+            <% } %>
         </div>
-
     </div>
 </section>
 
