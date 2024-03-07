@@ -15,222 +15,199 @@
         <servlet-name>LoginControl</servlet-name>
         <servlet-class>guest.servlet.LoginControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>RegisterControl</servlet-name>
         <servlet-class>guest.servlet.RegisterControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>LogoutControl</servlet-name>
         <servlet-class>guest.servlet.LogoutControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>AdminAccountControl</servlet-name>
         <servlet-class>admin.AdminAccountControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>ProfileControl</servlet-name>
         <servlet-class>guest.servlet.ProfileControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>NewServlet</servlet-name>
         <servlet-class>guest.servlet.NewServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>ProfileEdit</servlet-name>
         <servlet-class>user.servlet.ProfileEditControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>AdminListTalent</servlet-name>
         <servlet-class>admin.AdminListTalentControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>AdminTalentDetailControl</servlet-name>
         <servlet-class>admin.AdminTalentDetailControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>RequestTalentControl</servlet-name>
         <servlet-class>admin.AcceptTalentControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>RejectTalentControl</servlet-name>
         <servlet-class>admin.RejectTalentControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>Notifications</servlet-name>
         <servlet-class>admin.AdminNotificationsControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>VerifyServlet</servlet-name>
         <servlet-class>guest.servlet.VerifyServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>DeleteTalentActiveControl</servlet-name>
         <servlet-class>admin.DeleteTalentActiveControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>ListTalentActiveControl</servlet-name>
         <servlet-class>admin.ListTalentActiveControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>AdminMessage</servlet-name>
         <servlet-class>admin.AdminMessage</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>MessageDetail</servlet-name>
         <servlet-class>admin.MessageDetail</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>CreateMessageControl</servlet-name>
         <servlet-class>admin.CreateMessageControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>ChatPersonDetail</servlet-name>
         <servlet-class>guest.servlet.ChatPersonDetail</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>MessageControl</servlet-name>
         <servlet-class>guest.servlet.MessageControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>PersonCreateMessage</servlet-name>
         <servlet-class>guest.servlet.PersonCreateMessage</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>AdminNotificationReadAll</servlet-name>
         <servlet-class>admin.AdminNotificationReadAll</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>AddTalentControl</servlet-name>
         <servlet-class>provider.AddTalentControl</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>Dashboard</servlet-name>
         <servlet-class>provider.Dashboard</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>Checkout</servlet-name>
         <servlet-class>seeker.Checkout</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>QrcodeControl</servlet-name>
         <servlet-class>QrcodeControl</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>DashBoard</servlet-name>
+        <servlet-class>admin.DashBoard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InvoiceList</servlet-name>
+        <servlet-class>admin.InvoiceList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InvoiceDetail</servlet-name>
+        <servlet-class>admin.InvoiceDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminProductControl</servlet-name>
+        <servlet-class>admin.AdminProductControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetailControl</servlet-name>
+        <servlet-class>admin.OrderDetailControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>RegisterControl</servlet-name>
         <url-pattern>/RegisterControl</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>LogoutControl</servlet-name>
         <url-pattern>/LogoutControl</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>AdminAccountControl</servlet-name>
         <url-pattern>/admin/account</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>ProfileControl</servlet-name>
         <url-pattern>/ProfileControl</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>ProfileEdit</servlet-name>
         <url-pattern>/profileEdit</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>AdminListTalent</servlet-name>
         <url-pattern>/admin/listTalent</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>AdminTalentDetailControl</servlet-name>
         <url-pattern>/admin/talentDetail</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>RequestTalentControl</servlet-name>
         <url-pattern>/admin/acceptTalent</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>RejectTalentControl</servlet-name>
         <url-pattern>/admin/rejectTalent</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>Notifications</servlet-name>
         <url-pattern>/admin/notifications</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>VerifyServlet</servlet-name>
         <url-pattern>/verify</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>DeleteTalentActiveControl</servlet-name>
         <url-pattern>/admin/deleteTalent</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>ListTalentActiveControl</servlet-name>
         <url-pattern>/admin/activeTalent</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>AdminMessage</servlet-name>
         <url-pattern>/admin/message</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>MessageDetail</servlet-name>
         <url-pattern>/admin/messageDetail</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>AddTalentControl</servlet-name>
         <url-pattern>/AddTalentControl</url-pattern>
-    </servlet-mapping> 
-   <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>Dashboard</servlet-name>
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
@@ -241,8 +218,8 @@
     <servlet-mapping>
         <servlet-name>QrcodeControl</servlet-name>
         <url-pattern>/qrcode</url-pattern>
-      </servlet-mapping>
-     <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CreateMessageControl</servlet-name>
         <url-pattern>/admin/createMessage</url-pattern>
     </servlet-mapping>
@@ -261,7 +238,26 @@
     <servlet-mapping>
         <servlet-name>AdminNotificationReadAll</servlet-name>
         <url-pattern>/admin/readAll</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashBoard</servlet-name>
+        <url-pattern>/admin/dashBoard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InvoiceList</servlet-name>
+        <url-pattern>/admin/invoiceList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InvoiceDetail</servlet-name>
+        <url-pattern>/admin/invoiceDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminProductControl</servlet-name>
+        <url-pattern>/admin/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetailControl</servlet-name>
+        <url-pattern>/admin/orderDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
