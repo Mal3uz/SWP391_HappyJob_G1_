@@ -42,7 +42,9 @@ public class Checkout extends HttpServlet {
         try {
             HttpSession session = request.getSession(true);
             int packId = Integer.parseInt(request.getParameter("id"));
-            session.setAttribute("packId", packId);
+           Account a = (Account) session.getAttribute("user");
+            if (a.getRoleID()==3) {
+                session.setAttribute("packId", packId);
             ServicePackageDAO spdao = new ServicePackageDAO();
             List<ServicePackage> listS = spdao.getServicePackageByID(packId);
             request.setAttribute("listS", listS);
@@ -51,6 +53,10 @@ public class Checkout extends HttpServlet {
             int total = spdao.getPriceByPackId(packId);
             request.setAttribute("total", total);  
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
+            } else{
+                  request.setAttribute("mess1", "You are not allow!");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         } catch (NullPointerException e) {
             System.out.println(e);
         }

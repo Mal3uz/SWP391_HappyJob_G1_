@@ -36,7 +36,7 @@
 				<h1>404</h1>
 			</div>
 			<h2>Page not found</h2>
-                        <h5 class="text-danger">${mess1}</h5>
+                        <h3 class="text-danger" style="color: red">${mess1}</h3>
 			<p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
 			<a href="${pageContext.request.contextPath}/Home.jsp">home page</a>
 		</div>

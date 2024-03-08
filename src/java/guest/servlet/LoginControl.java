@@ -84,17 +84,13 @@ public class LoginControl extends HttpServlet {
                     WalletDAO wdao = new WalletDAO();
                   int  balance =  wdao.getBalance(id);
                     session.setAttribute("balance", balance);
-
-                    
-
                     session.setAttribute("user", u);
-                    System.out.println(u);
                     switch (u.getRoleID()) {
                         case 1:
                             response.sendRedirect("admin/account");
                             break;
                         case 2:
-                            response.sendRedirect("Home.jsp");
+                            response.sendRedirect("dashboard");
                             break;
                         case 3:
                             response.sendRedirect("Home.jsp");

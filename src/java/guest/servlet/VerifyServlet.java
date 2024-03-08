@@ -79,9 +79,6 @@ public class VerifyServlet extends HttpServlet {
         String action = request.getParameter("action");
        // Long time =Long.parseLong(session.getAttribute("time")) ;
         LoginDAO l = new LoginDAO();
-        System.out.println("Hello");
-        System.out.println( session.getAttribute("time"));
-       // l.checkUserExist(email);
          if ("Resend".equals(action)|| System.currentTimeMillis() > (long) session.getAttribute("time")) {
              LoginDAO dao = new LoginDAO();
               String code = dao.generateVerificationCode();
