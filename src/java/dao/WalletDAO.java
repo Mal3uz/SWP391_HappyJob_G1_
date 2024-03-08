@@ -32,11 +32,26 @@ public class WalletDAO {
         ex.printStackTrace(); // Or log the exception
         return -1; // Return a default value or throw an exception
     }
+        
+    }
+     
+      public void updateNewBalance(int  accId, int newBalance) throws SQLException, Exception {
+        String sql = "UPDATE Wallet SET Balance = ? WHERE  AccountID = ?";
+        
+        try (Connection con = new DBContext().getConnection(); PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setInt(1, newBalance);
+            statement.setInt(2, accId);
+            
+            int rowsUpdated = statement.executeUpdate();
+            
+            if (rowsUpdated != 1) {
+                throw new SQLException("Failed to update balance for WalletID: " + accId);
+            }
+        }
     }
      
          public static void main(String[] args) throws Exception {
         WalletDAO aO = new WalletDAO();
-      int a = aO.getBalance(5);
-             System.out.println(a);
+      aO.updateNewBalance(13, 10000);
     }
 }

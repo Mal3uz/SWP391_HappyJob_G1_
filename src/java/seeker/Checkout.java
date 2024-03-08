@@ -7,6 +7,7 @@ package seeker;
 import dao.ProviderDAO;
 import dao.ServicePackageDAO;
 import entity.Account;
+import entity.ServicePackage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,10 +44,12 @@ public class Checkout extends HttpServlet {
             int packId = Integer.parseInt(request.getParameter("id"));
             session.setAttribute("packId", packId);
             ServicePackageDAO spdao = new ServicePackageDAO();
+            List<ServicePackage> listS = spdao.getServicePackageByID(packId);
+            request.setAttribute("listS", listS);
             int talentId = spdao.getTalentIDByPackId(packId);
             session.setAttribute("talentId", talentId);
             int total = spdao.getPriceByPackId(packId);
-            session.setAttribute("total", total);  
+            request.setAttribute("total", total);  
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         } catch (NullPointerException e) {
             System.out.println(e);
@@ -67,12 +71,10 @@ public class Checkout extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         Object u = session.getAttribute("user");
-        if (u != null) {
-            request.getRequestDispatcher("checkout.jsp").forward(request, response);
-        } else {
+        if (u == null) {
             request.setAttribute("mess1", "Please signin to continue");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
-        }
+        } 
         try {
             processRequest(request, response);
         } catch (Exception ex) {

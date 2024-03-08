@@ -16,7 +16,7 @@
         <title>HappyJob - Checkout Page</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
 
         <!-- CSS 
         ========================= -->
@@ -29,12 +29,12 @@
     </head>
 
     <body>
-       
+
         <!-- Main Wrapper Start -->
         <!--Offcanvas menu area start-->
 
         <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
-          <jsp:include page="components/Header.jsp"/>
+            <jsp:include page="components/Header.jsp"/>
         </section>
         <!--breadcrumbs area start-->
         <div class="breadcrumbs_area other_bread">
@@ -98,7 +98,7 @@
                                         </thead>
                                         <tbody>
                                             <c:set var="o" value="${sessionScope.user}"/>
-                                            <c:forEach items="${sessionScope.listPackage}" var="p">
+                                            <c:forEach items="${listS}" var="p">
                                                 <tr>
                                                     <td><strong>${p.getTitle()}</strong></td>
                                                     <td> ${p.getType()}</td>
@@ -111,15 +111,15 @@
                                             <tfoot>
                                                 <tr>
                                                     <th>Price</th>
-                                                    <td>${sessionScope.total}</td>
+                                                    <td>${total}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>System fees</th>
-                                                    <td><strong>${sessionScope.total * 0.05}</strong></td>
+                                                    <td><strong>${total * 0.05}</strong></td>
                                                 </tr>
                                                 <tr class="order_total">
                                                     <th>Total</th>
-                                                    <td><strong>${sessionScope.total + sessionScope.total * 0.05}</strong></td>
+                                                    <td><strong>${total * 1.05}</strong></td>
                                                 </tr>
                                             </tfoot>
                                         </c:if>
@@ -127,22 +127,19 @@
                                 </div>
                                 <div class="payment_method">
                                     <div class="panel-default">
-                                        <input id="payment_defult" value="momo" name="payment_method" type="radio"
-                                               data-target="createp_account" />
-                                        <label for="payment_defult" data-toggle="collapse" data-target="#collapsedefult"
-                                               aria-controls="collapsedefult">Momo</label>
+                                        <input id="payment_momo" value="momo" name="payment_method" type="radio" data-target="createp_account" />
+                                        <label for="payment_momo" data-toggle="collapse" data-target="#collapse_momo" aria-controls="collapse_momo">Momo</label>
                                     </div>
                                     <div class="panel-default">
-                                        <input id="payment_defult" value="vnpay" name="payment_method" type="radio"
-                                               data-target="createp_account" />
-                                        <label for="payment_defult" data-toggle="collapse" data-target="#collapsedefult"
-                                               aria-controls="collapsedefult">VN Pay</label>
+                                        <input id="payment_wallet" value="wallet" name="payment_method" type="radio" data-target="createp_account" />
+                                        <label for="payment_wallet" data-toggle="collapse" data-target="#collapse_wallet" aria-controls="collapse_wallet">Use your account balance</label>
                                     </div>
-                                   
+
                                     <div class="order_button">
-                                        <a href="qrcode">Confirm and pay</a>
+                                        <a id="confirm_and_pay" href="qrcode">Confirm and pay</a>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </form>
@@ -162,7 +159,20 @@
 
         <!-- Main JS -->
         <script src="provider/js/main.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var paymentMethodRadios = document.querySelectorAll('input[name="payment_method"]');
+                var confirmAndPayLink = document.getElementById("confirm_and_pay");
+
+                paymentMethodRadios.forEach(function (radio) {
+                    radio.addEventListener("click", function () {
+                        var paymentMethod = this.value;
+                        confirmAndPayLink.href = "qrcode?payment_method=" + paymentMethod;
+                    });
+                });
+            });
+        </script>
     </body>
-    
+
 
 </html>

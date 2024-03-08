@@ -5,6 +5,7 @@
  */
 package provider;
 
+import dao.ProviderDAO;
 import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -37,21 +40,20 @@ public class Dashboard extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
-            HttpSession session = request.getSession();
+           HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("user");
-           
-            if ( account.getRoleID()==2 ) {
-              //  productDAO dao = new productDAO();
-              //  billDAO bdao = new billDAO();
-              //  int count = dao.CountProduct();
-                //int countuser = dao.CountUser();
-              //  int countbill = dao.CountBill();
-               // int countproductlow = dao.CountProductLow();
-               // List<Bill> billbyday = bdao.getBillByDay();
-                request.setAttribute("product", 12);
+            int accId = account.getAccountID();
+            if ( account.getRoleID()==3 || account.getRoleID()==2) {
+                ProviderDAO pdao = new ProviderDAO();
+               int totalTalent =  pdao.getTotalPost(accId);
+                int totalOrder = pdao.getTotalOrder(accId);
+                List<Map<String, Object>> items = new ArrayList<>();
+                items = pdao.getOrderDetailsByDay(accId);
+                request.setAttribute("product", totalTalent);
                 request.setAttribute("user", 12);
-                request.setAttribute("bill", 12);
+                request.setAttribute("bill", totalOrder);
                 request.setAttribute("low", 12);
+                 request.setAttribute("items", items);
               //  request.setAttribute("billbyday", billbyday);
                 request.getRequestDispatcher("/provider/index.jsp").forward(request, response);
             } else {

@@ -134,6 +134,23 @@
     <servlet>
         <servlet-name>OrderDetailControl</servlet-name>
         <servlet-class>admin.OrderDetailControl</servlet-class>
+      </servlet>
+<servlet>
+        <servlet-name>TalentManager</servlet-name>
+        <servlet-class>provider.TalentManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAndUpdateControl</servlet-name>
+        <servlet-class>provider.DeleteTalentControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderControl</servlet-name>
+        <servlet-class>provider.OrderControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderStatusControl</servlet-name>
+        <servlet-class>provider.OrderStatusControl</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
@@ -258,6 +275,23 @@
     <servlet-mapping>
         <servlet-name>OrderDetailControl</servlet-name>
         <url-pattern>/admin/orderDetail</url-pattern>
+</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TalentManager</servlet-name>
+        <url-pattern>/talentmanager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAndUpdateControl</servlet-name>
+        <url-pattern>/udtalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderControl</servlet-name>
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderStatusControl</servlet-name>
+        <url-pattern>/OrderStatusControl</url-pattern>
+
     </servlet-mapping>
     <session-config>
         <session-timeout>

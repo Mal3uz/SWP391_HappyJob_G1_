@@ -5,6 +5,7 @@
 package provider;
 
 import dao.ProviderDAO;
+import dao.ServicePackageDAO;
 import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,14 +50,11 @@ public class AddTalentControl extends HttpServlet {
         // img handler
         Part file = request.getPart("ProductImgURL");
         String imageFileName = file.getSubmittedFileName();
-        String uploadPath = "F:/SWP391_HappyJob_G1_/web/images/" + imageFileName;
-
+        String uploadPath = "E:/SWP391_HappyJob_G1_/web/images" + imageFileName;
+        ServicePackageDAO spdao = new ServicePackageDAO();
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("user");
         int id = acc.getAccountID();
-        System.out.println("Hello");
-        System.out.println(id);
-        System.out.println(title);
         try {
             FileOutputStream fos = new FileOutputStream(uploadPath);
             InputStream is = file.getInputStream();
@@ -66,8 +64,21 @@ public class AddTalentControl extends HttpServlet {
             fos.write(data);
             fos.close();
             ProviderDAO pdao = new ProviderDAO();
-            pdao.AddTalent(title,"images/"+imageFileName, Description, createAt, id);
-            response.sendRedirect("Home.jsp");
+           int talentID = pdao.AddTalent(title,"images/"+imageFileName, Description, createAt, id);
+            // Get values for the three service packages
+                for (int i = 1; i <= 3; i++) {
+                    String servicePackageTitle = request.getParameter("servicePackageTitle" + i);
+                    String servicePackageDescription = request.getParameter("servicePackageDescription" + i);
+                    String servicePackageType = request.getParameter("servicePackageType" + i);
+                    int servicePackagePrice = Integer.parseInt(request.getParameter("servicePackagePrice" + i));
+                    int servicePackageRev = Integer.parseInt(request.getParameter("servicePackageRev" + i));
+                    int servicePackageDL = Integer.parseInt(request.getParameter("servicePackageDL" + i));
+                    // Add more service package attributes as needed
+
+                    // Insert the service package into the database
+                   spdao.insertServicePackage(talentID, servicePackageTitle, servicePackageDescription, servicePackagePrice, servicePackageRev, servicePackageType, servicePackageDL);
+                }
+           response.sendRedirect("Home.jsp");
         } catch (Exception e) {
         }
 

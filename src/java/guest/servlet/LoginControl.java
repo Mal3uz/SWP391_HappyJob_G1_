@@ -94,7 +94,7 @@ public class LoginControl extends HttpServlet {
                             response.sendRedirect("admin/dashBoard");
                             break;
                         case 2:
-                            response.sendRedirect("ProviderDashboard.jsp");
+                            response.sendRedirect("Home.jsp");
                             break;
                         case 3:
                             response.sendRedirect("Home.jsp");

@@ -20,7 +20,8 @@ import java.util.logging.Logger;
  * @author tuna
  */
 public class ServicePackageDAO {
-
+    
+    DBContext dBContext = new DBContext();
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -122,17 +123,42 @@ public class ServicePackageDAO {
         return -1; // Return a default value or throw an exception
     }
     }
+    
+    public void insertServicePackage(int talentID, String title, String description, int price, int rvs, String type, int dl) throws Exception {
+    Connection conn = null;
+    PreparedStatement stmt = null;
 
-    public static void main(String[] args) {
-        try {
-            ServicePackageDAO sd = new ServicePackageDAO();
-            List<ServicePackage> lPackage = sd.getServicePackageByID(5);
-//        System.out.println(lPackage);
-         int a =  sd.getPriceByPackId(2);
-            System.out.println(a);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+    try {
+        con = dBContext.getConnection();
+        String query = "INSERT INTO ServicePackage (TalentID, Title, Description,  price, revisions, [Type], deadline) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        stmt = con.prepareStatement(query);
+        stmt.setInt(1, talentID);
+        stmt.setString(2, title);
+        stmt.setString(3, description);
+        stmt.setInt(4, price);
+        stmt.setInt(5, rvs);
+        stmt.setString(6, type);
+        stmt.setInt(7, dl);
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Handle any SQL exceptions
+
+}
+    }
+
+    public static void main(String[] args) throws Exception {
+//        try {
+//            ServicePackageDAO sd = new ServicePackageDAO();
+//            List<ServicePackage> lPackage = sd.getServicePackageByID(5);
+////        System.out.println(lPackage);
+//         int a =  sd.getPriceByPackId(2);
+//            System.out.println(a);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+        ServicePackageDAO sd = new ServicePackageDAO();
+        sd.insertServicePackage(15, "Gói viết bài PR", "Viết bài PR cho doanh nghiệp, sản phẩm", 900, 1, "Basic", 2);
     }
     
 

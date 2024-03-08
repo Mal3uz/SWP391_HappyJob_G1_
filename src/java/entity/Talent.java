@@ -4,6 +4,8 @@
  */
 package entity;
 
+import java.util.List;
+
 /**
  *
  * @author ASUS
@@ -18,6 +20,7 @@ public class Talent {
     private String status;
     private String reason;
     private int approvedBy;
+    private List<ServicePackage> servicePackages;
 
     public Talent() {
     }
