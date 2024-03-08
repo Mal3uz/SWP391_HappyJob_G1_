@@ -12,9 +12,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,20 +67,27 @@ public class ProviderDAO {
     }
 
     // Add new job
-    public void AddTalent(String Title, String img, String Description, String CreatedAt, int AccountID) throws Exception {
+    public int AddTalent(String Title, String img, String Description, String CreatedAt, int AccountID) throws Exception {
         String query = " INSERT INTO Talent VALUES (?,?,?,?,?,'Pending',null ,null)";
+        int productId = -1;
         try {
             conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, Title);
             ps.setString(2, img);
             ps.setString(3, Description);
             ps.setString(4, CreatedAt);
             ps.setInt(5, AccountID);
-
             ps.executeUpdate();
+
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                productId = rs.getInt(1);
+            }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return productId;
     }
 
 //get post by ID
@@ -89,7 +99,7 @@ public class ProviderDAO {
             ps.setString(1, postid);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return (new  Talent(rs.getInt(1),
+                return (new Talent(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -97,9 +107,7 @@ public class ProviderDAO {
                         rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8),
-
                         rs.getInt(9)));
-
 
             }
         } catch (SQLException e) {
@@ -109,17 +117,30 @@ public class ProviderDAO {
         return null;
     }
 
-// Delete Post
-    public void deleteTalent(int pid) {
-        String query = "delete from Talent where TalentID = ? ";
+// Delete 
+    public void deleteTalent(int talentID) throws Exception {
+        String sql = "DELETE FROM Notifications WHERE TalentID = ?";
 
         try {
             conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, pid);
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, talentID);
+            int rowsAffected = ps.executeUpdate();
+
+            // Check if any rows were affected
+            if (rowsAffected > 0) {
+                System.out.println("Talent with ID " + talentID + " deleted successfully.");
+            } else {
+                System.out.println("No talent found with ID " + talentID + ".");
+            }
+
+            String sql2 = "DELETE FROM Talent WHERE TalentID = ?";
+            ps = conn.prepareStatement(sql2);
+            ps.setInt(1, talentID);
             ps.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -186,16 +207,18 @@ public class ProviderDAO {
         return cList;
     }
 
-    public void addOrder(int accId, int talentId, String datetime, int packId) {
+    public void addOrder(int accId, int talentId, String datetime, int packId,int totalPrice, String status) {
 
         try {
-            String sql = "insert into [Orders] values(?,?,?,'Waiting')";
+            String sql = "insert into [Orders] values(?,?,?,?,?)";
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setInt(1, talentId);
             ps.setInt(2, accId);
             ps.setString(3, datetime);
-           ps.executeUpdate();
+            ps.setInt(4, totalPrice);
+            ps.setString(5, status);
+            ps.executeUpdate();
 
             String sql1 = "select top 1 orderid from [Orders] order by orderid desc";
             ps = conn.prepareStatement(sql1);
@@ -216,7 +239,7 @@ public class ProviderDAO {
         } catch (Exception e) {
         }
     }
-    
+
     public int getIdByEmai(String email) throws Exception {
         String query = "select accountID from Account where email = ?";
 
@@ -224,17 +247,193 @@ public class ProviderDAO {
             ps.setString(1, email);
             try ( ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                return rs.getInt("accountID");
-            } else {
-                // Handle case when no row is found for the given PacketID
-                return -1; // Or throw an exception, return a default value, etc.
+                    return rs.getInt("accountID");
+                } else {
+                    // Handle case when no row is found for the given PacketID
+                    return -1; // Or throw an exception, return a default value, etc.
+                }
+            }
+        } catch (SQLException ex) {
+            // Handle SQLException
+            ex.printStackTrace(); // Or log the exception
+            return -1; // Return a default value or throw an exception
+        }
+    }
+
+    // Count total Post  
+    public int getTotalPost(int accid) {
+        String query = "select count (*)from Talent Where accountid = ?";
+        int total = 0;
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, accid);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return total = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return total;
+    }
+
+    public int getTotalOrder(int accid) {
+        String query = "select count (*) from Orders o\n"
+                + "join Talent t on o.TalentID = t.TalentID\n"
+                + "\n"
+                + "Where t.AccountID = ? and o.Status = 'Waiting'";
+        int total = 0;
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, accid);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return total = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return total;
+    }
+
+    public List<Talent> getListAllTalentByID(int tID) {
+        List<Talent> tList = new ArrayList<>();
+        String sql = "SELECT * FROM talent where accountid = ?";
+        try {
+            conn = (Connection) new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, tID);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                tList.add(new Talent(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9)));
+            }
+            return tList;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public List<Map<String, Object>> getOrderDetailsByAccountId(int accountId) throws SQLException, Exception {
+        List<Map<String, Object>> orderDetailsList = new ArrayList<>();
+
+       String query = "SELECT o.OrderID, a.Name, s.Price, s.Title, s.Description, t.Title AS TalentTitle, o.Timestamp, s.Revisions, s.Deadline, o.Status \n" +
+"                            FROM Orders o \n" +
+"                            JOIN OrderDetail od ON o.OrderID = od.OrderID \n" +
+"                            JOIN ServicePackage s ON od.PacketID = s.PacketID \n" +
+"                            JOIN Talent t ON t.TalentID = o.TalentID \n" +
+"                            JOIN Account a ON a.AccountID = o.AccountID \n" +
+"                            WHERE t.AccountID = ?";
+
+        try ( Connection conn = new DBContext().getConnection();  PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, accountId);
+            try ( ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> orderDetails = new HashMap<>();
+                    orderDetails.put("id", rs.getString("OrderID")); 
+                    orderDetails.put("name", rs.getString("Name"));
+                    orderDetails.put("price", rs.getDouble("Price"));
+                    orderDetails.put("titles", rs.getString("Title"));
+                    orderDetails.put("description", rs.getString("Description"));
+                    orderDetails.put("titlet", rs.getString("TalentTitle"));
+                    orderDetails.put("timestamp", rs.getTimestamp("Timestamp"));
+                    orderDetails.put("revisions", rs.getInt("Revisions"));
+                    orderDetails.put("deadline", rs.getInt("Deadline"));
+                    orderDetails.put("status", rs.getString("Status"));
+                    orderDetailsList.add(orderDetails);
+                }
             }
         }
-    } catch (SQLException ex) {
-        // Handle SQLException
-        ex.printStackTrace(); // Or log the exception
-        return -1; // Return a default value or throw an exception
+
+        return orderDetailsList;
     }
+        public void updateStatusByOrderId(int orderId, String status) throws SQLException, Exception {
+        String query = "UPDATE Orders SET Status = ? WHERE OrderID = ?";
+        
+        try (Connection con = new DBContext().getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setString(1, status);
+            ps.setInt(2, orderId);
+            
+            int rowsUpdated = ps.executeUpdate();
+            
+            if (rowsUpdated == 0) {
+                // Handle case when no rows are updated
+                System.out.println("No order found with OrderID: " + orderId);
+            } else {
+                System.out.println("Status updated successfully for OrderID: " + orderId);
+            }
+        }
+    }
+        
+        public int getPriceByOrderId(int orderId) throws SQLException, Exception {
+        int totalPrice = 0;
+        
+        String query = "SELECT TotalPrice FROM Orders WHERE OrderID = ?";
+        
+        try (Connection con = new DBContext().getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setInt(1, orderId);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    totalPrice = rs.getInt("TotalPrice");
+                } else {
+                    // Handle case when no row is found for the given OrderID
+                    throw new SQLException("No price found for OrderID: " + orderId);
+                }
+            }
+        }
+        
+        return totalPrice;
+    }
+         public List<Map<String, Object>> getOrderDetailsByDay(int accountId) throws SQLException, Exception {
+        List<Map<String, Object>> orderDetailsList = new ArrayList<>();
+
+       String query = "SELECT o.OrderID, a.Name, s.Price, s.Title, s.Description, t.Title AS TalentTitle, o.Timestamp, s.Revisions, s.Deadline, o.Status \n" +
+"                            FROM Orders o \n" +
+"                            JOIN OrderDetail od ON o.OrderID = od.OrderID \n" +
+"                            JOIN ServicePackage s ON od.PacketID = s.PacketID \n" +
+"                            JOIN Talent t ON t.TalentID = o.TalentID \n" +
+"                            JOIN Account a ON a.AccountID = o.AccountID \n" +
+"                            WHERE CAST([Timestamp] AS DATE) = CAST(GETDATE() AS DATE) and t.AccountID = ?";
+
+        try ( Connection conn = new DBContext().getConnection();  PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, accountId);
+            try ( ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> orderDetails = new HashMap<>();
+                    orderDetails.put("id", rs.getString("OrderID")); 
+                    orderDetails.put("name", rs.getString("Name"));
+                    orderDetails.put("price", rs.getDouble("Price"));
+                    orderDetails.put("titles", rs.getString("Title"));
+                    orderDetails.put("description", rs.getString("Description"));
+                    orderDetails.put("titlet", rs.getString("TalentTitle"));
+                    orderDetails.put("timestamp", rs.getTimestamp("Timestamp"));
+                    orderDetails.put("revisions", rs.getInt("Revisions"));
+                    orderDetails.put("deadline", rs.getInt("Deadline"));
+                    orderDetails.put("status", rs.getString("Status"));
+                    orderDetailsList.add(orderDetails);
+                }
+            }
+        }
+
+        return orderDetailsList;
     }
 
     public static void main(String[] args) throws Exception {
@@ -247,8 +446,29 @@ public class ProviderDAO {
 //        for (Talent talent : list) {
 //            System.out.println(talent);
 //        }
-      //  p.addOrder(4, 2, "2024-01-01", 2);
-     int id = p.getIdByEmai("datdvhe172079@fpt.edu.vn");
-        System.out.println(id);
+        //  p.addOrder(4, 2, "2024-01-01",2, 2000,"Pending");
+        //  int id = p.getIdByEmai("datdvhe172079@fpt.edu.vn");
+        // System.out.println(id);
+//       List<Talent> list = new ArrayList<>();
+//       list = p.getListAllTalentByID(5);
+//        for (Talent talent : list) {
+//            System.out.println(talent);
+//        }
+        // p.deleteTalent(13);
+        List<Map<String, Object>> orderDetailsList = p.getOrderDetailsByDay(5);
+            
+            for (Map<String, Object> orderDetails : orderDetailsList) {
+                System.out.println("ID: " + orderDetails.get("id"));
+                System.out.println("Account Name: " + orderDetails.get("accountName"));
+                System.out.println("Price: " + orderDetails.get("price"));
+                System.out.println("Service Title: " + orderDetails.get("serviceTitle"));
+                System.out.println("Description: " + orderDetails.get("description"));
+                System.out.println("Talent Title: " + orderDetails.get("talentTitle"));
+                System.out.println("Timestamp: " + orderDetails.get("timestamp"));
+                System.out.println("Revisions: " + orderDetails.get("revisions"));
+                System.out.println("Deadline: " + orderDetails.get("deadline"));
+                System.out.println("Status: " + orderDetails.get("status"));
+                System.out.println();
+            }
     }
 }

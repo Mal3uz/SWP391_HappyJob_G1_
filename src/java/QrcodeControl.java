@@ -5,6 +5,7 @@
 
 import dao.ProviderDAO;
 import dao.ServicePackageDAO;
+import dao.WalletDAO;
 import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,26 +46,44 @@ public class QrcodeControl extends HttpServlet {
             Account a = (Account) accObj;
             int accId = a.getAccountID();
             Object u = session.getAttribute("user");
-            
-             int packId = (Integer) session.getAttribute("packId");
-             
-             int talentId = (Integer) session.getAttribute("talentId");
-             ProviderDAO pdao = new ProviderDAO();
-             ServicePackageDAO spdao = new ServicePackageDAO();
-            if (u != null) {
-                pdao.addOrder(accId, talentId, createAt, packId);
-                int total = Math.round(spdao.getPriceByPackId(packId)
-                );
-                request.setAttribute("total", total);
-                request.getRequestDispatcher("qrcode.jsp").forward(request, response);
 
-            } else {
-                response.sendRedirect("Login.jsp");
-            }
+            int packId = (Integer) session.getAttribute("packId");
+            String payment_method = request.getParameter("payment_method");
+            int talentId = (Integer) session.getAttribute("talentId");
+            ProviderDAO pdao = new ProviderDAO();
+            ServicePackageDAO spdao = new ServicePackageDAO();
+            int total = (int) (spdao.getPriceByPackId(packId) * 1.05);
+            WalletDAO wdao = new WalletDAO();
+            double balance = (Integer) session.getAttribute("balance");
+            System.out.println("abc");
+            System.out.println(u != null && balance > total);
+            if (payment_method.equals("momo")) {
+                if (u != null) {
+                    pdao.addOrder(accId, talentId, createAt, packId, total,"Waiting");
+                    request.setAttribute("total", total);
+                    request.getRequestDispatcher("qrcode.jsp").forward(request, response);
+                }
+                 }
+                else if (payment_method.equals("wallet")) {
+                    if (u != null && balance > total) {
+                        pdao.addOrder(accId, talentId, createAt, packId,total,"Pending");
+                        int newBalance = (int) Math.round(balance - total);
+                        session.removeAttribute("balance");
+                        session.setAttribute("balance", newBalance);
+                        wdao.updateNewBalance(accId, newBalance);
+                        response.sendRedirect("Home.jsp");
+                    }else {
+                     request.setAttribute("mess1", "Please make sure the wallet balance is sufficient for payment");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    }
+                } else {
+                    response.sendRedirect("Login.jsp");
+                }
+           
         }
     }
 
-        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
         /**
          * Handles the HTTP <code>GET</code> method.
          *
@@ -77,11 +96,13 @@ public class QrcodeControl extends HttpServlet {
         protected void doGet
         (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(QrcodeControl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                processRequest(request, response);
+
+            } catch (Exception ex) {
+                Logger.getLogger(QrcodeControl.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         /**
@@ -96,11 +117,13 @@ public class QrcodeControl extends HttpServlet {
         protected void doPost
         (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(QrcodeControl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                processRequest(request, response);
+
+            } catch (Exception ex) {
+                Logger.getLogger(QrcodeControl.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         /**
@@ -112,9 +135,9 @@ public class QrcodeControl extends HttpServlet {
         public String getServletInfo
         
         
+        
             () {
         return "Short description";
         }// </editor-fold>
 
-    
-}
+    }

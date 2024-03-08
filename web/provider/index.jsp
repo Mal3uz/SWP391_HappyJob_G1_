@@ -46,20 +46,20 @@
                                                 alt="User Image">
                 <div>
                     <p class="app-sidebar__user-name"><b>${sessionScope.user.getName()}</b></p>
-                    <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+                    <p class="app-sidebar__user-designation">Welcome back</p>
                 </div>
             </div>
             <hr>
             <ul class="app-menu">
                 <li><a class="app-menu__item" href="dashboard"><i class='app-menu__icon bx bx-tachometer'></i><span
-                            class="app-menu__label">Bảng điều khiển</span></a></li>
+                            class="app-menu__label">Dashboard</span></a></li>
                 <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-user-voice'></i><span
-                            class="app-menu__label">Quản lý khách hàng</span></a></li>
-                <li><a class="app-menu__item" href="#"><i
-                            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
+                            class="app-menu__label">Customer Management</span></a></li>
+                <li><a class="app-menu__item" href="talentmanager"><i
+                            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Talents Management</span></a>
                 </li>
-                <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-task'></i><span
-                            class="app-menu__label">Quản lý đơn hàng</span></a></li>
+                <li><a class="app-menu__item" href="order"><i class='app-menu__icon bx bx-task'></i><span
+                            class="app-menu__label">Hired Management</span></a></li>
             </ul>
         </aside>
         <main class="app-content">
@@ -67,7 +67,7 @@
                 <div class="col-md-12">
                     <div class="app-title">
                         <ul class="app-breadcrumb breadcrumb">
-                            <li class="breadcrumb-item"><a href="#"><b>Bảng điều khiển</b></a></li>
+                            <li class="breadcrumb-item"><a href="#"><b>Dashboard</b></a></li>
                         </ul>
                         <div id="clock"></div>
                     </div>
@@ -80,9 +80,9 @@
                         <div class="col-md-6">
                             <div class="widget-small primary coloured-icon"><i class='icon bx bxs-user-account fa-3x'></i>
                                 <div class="info">
-                                    <h4>Tổng khách hàng</h4>
-                                    <p><b>${requestScope.user} khách hàng</b></p>
-                                    <p class="info-tong">Tổng số khách hàng được quản lý.</p>
+                                    <h4>Total Customers</h4>
+                                    <p><b>${requestScope.user} customers</b></p>
+                                    <p class="info-tong">Total number of clients managed.</p>
                                 </div>
                             </div>
                         </div>
@@ -90,9 +90,9 @@
                         <div class="col-md-6">
                             <div class="widget-small info coloured-icon"><i class='icon bx bxs-data fa-3x'></i>
                                 <div class="info">
-                                    <h4>Tổng sản phẩm</h4>
-                                    <p><b>${requestScope.product} sản phẩm</b></p>
-                                    <p class="info-tong">Tổng số sản phẩm được quản lý.</p>
+                                    <h4>Total talents</h4>
+                                    <p><b>${requestScope.product} talents</b></p>
+                                    <p class="info-tong">Total number of talents managed.</p>
                                 </div>
                             </div>
                         </div>
@@ -100,9 +100,9 @@
                         <div class="col-md-6">
                             <div class="widget-small warning coloured-icon"><i class='icon bx bxs-shopping-bags fa-3x'></i>
                                 <div class="info">
-                                    <h4>Tổng đơn hàng</h4>
-                                    <p><b>${requestScope.bill} đơn hàng</b></p>
-                                    <p class="info-tong">Tổng số hóa đơn bán hàng trong tháng.</p>
+                                    <h4>Total orders</h4>
+                                    <p><b>${requestScope.bill} orders</b></p>
+                                    <p class="info-tong">Total number of sales invoices for the month.</p>
                                 </div>
                             </div>
                         </div>
@@ -110,46 +110,46 @@
                         <div class="col-md-6">
                             <div class="widget-small danger coloured-icon"><i class='icon bx bxs-error-alt fa-3x'></i>
                                 <div class="info">
-                                    <h4>Sắp hết hàng</h4>
-                                    <p><b>${requestScope.low} sản phẩm</b></p>
-                                    <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
+                                    <h4>Deadline approaching</h4>
+                                    <p><b>${requestScope.low} talents</b></p>
+                                    <p class="info-tong">The number of talents that need to be implemented soon</p>
                                 </div>
                             </div>
                         </div>
                         <!-- col-12 -->
                         <div class="col-md-12">
                             <div class="tile">
-                                <h3 class="tile-title">Đơn hàng hôm nay</h3>
+                                <h3 class="tile-title">Orders Today</h3>
                                 <div>
                                     <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>ID đơn hàng</th>
-                                                <th>Khách hàng</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Địa chỉ</th>
-                                                <th>Ngày mua</th>
-                                                <th>Tổng tiền</th>
-                                                <th>Thanh Toán</th>
-                                                <th>Chức năng</th>
+                                                                   <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Service Title</th>
+                                    <th>Description</th>            
+                                    <th>Talent Title</th>
+                                    <th>Revisions</th>
+                                    <th>Deadline</th>
+                                    <th>Timestamp</th>
+                                   
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${billbyday}" var="b">
-                                                <tr>
-                                                    <td>${b.bill_id}</td>
-                                                    <td>${b.user.user_name}</td>
-                                                    <td>(+84)${b.phone}</td>
-                                                    <td>${b.address}</td>
-                                                    <td>${b.date}</td>
-                                                    <td>${b.total}</td>
-                                                    <td><span class="badge bg-success">${b.payment}</span></td>                                  
-                                                    <td><a style=" color: rgb(245 157 57);background-color: rgb(251 226 197); padding: 5px;border-radius: 5px;" href="ordermanager?action=showdetail&bill_id=${b.bill_id}"><i class="fa"></i>Chi tiết đơn hàng</a></td>
-                                                </tr>
-                                            </c:forEach>
-
-                                        </tbody>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="item" items="${items}">
+                                    <tr>
+                                        <td>${item.name}</td>
+                                        <td>${item.price}</td>
+                                        <td>${item.titles}</td>
+                                        <td>${item.description}</td>
+                                        <td>${item.revisions}</td>
+                                        <td>${item.titlet}</td>
+                                        <td>${item.deadline}</td>
+                                        <td>${item.timestamp}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
                                     </table>
                                 </div>
                                 <!-- / div trống-->
@@ -217,13 +217,13 @@
             function time() {
                 var today = new Date();
                 var weekday = new Array(7);
-                weekday[0] = "Chủ Nhật";
-                weekday[1] = "Thứ Hai";
-                weekday[2] = "Thứ Ba";
-                weekday[3] = "Thứ Tư";
-                weekday[4] = "Thứ Năm";
-                weekday[5] = "Thứ Sáu";
-                weekday[6] = "Thứ Bảy";
+                weekday[0] = "Sunday";
+                weekday[1] = "Monday";
+                weekday[2] = "Tuesday ";
+                weekday[3] = "Wednesday ";
+                weekday[4] = "Thursday";
+                weekday[5] = "Friday";
+                weekday[6] = "Saturday";
                 var day = weekday[today.getDay()];
                 var dd = today.getDate();
                 var mm = today.getMonth() + 1;
