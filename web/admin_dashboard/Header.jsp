@@ -203,7 +203,7 @@
                             </div>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="DashBoard.jsp">
+                                    <a class="nav-link " href="dashBoard">
                                         Dashboards
                                     </a>
                                 </li>
@@ -232,7 +232,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="InvoiceList.jsp">
+                                    <a class="nav-link " href="invoiceList">
                                         Invoice
                                     </a>
                                 </li>
@@ -243,7 +243,7 @@
                                     <a class="nav-link" href="notifications">Notifications </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="RequestProduct.jsp"> List Product </a>
+                                    <a class="nav-link" href="product"> List Product </a>
                                 </li>
 
                             </ul>

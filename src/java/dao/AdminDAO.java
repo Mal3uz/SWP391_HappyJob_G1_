@@ -1,12 +1,12 @@
-
-
 package dao;
 
 import entity.Account;
 import entity.Messagess;
 import entity.Notifications;
+import entity.Product;
 import entity.ServicePackage;
 import entity.Talent;
+import entity.Transaction;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -110,6 +110,35 @@ public class AdminDAO {
         return null;
     }
 
+    public Account getAccountByProductId(String productId) {
+        String query = "select * from Account a\n"
+                + "join Product p on a.AccountID = p.AccountID\n"
+                + "where p.ProductID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, productId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
     public Account getAccountById(int id) {
         String query = "select * from Account\n"
                 + "where AccountID = ?";
@@ -117,6 +146,35 @@ public class AdminDAO {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
             ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public Account getAccountByWalletId(String walletId) {
+        String query = "select * from Account a\n"
+                + "join Wallet w on a.AccountID = w.AccountID\n"
+                + "where w.WalletID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, walletId);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -177,6 +235,22 @@ public class AdminDAO {
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
+    public int getNumberAccountByStatus(String status) {
+        String query = "select count(*) from Account\n"
+                + "where Status = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, status);
             rs = ps.executeQuery();
             while (rs.next()) {
                 return rs.getInt(1);
@@ -327,12 +401,13 @@ public class AdminDAO {
         }
     }
 
-    public int getPendingTalent() {
+    public int getNumberTalentByStatus(String Status) {
         String query = "select count(*) from Talent\n"
-                + "where Status = 'Pending'";
+                + "where Status = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
+            ps.setString(1, Status);
             rs = ps.executeQuery();
             while (rs.next()) {
                 return rs.getInt(1);
@@ -681,16 +756,93 @@ public class AdminDAO {
 
     }
 
+    //t1
+    public List<Transaction> getListTransactions() {
+        List<Transaction> listT = new ArrayList<>();
+        String query = "select * from Transactions";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
 
+            while (rs.next()) {
+                listT.add(new Transaction(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listT;
+
+    }
+
+    public Transaction getTransactionById(String transactionId) {
+        String query = "select * from Transactions\n"
+                + "where TransactionID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, transactionId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Transaction(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+
+    }
+
+    //p1
+    public List<Product> getProductPending() {
+        List<Product> listP = new ArrayList<>();
+        String query = "select * from Product\n"
+                + "where Status = 'Pending'";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listP.add(new Product(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listP;
+
+    }
+
+     //o1
+    
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
-
-        List<ServicePackage> a = dao.ServicePackagesByTalentId("1");
-        for (ServicePackage servicePackage : a) {
+        List<Transaction> t = dao.getListTransactions();
+        List<Product> a = dao.getProductPending();
+        for (Product servicePackage : a) {
             System.out.println(servicePackage);
         }
 
-
     }
-    }
-
+}

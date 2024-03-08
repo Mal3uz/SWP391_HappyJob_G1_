@@ -116,6 +116,26 @@
         <servlet-class>QrcodeControl</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DashBoard</servlet-name>
+        <servlet-class>admin.DashBoard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InvoiceList</servlet-name>
+        <servlet-class>admin.InvoiceList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InvoiceDetail</servlet-name>
+        <servlet-class>admin.InvoiceDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminProductControl</servlet-name>
+        <servlet-class>admin.AdminProductControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetailControl</servlet-name>
+        <servlet-class>admin.OrderDetailControl</servlet-class>
+      </servlet>
+<servlet>
         <servlet-name>TalentManager</servlet-name>
         <servlet-class>provider.TalentManager</servlet-class>
     </servlet>
@@ -130,6 +150,7 @@
     <servlet>
         <servlet-name>OrderStatusControl</servlet-name>
         <servlet-class>provider.OrderStatusControl</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
@@ -236,6 +257,26 @@
         <url-pattern>/admin/readAll</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>DashBoard</servlet-name>
+        <url-pattern>/admin/dashBoard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InvoiceList</servlet-name>
+        <url-pattern>/admin/invoiceList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InvoiceDetail</servlet-name>
+        <url-pattern>/admin/invoiceDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminProductControl</servlet-name>
+        <url-pattern>/admin/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetailControl</servlet-name>
+        <url-pattern>/admin/orderDetail</url-pattern>
+</servlet-mapping>
+    <servlet-mapping>
         <servlet-name>TalentManager</servlet-name>
         <url-pattern>/talentmanager</url-pattern>
     </servlet-mapping>
@@ -250,6 +291,7 @@
     <servlet-mapping>
         <servlet-name>OrderStatusControl</servlet-name>
         <url-pattern>/OrderStatusControl</url-pattern>
+
     </servlet-mapping>
     <session-config>
         <session-timeout>
