@@ -91,7 +91,7 @@ public class LoginControl extends HttpServlet {
                     System.out.println(u);
                     switch (u.getRoleID()) {
                         case 1:
-                            response.sendRedirect("admin/account");
+                            response.sendRedirect("admin/dashBoard");
                             break;
                         case 2:
                             response.sendRedirect("Home.jsp");

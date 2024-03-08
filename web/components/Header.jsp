@@ -85,8 +85,21 @@
                                 </li>
                                 <li class="has-children">
                                     <a href="#">Notification <mark class="big swing">7</mark></a>
-                                    <ul class="dropdown autohiden">
-                                        <li><a href="Blog.jsp">Blog Listings</a></li>
+                                    <ul class="dropdown autohiden" style="  position: absolute;left: 50%;transform: translateX(-50%);">
+                                        <li>
+                                            <a href="javascript:void(0)" class="dropdown-item">
+                                                <div class="d-flex align-items-start py-2 " style=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
+                  
+                                                    <div class="m-0">
+                                                        <h6 class="mb-1 fw-semibold">2024-03-06
+                                                            <span class=" bg-primary badge rounded-pill"> </span>
+                                                        </h6>
+                                                        <p class="mb-1">Proder4 created Talent : Dịch vụ tối ưu hóa tốc độ website TalentID: 12</p>
+                                                        <p class="small m-0 opacity-50">08:59:58</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
                                         <li><a href="PostBlog.jsp">Post a Blog</a></li>
                                     </ul>
                                 </li>
@@ -180,11 +193,11 @@
                                             <a class="dropdown-item" href="Profile.jsp">Profile Details</a>
                                             <a class="dropdown-item" href="Wallet.jsp"> Balance: ${sessionScope.balance}</a>
 
-                                       
+
 
                                             <script>
                                                 document.getElementById("profileLink").addEventListener("click", function (event) {
-                                                    event.preventDefault(); 
+                                                    event.preventDefault();
 
                                                     window.location.href = "profileEdit";
                                                 });
