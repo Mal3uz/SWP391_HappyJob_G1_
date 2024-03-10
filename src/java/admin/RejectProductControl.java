@@ -6,20 +6,18 @@
 package admin;
 
 import dao.AdminDAO;
-import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  *
  * @author DELL
  */
-public class DashBoard extends HttpServlet {
+public class RejectProductControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,26 +28,7 @@ public class DashBoard extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        AdminDAO dao = new AdminDAO();
-        int activeAccount = dao.getNumberAccountByStatus("Active");
-        int pendingAccount = dao.getNumberAccountByStatus("Pending");
-        int LockAccount =  dao.getNumberAccountByStatus("Lock");
-        int activeTalent = dao.getNumberTalentByStatus("Active");
-        int pendingTalent = dao.getNumberTalentByStatus("Pending");
-        int rejectTalent = dao.getNumberTalentByStatus("Reject");
-        Map<Account, Integer> topAccount = dao.getTopAccountWithPurchaseCount();
-                
-        request.setAttribute("activeAccount", activeAccount);
-        request.setAttribute("pendingAccount", pendingAccount);
-        request.setAttribute("LockAccount", LockAccount);
-        request.setAttribute("activeTalent", activeTalent);
-        request.setAttribute("pendingTalent", pendingTalent);
-        request.setAttribute("rejectTalent", rejectTalent);
-        request.setAttribute("topAccount", topAccount);
-        request.setAttribute("dao", dao);
-        
-         request.getRequestDispatcher("../admin_dashboard/DashBoard.jsp").forward(request, response);
-                
+       response.sendRedirect("product");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,7 +55,10 @@ public class DashBoard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String id = request.getParameter("pid");
+        String reason = request.getParameter("reason");
+        AdminDAO dao = new AdminDAO();
+        dao.rejectProduct(id, reason);
     }
 
     /** 

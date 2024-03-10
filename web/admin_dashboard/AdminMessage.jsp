@@ -285,7 +285,7 @@
                         '<div class="fst-italic fs-6">' + date + '</div>' +
                         '<div class="fw-bolder mb-1">' + response.mess.nameFriend + '</div>' + response.mess.content + '</div></div>';
                 ws.send(messageDiv);
-              
+                document.getElementById('content').value = '';
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);

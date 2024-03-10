@@ -34,6 +34,13 @@ public class Account {
         this.verificationCode = verificationCode;
     }
 
+     public Account( String email, String name, String gender, String img) {
+        this.email = email;
+        this.name = name;
+        this.gender = gender;
+        this.img = img;
+    }
+
     public int getAccountID() {
         return accountID;
     }

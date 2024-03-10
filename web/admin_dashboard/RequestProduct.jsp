@@ -70,11 +70,11 @@
                                                         data-bs-title="Edit">
                                                     <i class="icon-check-circle"></i>
                                                 </button>
-                                                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" data-bs-custom-class="custom-tooltip-danger"
-                                                        data-bs-title="Delete">
-                                                    <i class="icon-trash"></i>
-                                                </button>
+
+                                                <a onclick="showMess('${p.productID}', 'rejectProduct?pid=', '${p.orderID}', '${account.name}', 'reject')"  
+                                                   class="btn btn-outline-danger btn-sm"><i class="icon-trash"></i></a>
+
+
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -89,9 +89,82 @@
 
     </div>
     <!-- Container ends -->
+    <!-- Popup Start -->
+    <div class="modal" tabindex="-1" role="dialog" id="rejectModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reject Reason</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="rejectForm">
+                        <div class="form-group">
+                            <label for="rejectReason">Reason:</label>
+                            <textarea class="form-control" id="rejectReason" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="saveBtn">Save changes</button>
+                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Popup End -->
 </div>
 <!-- App body ends -->
+<script>
 
+    function showMess(id, url, orderid, name, key) {
+        if (key === "reject") {
+            var option = confirm('Are you sure you want to ' + key + ' this product?\n' +
+                    'Orderid: ' + orderid + '\n' +
+                    'Account name: ' + name);
+            if (option === true) {
+                // Show the modal
+                $('#rejectModal').modal('show');
+                $('.close').click(function () {
+                    $('#rejectModal').modal('hide');
+                });
+
+
+                // When the save button is clicked
+                $('#saveBtn').click(function () {
+                    var reason = $('#rejectReason').val();
+                    if (reason.trim() === "") {
+                        alert("Must input reason to continue");
+                        return;
+                    }
+                    $.ajax({
+                        url: url + id,
+                        type: 'POST',
+                        data: {
+                            'reason': reason
+                        }, contentType: 'application/x-www-form-urlencoded',
+                        success: function () {
+                            // Close the modal
+                            $('#rejectModal').modal('hide');
+                            window.location.href = url + id;
+                        }
+                    });
+                });
+            }
+        } else if (key === "accept") {
+            var option = confirm('Are you sure you want to ' + key + ' this product?\n' +
+                    'Orderid: ' + orderid + '\n' +
+                    'Account name: ' + name);
+            if (option === true) {
+                window.location.href = url + id;
+            }
+        }
+    }
+
+
+</script>
 <!-- App footer start -->
 <%@include file="Footer.jsp" %>

@@ -5,6 +5,8 @@
 
 package admin;
 
+import dao.AdminDAO;
+import entity.Orders;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -28,7 +30,11 @@ public class OrderDetailControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String productId = request.getParameter("id");
+        AdminDAO dao = new AdminDAO();
+        Orders o = dao.getOrderByProductID(productId);
         
+        request.setAttribute("order", o);
+        request.setAttribute("dao", dao);
         request.getRequestDispatcher("../admin_dashboard/OrderDetail.jsp").forward(request, response);
     } 
 
