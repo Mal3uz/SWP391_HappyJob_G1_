@@ -48,21 +48,24 @@
             </div>
             <div class="col-lg-4">
                 <div class="row">
-                    <c:choose>
-                        <c:when test="${isTalentAlreadyExisted eq false}">
-                            <div class="col-6">
-                                <a href="${pageContext.request.contextPath}/waitingList/add?talentID=${talentChoiced.talentID}&packetID=${basicPackage.packageID}" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="col">
-                                <span class="icon-heart-o mr-2 text-danger"></span>Talent is already in waiting list or in-ordered!</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-block btn-light btn-md mb-4"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-block btn-primary btn-md mb-4">Save Job</a>
+                    </div>
+                    <c:set value="${dao.getListTransaction(sessionScope.user.getAccountID(),talentChoiced.getTalentID())}" var="check"></c:set>
+                    <c:if test="${sessionScope.user != null && sessionScope.user.getRoleID() == 3 && !check.isEmpty()}">
+                        <div class="col-6">
+                            <a href="feedback?tID=${tid}" class="btn btn-block btn-info btn-md">Feedback Now</a>
+                        </div>
+                    </c:if>
+                    
+                     <c:if test="${sessionScope.user != null}">
+                        <div class="col-6">
+                            <a href="#" class="btn btn-block btn-danger btn-md mb-4">Send Message</a>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -71,7 +74,7 @@
                 <div class="mb-5">
                     <figure class="mb-5"><img src="${talentChoiced.getImg()}" alt="Image" class="img-fluid rounded img-talent-choiced"></figure>
                     <p>${talentChoiced.getImg()}</p>
-                         
+
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Job Description</h3>
                     <p>${talentChoiced.getDescription()}</p>
                 </div>
@@ -109,21 +112,26 @@
                 </div>
 
                 <div class="row mb-5">
-                    <c:choose>
-                        <c:when test="${isTalentAlreadyExisted eq false}">
-                            <div class="col-6">
-                                <a href="${pageContext.request.contextPath}/waitingList/add?talentID=${talentChoiced.talentID}&packetID=${basicPackage.packageID}" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="col">
-                                <span class="icon-heart-o mr-2 text-danger"></span>Talent is already in waiting list or in-ordered!</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
+                    <div class="pt-5">
+                        <h3 class="mb-5">${numberFeedback} Feedback</h3>
+                        <ul class="comment-list">
+                            <c:forEach var="f" items="${listF}">
+                                <c:set value="${dao.getAccountByFeedbackId(f.getFeedbackID())}" var="afb"></c:set>
+                                    <li class="comment">
+                                        <div class="vcard bio">
+                                            <img src="images/person_2.jpg" alt="Image placeholder">
+                                        </div>
+
+                                        <div class="comment-body">
+                                            <h3>${afb.getName()}</h3>
+                                        <div class="meta">${f.getTimestamp()}</div>
+                                        <p>${f.getContent()}<p><a href="#" class="reply">Reply</a></p>
+                                    </div>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                        <!-- END comment-list -->
+                    </div>
                 </div>
             </div>
 
@@ -164,24 +172,6 @@
                                     </ul>
                                     <a href="checkout?id=${p.getPackageID()}" class="btn w-100 bg-dark text-white border-0 rounded-10">Continue</a>
                                 </div>
-
-                                <ul class="list-unstyled pl-3 mb-0">
-                                    <li class="mb-2">${p.getDescription()}</li>
-                                    <li class="mb-2">
-                                        <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                            <div class="icon-clock-o"></div>
-                                            <div>${p.getDeadline()} Days Delivery</div>
-                                        </strong>
-                                    </li>
-                                    <li class="mb-2">
-                                        <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                            <div class="icon-repeat"></div>
-                                            <div>${p.getRevisions()} Revisions</div>
-                                        </strong>
-                                    </li>
-                                </ul>
-                                <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
-
                             </div>
                         </c:if>
                         <c:if test="${p.getType()=='standard'}">
@@ -435,40 +425,7 @@
 </section>
 
 
-<!--<section class="bg-light pt-5 testimony-full">
 
-    <div class="owl-carousel single-carousel">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 align-self-center text-center text-lg-left">
-                    <blockquote>
-                        <p>&ldquo;Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae.&rdquo;</p>
-                        <p><cite> &mdash; Corey Woods, @Dribbble</cite></p>
-                    </blockquote>
-                </div>
-                <div class="col-lg-6 align-self-end text-center text-lg-right">
-                    <img src="images/person_transparent_2.png" alt="Image" class="img-fluid mb-0">
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 align-self-center text-center text-lg-left">
-                    <blockquote>
-                        <p>&ldquo;Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae.&rdquo;</p>
-                        <p><cite> &mdash; Chris Peters, @Google</cite></p>
-                    </blockquote>
-                </div>
-                <div class="col-lg-6 align-self-end text-center text-lg-right">
-                    <img src="images/person_transparent.png" alt="Image" class="img-fluid mb-0">
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</section>-->
 
 <section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
     <div class="container">
