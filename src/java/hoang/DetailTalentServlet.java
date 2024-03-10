@@ -5,9 +5,11 @@
 package hoang;
 
 import dao.AccountDAO;
+import dao.SeekerDAO;
 import dao.ServicePackageDAO;
 import dao.TalentDAO;
 import entity.Account;
+import entity.Feedback;
 import entity.ServicePackage;
 import entity.Talent;
 import jakarta.servlet.ServletException;
@@ -18,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -80,7 +83,16 @@ public class DetailTalentServlet extends HttpServlet {
         ServicePackageDAO sd = new ServicePackageDAO();
         ArrayList<ServicePackage> lPackage = sd.listPackage(talentID);
         request.getSession().setAttribute("listPackage", lPackage);
-
+        
+        
+        //lam anh code o day nhe
+        SeekerDAO dao = new SeekerDAO();
+        List<Feedback> listF = dao.getListFeedbackByTalentId(talentIDParam);
+        int numberFeedback = dao.getNumberFeedbackByTalentId(talentIDParam);
+        request.setAttribute("dao", dao);
+        request.setAttribute("listF", listF);
+        request.setAttribute("numberFeedback", numberFeedback);
+        request.setAttribute("tid", talentIDParam);
         request.getRequestDispatcher("TalentDetail.jsp").forward(request, response);
     }
 
