@@ -10,13 +10,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center "> 
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                               <img src="${sessionScope.user.getImg() != null ? sessionScope.user.getImg() : 'https://bootdey.com/img/Content/avatar/avatar7.png'}" alt="Admin" class="rounded-circle" width="150">
                                 <div class="mt-3">
-                                    <h4>${account.name}</h4>
+                                    <h4>${sessionScope.user.getName()}</h4>
                                     <p class="text-secondary mb-1">Full Stack Developer</p>
-                                    <p class="text-muted font-size-sm">Da Nang, Viet Nam</p> 
-                                    <button class="btn btn-primary">Follow</button> 
-                                    <button class="btn btn-outline-primary">Message</button>
+                                    <p class="text-muted font-size-sm">Da Nang, Viet Nam</p>
                                 </div>
                             </div>
                         </div>
@@ -33,15 +31,30 @@
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
-                                <div class="col-sm-9 text-secondary">${account.name}</div>
+                                <div class="col-sm-9 text-secondary">${sessionScope.user.getName()}</div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Email</h6>
                                 </div>
-                                <div class="col-sm-9 text-secondary">${account.email}</div>
+                                <div class="col-sm-9 text-secondary">${sessionScope.user.getEmail()}</div>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Gender</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">${sessionScope.user.getGender()}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Date of Birth</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">${sessionScope.user.getDob()}</div>
+                            </div>
+                            
                             <!-- Repeat similar blocks for other profile information -->
                             <!-- ... -->
 
