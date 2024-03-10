@@ -3,7 +3,6 @@ package dao;
 import entity.Account;
 import entity.Talent;
 import java.sql.Connection;
-
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -137,8 +136,7 @@ public class AccountDAO {
     return null;
     
 }
-  
-   
+
 
 
     public static void main(String[] args) {

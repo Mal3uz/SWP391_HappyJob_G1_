@@ -48,12 +48,21 @@
             </div>
             <div class="col-lg-4">
                 <div class="row">
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
-                    </div>
+                    <c:choose>
+                        <c:when test="${isTalentAlreadyExisted eq false}">
+                            <div class="col-6">
+                                <a href="${pageContext.request.contextPath}/waitingList/add?talentID=${talentChoiced.talentID}&packetID=${basicPackage.packageID}" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="col">
+                                <span class="icon-heart-o mr-2 text-danger"></span>Talent is already in waiting list or in-ordered!</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
@@ -100,12 +109,21 @@
                 </div>
 
                 <div class="row mb-5">
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
-                    </div>
+                    <c:choose>
+                        <c:when test="${isTalentAlreadyExisted eq false}">
+                            <div class="col-6">
+                                <a href="${pageContext.request.contextPath}/waitingList/add?talentID=${talentChoiced.talentID}&packetID=${basicPackage.packageID}" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="col">
+                                <span class="icon-heart-o mr-2 text-danger"></span>Talent is already in waiting list or in-ordered!</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 
@@ -146,6 +164,24 @@
                                     </ul>
                                     <a href="checkout?id=${p.getPackageID()}" class="btn w-100 bg-dark text-white border-0 rounded-10">Continue</a>
                                 </div>
+
+                                <ul class="list-unstyled pl-3 mb-0">
+                                    <li class="mb-2">${p.getDescription()}</li>
+                                    <li class="mb-2">
+                                        <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                            <div class="icon-clock-o"></div>
+                                            <div>${p.getDeadline()} Days Delivery</div>
+                                        </strong>
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                            <div class="icon-repeat"></div>
+                                            <div>${p.getRevisions()} Revisions</div>
+                                        </strong>
+                                    </li>
+                                </ul>
+                                <button class="w-100 bg-dark text-white border-0 rounded-10">Continue</button>
+
                             </div>
                         </c:if>
                         <c:if test="${p.getType()=='standard'}">

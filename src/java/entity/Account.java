@@ -106,8 +106,6 @@ public class Account {
         this.status = status;
     }
 
-
-
   
 
     public String getVerificationCode() {

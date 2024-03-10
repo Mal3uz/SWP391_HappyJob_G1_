@@ -157,6 +157,7 @@ public class ServicePackageDAO {
 //        } catch (Exception e) {
 //            System.out.println(e);
 //        }
+
         ServicePackageDAO sd = new ServicePackageDAO();
         sd.insertServicePackage(15, "Gói viết bài PR", "Viết bài PR cho doanh nghiệp, sản phẩm", 900, 1, "Basic", 2);
     }
