@@ -125,7 +125,7 @@
                                                 padding: 0;
                                                 margin: 0;
                                                 position: relative; /* Set position to relative */
-                                                left: -90%; /* Shift to the left by 50% of its own width */
+                                                left: -150%; /* Shift to the left by 50% of its own width */
 
                                                 transform: translateX(-50%); /* Center the dropdown */
                                             }
@@ -156,7 +156,7 @@
                                         </style>
                                         <c:forEach var="item" items="${CategoryDAOInstance.getListAllCategories()}">
                                             <li class="horizontal-dropdown-column">
-                                                <a href="${pageContext.request.contextPath}/listTalentServlet?categoryID=${item.id}">${item.name}</a>
+                                                <a href="category?id=${item.id}">${item.name}</a>
                                             </li>
                                         </c:forEach>
                                     </ul>
@@ -168,7 +168,6 @@
 
                         <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
                             <div class="ml-auto">
-                                <a href="${pageContext.request.contextPath}/waitingList" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-cart-plus"></span>Waiting List</a>
                                 <a href="PostTalent.jsp" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
 
                                 <c:if test="${sessionScope.user == null}">
@@ -192,7 +191,7 @@
                                         <div class="dropdown-menu">
 
                                             <a class="dropdown-item" href="Profile.jsp">Profile Details</a>
-                                            <a class="dropdown-item" href="Wallet.jsp"> Balance: ${sessionScope.balance}</a>
+                                            <a class="dropdown-item" href="wallet"> Balance: ${sessionScope.balance}</a>
 
 
 

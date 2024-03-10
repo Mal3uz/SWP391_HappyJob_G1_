@@ -80,15 +80,6 @@
         <servlet-class>admin.MessageDetail</servlet-class>
     </servlet>
     <servlet>
-
-        <servlet-name>java</servlet-name>
-        <servlet-class>WaitingListDAO.java</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>java</servlet-name>
-        <servlet-class>WaitingListAdd.java</servlet-class>
- </servlet>
-    <servlet>
         <servlet-name>CreateMessageControl</servlet-name>
         <servlet-class>admin.CreateMessageControl</servlet-class>
     </servlet>
@@ -258,15 +249,7 @@
         <servlet-name>MessageDetail</servlet-name>
         <url-pattern>/admin/messageDetail</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-
-        <servlet-name>java</servlet-name>
-        <url-pattern>/WatingListDAO</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>java</servlet-name>
-        <url-pattern>/java</url-pattern>
-</servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AddTalentControl</servlet-name>
         <url-pattern>/AddTalentControl</url-pattern>
