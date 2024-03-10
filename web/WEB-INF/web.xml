@@ -161,6 +161,35 @@
         <servlet-class>provider.OrderStatusControl</servlet-class>
 
     </servlet>
+
+
+
+<servlet>
+        <servlet-name>RejectProductControl</servlet-name>
+        <servlet-class>admin.RejectProductControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CategoryControl</servlet-name>
+        <servlet-class>guest.servlet.CategoryControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackControl</servlet-name>
+        <servlet-class>seeker.FeedbackControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetFeedbackControl</servlet-name>
+        <servlet-class>seeker.GetFeadbackControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProfile</servlet-name>
+        <servlet-class>seeker.UpdateProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WalletControl</servlet-name>
+        <servlet-class>seeker.WalletControl</servlet-class>
+    </servlet>
+
+
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -311,6 +340,37 @@
         <url-pattern>/OrderStatusControl</url-pattern>
 
     </servlet-mapping>
+
+
+
+
+
+ <servlet-mapping>
+        <servlet-name>RejectProductControl</servlet-name>
+        <url-pattern>/admin/rejectProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CategoryControl</servlet-name>
+        <url-pattern>/category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackControl</servlet-name>
+        <url-pattern>/feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetFeedbackControl</servlet-name>
+        <url-pattern>/getFeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfile</servlet-name>
+        <url-pattern>/updateProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WalletControl</servlet-name>
+        <url-pattern>/wallet</url-pattern>
+    </servlet-mapping>
+
+
     <session-config>
         <session-timeout>
             30
