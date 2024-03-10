@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+
 package admin;
 
 import dao.AdminDAO;
@@ -61,11 +62,13 @@ public class AdminNotificationsControl extends HttpServlet {
           HttpSession session = request.getSession();
          AdminDAO dao = new AdminDAO();
          Account account = (Account)session.getAttribute("account");
-        List<Notifications> allNofication = dao.getListNotificationses(String.valueOf(account.getAccountID()));
        
+        List<Notifications> allNofication = dao.getListNotificationsesAdmin(String.valueOf(account.getAccountID()));
+      
  
         request.setAttribute("dao", dao);
         request.setAttribute("listN", allNofication);
+       
         request.getRequestDispatcher("../admin_dashboard/Notifications.jsp").forward(request, response);
     } 
  

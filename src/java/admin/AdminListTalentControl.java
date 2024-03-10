@@ -66,7 +66,7 @@ public class AdminListTalentControl extends HttpServlet {
         int index = Integer.parseInt(indexPage);
         AdminDAO dao = new AdminDAO();
         List<Talent> talent = dao.pagingPendingTalent(index);
-        int count = dao.getPendingTalent();
+        int count = dao.getNumberTalentByStatus("Pending");
 
         int endPage = count / 12;
         if (count % 12 != 0) {

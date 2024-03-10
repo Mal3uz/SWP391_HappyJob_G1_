@@ -44,10 +44,10 @@
                       <div class="col-sm-9 col-12">
                         <div class="text-end">
                           <p class="m-0">
-                            Invoice - <span class="text-danger">#010</span>
+                            Invoice - <span class="text-danger">#${transaction.transactionID}</span>
                           </p>
-                          <p class="m-0">January 20th 2024</p>
-                          <span class="badge bg-danger">Overdue</span>
+                          <p class="m-0">${transaction.transactionDate}</p>
+                          <span class="badge bg-danger">${transaction.status}</span>
                         </div>
                       </div>
                       <div class="col-12 mb-5"></div>
@@ -55,18 +55,19 @@
                     <!-- Row end -->
 
                     <!-- Row start -->
+                   <c:set var="account" value="${dao.getAccountByWalletId(transaction.walletID)}" />
                     <div class="row justify-content-between">
                       <div class="col-lg-6 col-12">
-                        <h6 class="fw-semibold">Billed To :</h6>
+                        <h6 class="fw-semibold">Billed From :</h6>
                         <p class="m-0">
-                          Alice Williams,<br />
-                          7500 Oakdale Ave,<br />
-                          San Francisco, California(CA), 94500
+                          ${account.name},<br />
+                          Wallet ID = ${transaction.walletID},<br />
+                          ${account.email},<br />
                         </p>
                       </div>
                       <div class="col-lg-6 col-12">
                         <div class="text-end">
-                          <h6 class="fw-semibold">Shipped To :</h6>
+                          <h6 class="fw-semibold">Billed To :</h6>
                           <p class="text-end m-0">
                             Jumeirah Llc, 9990 St. <br />
                             5000 Church Street, Suite 550<br />

@@ -7,6 +7,7 @@ package admin;
 
 import dao.AdminDAO;
 import entity.Account;
+import entity.ServicePackage;
 import entity.Talent;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,10 +63,12 @@ public class AdminTalentDetailControl extends HttpServlet {
          AdminDAO dao = new AdminDAO();
         Talent tDetail = dao.getTalentById(talentId);
        Account account = dao.getAccountByTalentId(talentId);
- 
+       List<ServicePackage> service = dao.ServicePackagesByTalentId(talentId);
+  
          request.setAttribute("dao", dao);
         request.setAttribute("Talent", tDetail);
         request.setAttribute("account", account);
+        request.setAttribute("service", service);
         request.getRequestDispatcher("../admin_dashboard/RequestTalentDetail.jsp").forward(request, response);
     } 
 

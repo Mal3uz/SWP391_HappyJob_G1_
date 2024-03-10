@@ -5,6 +5,8 @@
 package guest.servlet;
 
 import dao.LoginDAO;
+import dao.ProviderDAO;
+import dao.WalletDAO;
 import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +34,7 @@ public class LoginControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         //Lấy dữ liệu từ jsp
         String action = request.getParameter("action");
@@ -41,6 +45,8 @@ public class LoginControl extends HttpServlet {
         Account account = new Account();
         account = dao.getAccountByEmail(username);
         session.setAttribute("account", account);
+        ProviderDAO pdao = new ProviderDAO();
+        int id = pdao.getIdByEmai(username);
         session.setMaxInactiveInterval(6*60*60);
         String status = account.getStatus();
         System.out.println(status);
@@ -74,15 +80,17 @@ public class LoginControl extends HttpServlet {
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 } else {
                  
-                    
+
+                    WalletDAO wdao = new WalletDAO();
+                  int  balance =  wdao.getBalance(id);
+                    session.setAttribute("balance", balance);
                     session.setAttribute("user", u);
-                    System.out.println(u);
                     switch (u.getRoleID()) {
                         case 1:
-                            response.sendRedirect("admin/account");
+                            response.sendRedirect("admin/dashBoard");
                             break;
                         case 2:
-                            response.sendRedirect("ProviderDashboard.jsp");
+                            response.sendRedirect("dashboard");
                             break;
                         case 3:
                             response.sendRedirect("Home.jsp");
@@ -118,7 +126,11 @@ public class LoginControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -132,7 +144,11 @@ public class LoginControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

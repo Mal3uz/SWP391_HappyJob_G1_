@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class AccountDAO {
 
+
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -53,8 +54,7 @@ public class AccountDAO {
    public Account updateAccount(Account account) {
     // Define the SQL query to update the account information
     String query = "UPDATE Account SET";
-    
-    // Add email
+// Add email
     if (account.getEmail() != null) {
         query += " email = ?,";
     }
@@ -134,7 +134,9 @@ public class AccountDAO {
     
     // Return null if the update was not successful
     return null;
+    
 }
+
 
 
     public static void main(String[] args) {
@@ -145,3 +147,10 @@ public class AccountDAO {
         System.out.println(a);
     }
 }
+
+ 
+    
+  
+
+    
+

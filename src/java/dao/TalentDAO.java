@@ -103,7 +103,7 @@ public class TalentDAO {
 
     public static void main(String[] args) {
         TalentDAO td = new TalentDAO();
-        ArrayList<Talent> tList = td.searchTalent("cáo");
+        ArrayList<Talent> tList = td.listAllTalent();
         System.out.println(tList);
     }
 }

@@ -119,7 +119,7 @@
                                                 </div>
                                             </a>
                                             <div class="d-grid p-3 border-top">
-                                                <a href="javascript:void(0)" class="btn btn-outline-primary">View all</a>
+                                                <a href="message" class="btn btn-outline-primary">View all</a>
                                             </div>
                                         </div>
                                     </div>
@@ -127,19 +127,22 @@
                                         <a class="dropdown-toggle d-flex p-3 position-relative" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="icon-twitch fs-4 lh-1"></i>
-                                            <span class="count rounded-circle bg-danger">5</span>
+                                            <c:set value="${dao.getNumberNewNotificationsesAdmin()}" var="number"></c:set>
+                                            <span class="count rounded-circle bg-danger">${number}</span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-md shadow-sm">
-                                            <h5 class="fw-semibold px-3 py-2 m-0">Notifications</h5>
+                                            <h5 class="fw-semibold px-3 py-2 m-0">Notifications
+                                               <a href="readAll" class="btn btn-info float-end ">Read All</a></h5>
                                             <c:set var="newNotification" value="${dao.getNewNotificationses()}" />
                                             <c:forEach var="n" items="${newNotification}">
                                                 <a href="javascript:void(0)" class="dropdown-item">
-                                                    <div class="d-flex align-items-start py-2" style=" white-space: nowrap;
+                                                    <div class="d-flex align-items-start py-2 ${n.status == 0 ? '':'opacity-50' }" style=" white-space: nowrap;
                                                          overflow: hidden;
                                                          text-overflow: ellipsis; ">
                                                         <img src="assets/images/user.png" class="img-3x me-3 rounded-3" alt="Admin Themes" />
                                                         <div class="m-0">
-                                                            <h6 class="mb-1 fw-semibold">${fn:substring(n.createdAt, 0, 10)}</h6>
+                                                            <h6 class="mb-1 fw-semibold">${fn:substring(n.createdAt, 0, 10)}
+                                                             <span class="${n.status == 0 ? ' bg-primary badge rounded-pill':'' }"> </span></h6>
                                                             <p class="mb-1">${n.message}</p>
                                                             <p class="small m-0 opacity-50">${fn:substring(n.createdAt, 11, 19)}</p>
                                                         </div>
@@ -147,7 +150,7 @@
                                                 </a>
                                             </c:forEach>
                                             <div class="d-grid p-3 border-top">
-                                                <a href="javascript:void(0)" class="btn btn-outline-primary">View all</a>
+                                                <a href="notifications" class="btn btn-outline-primary">View all</a>
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +203,7 @@
                             </div>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="DashBoard.jsp">
+                                    <a class="nav-link " href="dashBoard">
                                         Dashboards
                                     </a>
                                 </li>
@@ -229,7 +232,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="InvoiceList.jsp">
+                                    <a class="nav-link " href="invoiceList">
                                         Invoice
                                     </a>
                                 </li>
@@ -240,7 +243,7 @@
                                     <a class="nav-link" href="notifications">Notifications </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="RequestProduct.jsp"> List Product </a>
+                                    <a class="nav-link" href="product"> List Product </a>
                                 </li>
 
                             </ul>

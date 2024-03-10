@@ -44,15 +44,15 @@
                     <div class="d-flex justify-content-center gap-4 my-4">
                       <div class="d-flex align-items-center">
                         <i class="icon-user-check me-3"></i> Active
-                        <span class="badge rounded-pill bg-primary ms-2">15000</span>
+                        <span class="badge rounded-pill bg-primary ms-2">${activeAccount}</span>
                       </div>
                       <div class="d-flex align-items-center">
                         <i class="icon-user-plus me-3"></i> Pending
-                        <span class="badge rounded-pill bg-info ms-2">18000</span>
+                        <span class="badge rounded-pill bg-info ms-2">${pendingAccount}</span>
                       </div>
                          <div class="d-flex align-items-center">
                         <i class="icon-user-x me-3"></i> Lock
-                        <span class="badge rounded-pill bg-danger ms-2">18000</span>
+                        <span class="badge rounded-pill bg-danger ms-2">${LockAccount}</span>
                       </div>
                     </div>
                   </div>
@@ -69,15 +69,15 @@
                     <div class="d-flex justify-content-center gap-4 my-4">
                       <div class="d-flex align-items-center">
                         Active
-                        <span class="badge rounded-pill bg-primary ms-2">15</span>
+                        <span class="badge rounded-pill bg-primary ms-2">${activeTalent}</span>
                       </div>
                       <div class="d-flex align-items-center">
                         Pending
-                        <span class="badge rounded-pill bg-info ms-2">18</span>
+                        <span class="badge rounded-pill bg-info ms-2">${pendingTalent}</span>
                       </div>
                       <div class="d-flex align-items-center">
                         Reject
-                        <span class="badge rounded-pill bg-danger ms-2">13</span>
+                        <span class="badge rounded-pill bg-danger ms-2">${rejectTalent}</span>
                       </div>
                     </div>
                   </div>
