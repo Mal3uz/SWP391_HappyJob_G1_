@@ -134,14 +134,14 @@
     <servlet>
         <servlet-name>OrderDetailControl</servlet-name>
         <servlet-class>admin.OrderDetailControl</servlet-class>
-      </servlet>
-<servlet>
+    </servlet>
+    <servlet>
         <servlet-name>TalentManager</servlet-name>
-        <servlet-class>provider.TalentManager</servlet-class>
+        <servlet-class>provider.LoadTalent</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteAndUpdateControl</servlet-name>
-        <servlet-class>provider.DeleteTalentControl</servlet-class>
+        <servlet-class>provider.TalentManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>OrderControl</servlet-name>
@@ -150,12 +150,8 @@
     <servlet>
         <servlet-name>OrderStatusControl</servlet-name>
         <servlet-class>provider.OrderStatusControl</servlet-class>
-
     </servlet>
-
-
-
-<servlet>
+    <servlet>
         <servlet-name>RejectProductControl</servlet-name>
         <servlet-class>admin.RejectProductControl</servlet-class>
     </servlet>
@@ -179,8 +175,10 @@
         <servlet-name>WalletControl</servlet-name>
         <servlet-class>seeker.WalletControl</servlet-class>
     </servlet>
-
-
+    <servlet>
+        <servlet-name>HomePageServlet</servlet-name>
+        <servlet-class>guest.servlet.HomePageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -249,7 +247,6 @@
         <servlet-name>MessageDetail</servlet-name>
         <url-pattern>/admin/messageDetail</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>AddTalentControl</servlet-name>
         <url-pattern>/AddTalentControl</url-pattern>
@@ -305,7 +302,7 @@
     <servlet-mapping>
         <servlet-name>OrderDetailControl</servlet-name>
         <url-pattern>/admin/orderDetail</url-pattern>
-</servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TalentManager</servlet-name>
         <url-pattern>/talentmanager</url-pattern>
@@ -321,14 +318,8 @@
     <servlet-mapping>
         <servlet-name>OrderStatusControl</servlet-name>
         <url-pattern>/OrderStatusControl</url-pattern>
-
     </servlet-mapping>
-
-
-
-
-
- <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RejectProductControl</servlet-name>
         <url-pattern>/admin/rejectProduct</url-pattern>
     </servlet-mapping>
@@ -352,8 +343,10 @@
         <servlet-name>WalletControl</servlet-name>
         <url-pattern>/wallet</url-pattern>
     </servlet-mapping>
-
-
+    <servlet-mapping>
+        <servlet-name>HomePageServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

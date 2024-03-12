@@ -93,7 +93,7 @@ public class LoginControl extends HttpServlet {
                             response.sendRedirect("dashboard");
                             break;
                         case 3:
-                            response.sendRedirect("Home.jsp");
+                            response.sendRedirect("home");
                             break;
                         default:
                             request.getRequestDispatcher("Login.jsp").forward(request, response);

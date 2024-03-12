@@ -1,6 +1,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
+<%@page import="dao.ProviderDAO"%>
+<%@page import="dao.DBContext"%>
+<%@page import="entity.Category"%>
+<%@page import="java.sql.Connection"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,50 +88,52 @@
                                             class="fas fa-print"></i> Print</a>
                                 </div>
                             </div>
-                            <form action="udtalent?action=updateproduct" method="POST">
-                                <table class="table table-hover table-bordered" id="sampleTable">
-                                    <thead>
+
+                            <table class="table table-hover table-bordered" id="sampleTable">
+                                <thead>
+                                    <tr>
+                                        <th>Talent ID</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Created At</th>
+                                        <th>Status</th>
+                                        <th>Image</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${lit}" var="p">
                                         <tr>
-                                            <th>Talent ID</th>
-                                            <th>Title</th>
-                                            <th>Description</th>
-                                            <th>Created At</th>
-                                            <th>Status</th>
-                                            <th>Image</th>
-                                            <th>Action</th>
+                                            <td>${p.talentID}</td>
+                                            <td>${p.title}</td>
+                                            <td>${p.description}</td>
+                                            <td>${p.createdAt}</td>                                             
+                                            <td>${p.status}</td>
 
+                                            <td><img src="${p.img}" alt="" width="100px;"></td>
+
+                                            <td>
+                                                <button class="btn btn-primary btn-sm trash" type="button" title="Delete" value="${p.talentID}"><i
+                                                        class="fas fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn btn-primary btn-sm edit" type="button" title="Edit" id="show-emp"
+                                                        data-toggle="modal" data-target="#ModalUP${p.talentID}"><i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${lit}" var="p">
-                                            <tr>
-                                                <td>${p.talentID}</td>
-                                                <td>${p.title}</td>
-                                                <td>${p.description}</td>
-                                                <td>${p.createdAt}</td>                                             
-                                                <td>${p.status}</td>
 
-                                                <td><img src="${p.img}" alt="" width="100px;"></td>
+                                        <!--
+                                        MODAL
+                                        -->
 
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm trash" type="button" title="Delete" value="${p.talentID}"><i
-                                                            class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                    <button class="btn btn-primary btn-sm edit" type="button" title="Edit" id="show-emp"
-                                                            data-toggle="modal" data-target="#ModalUP${p.talentID}"><i class="fas fa-edit"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <!--
-                                            MODAL
-                                            -->
-
-                                        <div class="modal fade" id="ModalUP${p.talentID}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-                                             data-keyboard="false">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal fade" id="ModalUP${p.talentID}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+                                         data-keyboard="false">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <form id="editTalentForm${p.talentID}" action="udtalent?action=updateproduct" method="post" enctype="multipart/form-data">
                                                 <div class="modal-content">
                                                     <div class="modal-body">
+
                                                         <div class="row">
                                                             <div class="form-group  col-md-12">
                                                                 <span class="thong-tin-thanh-toan">
@@ -137,49 +144,43 @@
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
                                                                 <label class="control-label">TalentID </label>
-                                                                <input class="form-control" type="text" readonly name="product_id" value="${p.talentID}">
+                                                                <input class="form-control" type="text" readonly name="talent_id" value="${p.talentID}">
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label for="exampleSelect1" class="control-label">Category</label>
-                                                                <select name="category_id" class="form-control" id="exampleSelect1">
-                                                                    <option>-- Select category --</option>
-                                                                    <c:forEach items="${lit}" var="s">
-                                                                        <option value="${s.talentID}">${s.talentID}</option>
-                                                                    </c:forEach>
+                                                                <label for="exampleSelect1"  id="exampleSelect1" class="control-label">Category</label>
+                                                                <select required="required" class="form-control" name="cid">
+                                                                    <option selected="selected" disabled="disabled">---Select---</option>
+                                                                    <%
+                                                                        DBContext dbContext = new DBContext();
+                                                                        ProviderDAO p = new ProviderDAO(dbContext.getConnection());
+                                                                        List<Category> listOfCategory = p.getAllCategory();
+                                                                        for (Category c : listOfCategory)
+									
+                                                                    {%>
+                                                                    <!-- actually we take id of category from category table -->
+                                                                    <option value="<%= c.getId()%>"> <%= c.getName()%>  </option>
+
+                                                                    <%
+                                                                    }
+                                                                    %>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label class="control-label">Title</label>
-                                                                <input class="form-control" type="text" name="product_name" required value="${p.title}">
+                                                                <input class="form-control" type="text" name="title" required value="${p.title}">
                                                             </div>
+                                                            <!--
+                                                            -->
                                                             <div class="form-group col-md-6">
-                                                                <label class="control-label">Giá</label>
-                                                                <input class="form-control" type="number" name="product_price" required value="${p.title}">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label class="control-label">Màu</label>
-                                                                <input class="form-control" name="product_color" type="text" value="<c:forEach items="${ColorData}" var="c"><c:if test="${p.talentID==c.product_id}">${c.color},</c:if></c:forEach>">
-                                                                    </div>
-
-                                                                    <div class="form-group col-md-6">
-                                                                        <label class="control-label">Size</label>
-                                                                        <input class="form-control" name="product_size" type="text" value="<c:forEach items="${SizeData}" var="s"><c:if test="${p.talentID==s.product_id}">${s.size},</c:if></c:forEach>">
-                                                                    </div><!--
-                                                                    -->
-                                                                    <div class="form-group col-md-6">
-                                                                        <label class="control-label">Description</label>
-                                                                        <input class="form-control" type="text" name="product_describe" value="${p.description}">
+                                                                <label class="control-label">Description</label>
+                                                                <textarea class="form-control" name="describe" required value="${p.description}"></textarea>
                                                             </div>
 
-                                                            <div class="form-group col-md-6">
-                                                                <label class="control-label">Số lượng</label>
-                                                                <input class="form-control" type="text" name="product_quantity" value="${p.title}">
-                                                            </div>
                                                             <!--anh san pham-->
                                                             <div class="form-group col-md-12">
                                                                 <label class="control-label">Talent Image</label>
                                                                 <div id="myfileupload">
-                                                                    <input type="file" id="uploadfile" name="product_img" value="${p.img}" onchange="readURL(this);" />
+                                                                    <input type="file" id="uploadfile" name="img" value="${p.img}" onchange="readURL(this);" />
                                                                 </div>
                                                                 <div id="thumbbox">
                                                                     <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
@@ -197,15 +198,17 @@
                                                         <BR>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
-                                        <!--
-                                      MODAL
-                                        -->
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </form>
+                                    </div>
+
+                                    <!--
+                                  MODAL
+                                    -->
+                                </c:forEach>
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
                 </div>

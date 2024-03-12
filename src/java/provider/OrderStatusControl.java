@@ -5,12 +5,15 @@
 package provider;
 
 import dao.ProviderDAO;
+import dao.WalletDAO;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -35,36 +38,56 @@ public class OrderStatusControl extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("user");
+            int proId = account.getAccountID();
             int ordId = Integer.parseInt(request.getParameter("id"));
             String status = request.getParameter("status");
+            double priceDouble = Double.parseDouble(request.getParameter("price"));
+            int price = (int) priceDouble;
             ProviderDAO pdao = new ProviderDAO();
             switch (status) {
                 case "accept":
-                  //  int deposit = (int) (pdao.getPriceByOrderId(ordId)*0.3);
-                    status = "Processing";
-                    SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = new Date();
-            String createAt = sqlDateFormat.format(date);
-                     pdao.updateStatusByOrderId(ordId, status);
+                    int deposit = (int) (price * 0.3);
+                    double balance = (Integer) session.getAttribute("balance");
+                    if (balance >= deposit && account != null) {
+                        int seekerId = pdao.getAccountIdByOrderId(ordId);
+                        int senderId = pdao.getWalletIdByAccountId(proId);
+                        int receiverId = pdao.getWalletIdByAccountId(seekerId);
+                        status = "Processing";
+                        SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date date = new Date();
+                        String createAt = sqlDateFormat.format(date);
+                        pdao.updateStatusByOrderId(ordId, status);
+                        int newBalance = (int) (balance - deposit);
+                         WalletDAO wdao = new WalletDAO(); 
+                        wdao.updateNewBalance(proId, newBalance);
+                        String transactionType = "Deposit";
+                        String transStatus = "Success";
+                        pdao.insertTransaction(senderId, receiverId, deposit, transactionType, ordId, transStatus, createAt);
+                    } else {
+                        request.setAttribute("mess1", "Please make sure the wallet balance is sufficient for payment");
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                    }
                     break;
                 case "cancel":
                     status = "Reject";
-                     pdao.updateStatusByOrderId(ordId, status);
+                    pdao.updateStatusByOrderId(ordId, status);
                     break;
                 case "finish":
                     status = "Finish";
-                     pdao.updateStatusByOrderId(ordId, status);
+                    pdao.updateStatusByOrderId(ordId, status);
                     break;
                 case "cancel2":
                     status = "Cancel";
-                     pdao.updateStatusByOrderId(ordId, status);
+                    pdao.updateStatusByOrderId(ordId, status);
 
                     break;
                 default:
                     throw new AssertionError();
             }
             response.sendRedirect("order");
-            
+
         }
     }
 

@@ -70,7 +70,7 @@ public class ProviderDAO {
     }
 
     // Add new job
-    public int AddTalent(String Title, String img, String Description, String CreatedAt, int AccountID) throws Exception {
+    public int AddTalent(String Title, String img, String Description, String CreatedAt, int AccountID, int cid) throws Exception {
         String query = " INSERT INTO Talent VALUES (?,?,?,?,?,'Pending',null ,null)";
         int productId = -1;
         try {
@@ -86,7 +86,14 @@ public class ProviderDAO {
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 productId = rs.getInt(1);
+                String sql2 = "insert into [TalentCategory] values(?,?)";
+
+                ps = conn.prepareStatement(sql2);
+                ps.setInt(1, productId);
+                ps.setInt(2, cid);
+                ps.executeUpdate();
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -165,18 +172,24 @@ public class ProviderDAO {
     }
 
 // Edit Provider post
-    public void updateTalent(int TalentID, String Title, String Description, String CreatedAt, int AccountID, String Status, String img) throws Exception {
-        String query = "update Talent set Title= ? , Description= ?, CreatedAt= ?, AccountID = ?, Status = ?, img = ?  where TalentID =?";
+    public void updateTalent(int TalentID, String Title, String Description, String CreatedAt, String img, int cid) throws Exception {
+        String query = "update Talent set Title= ? , Img= ?, [Description]= ?, CreatedAt = ?, Status = 'Pending'  where TalentID =?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, Title);
-            ps.setString(2, Description);
-            ps.setString(3, CreatedAt);
-            ps.setInt(4, AccountID);
-            ps.setString(5, Status);
-            ps.setString(6, img);
-            ps.setInt(7, TalentID);
+            ps.setString(2, img);
+            ps.setString(3, Description);
+            ps.setString(4, CreatedAt);
+            ps.setInt(5, TalentID);
+            ps.executeUpdate();
+
+            String query1 = "UPDATE TalentCategory\n"
+                    + "SET CategoryID = ?\n"
+                    + "WHERE TalentID = ?;";
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, cid);
+            ps.setInt(2, TalentID);
             ps.executeUpdate();
         } catch (SQLException e) {
         }
@@ -210,7 +223,7 @@ public class ProviderDAO {
         return cList;
     }
 
-    public void addOrder(int accId, int talentId, String datetime, int packId, int totalPrice, String status) {
+    public void addOrder(int accId, int talentId, String datetime, int packId, String status, String oderType) {
 
         try {
             String sql = "insert into [Orders] values(?,?,?,?,?)";
@@ -219,8 +232,8 @@ public class ProviderDAO {
             ps.setInt(1, talentId);
             ps.setInt(2, accId);
             ps.setString(3, datetime);
-            ps.setInt(4, totalPrice);
-            ps.setString(5, status);
+            ps.setString(4, status);
+            ps.setString(5, oderType);
             ps.executeUpdate();
 
             String sql1 = "select top 1 orderid from [Orders] order by orderid desc";
@@ -328,41 +341,18 @@ public class ProviderDAO {
         return null;
     }
 
-    public int getPriceByOrderId(int orderId) throws SQLException, Exception {
-        int totalPrice = 0;
-
-        String query = "SELECT TotalPrice FROM Orders WHERE OrderID = ?";
-
-        try ( Connection con = new DBContext().getConnection();  PreparedStatement ps = con.prepareStatement(query)) {
-
-            ps.setInt(1, orderId);
-
-            try ( ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    totalPrice = rs.getInt("TotalPrice");
-                } else {
-                    // Handle case when no row is found for the given OrderID
-                    throw new SQLException("No price found for OrderID: " + orderId);
-                }
-            }
-        }
-
-        return totalPrice;
-    }
-
     public List<Map<String, Object>> getOrderDetailsByDay(int accountId) throws SQLException, Exception {
         List<Map<String, Object>> orderDetailsList = new ArrayList<>();
 
-       String query = "SELECT o.OrderID, a.Name, s.Price, s.Title, s.Description, t.Title AS TalentTitle, o.Timestamp, s.Revisions, s.Deadline, o.Status "
-                     + "FROM Orders o "
-                     + "JOIN OrderDetail od ON o.OrderID = od.OrderID "
-                     + "JOIN ServicePackage s ON od.PacketID = s.PacketID "
-                     + "JOIN Talent t ON t.TalentID = o.TalentID "
-                     + "JOIN Account a ON a.AccountID = o.AccountID "
-                     + "WHERE CAST([Timestamp] AS DATE) = CAST(GETDATE() AS DATE) "
-                     + "AND t.AccountID = ? "
-                     + "AND o.Status IN ('Pending', 'Waiting')";
-
+        String query = "SELECT o.OrderID, a.Name, s.Price, s.Title, s.Description, t.Title AS TalentTitle, o.Timestamp, s.Revisions, s.Deadline, o.Status "
+                + "FROM Orders o "
+                + "JOIN OrderDetail od ON o.OrderID = od.OrderID "
+                + "JOIN ServicePackage s ON od.PacketID = s.PacketID "
+                + "JOIN Talent t ON t.TalentID = o.TalentID "
+                + "JOIN Account a ON a.AccountID = o.AccountID "
+                + "WHERE CAST([Timestamp] AS DATE) = CAST(GETDATE() AS DATE) "
+                + "AND t.AccountID = ? "
+                + "AND o.Status IN ('Pending', 'Waiting')";
 
         try ( Connection conn = new DBContext().getConnection();  PreparedStatement ps = conn.prepareStatement(query)) {
 
@@ -391,7 +381,7 @@ public class ProviderDAO {
     public List<Map<String, Object>> getOrderDetailsByAccountId(int accountId) throws SQLException, Exception {
         List<Map<String, Object>> orderDetailsList = new ArrayList<>();
 
-      String query = "SELECT o.OrderID, a.Name, s.Price, s.Title, s.Description, t.Title AS TalentTitle, o.Timestamp, s.Revisions, s.Deadline, o.Status \n"
+        String query = "SELECT o.OrderID, a.Name, s.Price, s.Title, s.Description, t.Title AS TalentTitle, o.Timestamp, s.Revisions, s.Deadline, o.Status \n"
                 + "                            FROM Orders o \n"
                 + "                            JOIN OrderDetail od ON o.OrderID = od.OrderID \n"
                 + "                            JOIN ServicePackage s ON od.PacketID = s.PacketID \n"
@@ -437,7 +427,8 @@ public class ProviderDAO {
 
         return orderDetailsList;
     }
- public void updateStatusByOrderId(int orderId, String status) throws SQLException, Exception {
+
+    public void updateStatusByOrderId(int orderId, String status) throws SQLException, Exception {
         String query;
         if ("Processing".equals(status)) {
             // If status is "Processing", update status and set Timestamp to current time
@@ -447,8 +438,7 @@ public class ProviderDAO {
             query = "UPDATE Orders SET Status = ? WHERE OrderID = ?";
         }
 
-        try (Connection con = new DBContext().getConnection();
-             PreparedStatement ps = con.prepareStatement(query)) {
+        try ( Connection con = new DBContext().getConnection();  PreparedStatement ps = con.prepareStatement(query)) {
 
             ps.setString(1, status);
             if ("Processing".equals(status)) {
@@ -469,9 +459,65 @@ public class ProviderDAO {
             }
         }
     }
+
+    public int getAccountIdByOrderId(int orderId) throws Exception {
+        String query = "SELECT AccountID FROM Orders WHERE OrderID = ?";
+        int accountId = -1; // Default value if not found
+
+        try ( Connection connection = new DBContext().getConnection();  PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, orderId);
+            try ( ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    accountId = resultSet.getInt("AccountID");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception as needed
+        }
+
+        return accountId;
+    }
+
+    public int getWalletIdByAccountId(int accountId) throws Exception {
+        String query = "SELECT WalletID FROM Wallet WHERE AccountID = ?";
+        int walletId = -1; // Default value if not found
+
+        try ( Connection connection = new DBContext().getConnection();  PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, accountId);
+            try ( ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    walletId = resultSet.getInt("WalletID");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception as needed
+        }
+
+        return walletId;
+    }
+
+    public void insertTransaction(int wSenderId, int wReceiverId, int price, String transactionType, int orderId, String status, String transactionDate) throws Exception {
+        String query = "INSERT INTO Transactions (WSenderID, WReceiverID, Price, TransactionType, OrderID, Status, TransactionDate) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try ( Connection connection = new DBContext().getConnection();  PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, wSenderId);
+            statement.setInt(2, wReceiverId);
+            statement.setInt(3, price);
+            statement.setString(4, transactionType);
+            statement.setInt(5, orderId);
+            statement.setString(6, status);
+            statement.setString(7, transactionDate);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception as needed
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         ProviderDAO p = new ProviderDAO();
-        //p.AddTalent("Edit Logo","abc", "Make an club logo", "2024-01-13", 7);
+        p.AddTalent("Edit Logo", "abc", "Make an club logo", "2024-01-13", 7, 6);
         // p.deleteTalent(2);
         //   p.updateTalent(3, "Edit Logo", "Make an club logo", "2024-01-13", 7, "Aviable", "abc");
 //        List<Talent> list = new ArrayList<>();

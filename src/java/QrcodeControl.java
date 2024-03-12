@@ -59,14 +59,16 @@ public class QrcodeControl extends HttpServlet {
             System.out.println(u != null && balance > total);
             if (payment_method.equals("momo")) {
                 if (u != null) {
-                    pdao.addOrder(accId, talentId, createAt, packId, total,"Waiting");
+                    String oderType = "Gateway";
+                    pdao.addOrder(accId, talentId, createAt, packId,"Waiting",oderType);
                     request.setAttribute("total", total);
                     request.getRequestDispatcher("qrcode.jsp").forward(request, response);
                 }
                  }
                 else if (payment_method.equals("wallet")) {
                     if (u != null && balance > total) {
-                        pdao.addOrder(accId, talentId, createAt, packId,total,"Pending");
+                        String oderType = "Paid";
+                        pdao.addOrder(accId, talentId, createAt, packId,"Pending",oderType);
                         int newBalance = (int) Math.round(balance - total);
                         session.removeAttribute("balance");
                         session.setAttribute("balance", newBalance);

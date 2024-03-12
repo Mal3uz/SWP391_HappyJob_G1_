@@ -43,6 +43,7 @@ public class AddTalentControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String title = request.getParameter("title");
         String Description = request.getParameter("description");
+        int cid = Integer.parseInt(request.getParameter("cid"));
         SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         String createAt = sqlDateFormat.format(date);
@@ -50,7 +51,7 @@ public class AddTalentControl extends HttpServlet {
         // img handler
         Part file = request.getPart("ProductImgURL");
         String imageFileName = file.getSubmittedFileName();
-        String uploadPath = "E:/SWP391_HappyJob_G1_/web/images" + imageFileName;
+        String uploadPath = "E:/SWP391_HappyJob_G1_-master/web/images/" + imageFileName;
         ServicePackageDAO spdao = new ServicePackageDAO();
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("user");
@@ -64,7 +65,7 @@ public class AddTalentControl extends HttpServlet {
             fos.write(data);
             fos.close();
             ProviderDAO pdao = new ProviderDAO();
-           int talentID = pdao.AddTalent(title,"images/"+imageFileName, Description, createAt, id);
+           int talentID = pdao.AddTalent(title,"images/"+imageFileName, Description, createAt, id,cid);
             // Get values for the three service packages
                 for (int i = 1; i <= 3; i++) {
                     String servicePackageTitle = request.getParameter("servicePackageTitle" + i);

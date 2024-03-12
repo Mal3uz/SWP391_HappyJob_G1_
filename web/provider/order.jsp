@@ -119,7 +119,7 @@
                                                         Edit
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <a class="dropdown-item accept" href="OrderStatusControl?id=${item.id}&status=accept"  value="accept">Accept</a>
+                                                        <a class="dropdown-item accept" href="OrderStatusControl?id=${item.id}&status=accept&price=${item.price}"  value="accept">Accept</a>
                                                         <a class="dropdown-item" href="OrderStatusControl?id=${item.id}&status=cancel"  value="cancel">Cancel</a>
                                                     </div>
                                                 </div>
