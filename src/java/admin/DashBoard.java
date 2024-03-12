@@ -7,6 +7,7 @@ package admin;
 
 import dao.AdminDAO;
 import entity.Account;
+import entity.Talent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -38,7 +39,8 @@ public class DashBoard extends HttpServlet {
         int pendingTalent = dao.getNumberTalentByStatus("Pending");
         int rejectTalent = dao.getNumberTalentByStatus("Reject");
         Map<Account, Integer> topAccount = dao.getTopAccountWithPurchaseCount();
-                
+        Map<Talent, Integer> topTalent = dao.getTopTalentWithAmountSold();
+         
         request.setAttribute("activeAccount", activeAccount);
         request.setAttribute("pendingAccount", pendingAccount);
         request.setAttribute("LockAccount", LockAccount);
@@ -46,6 +48,7 @@ public class DashBoard extends HttpServlet {
         request.setAttribute("pendingTalent", pendingTalent);
         request.setAttribute("rejectTalent", rejectTalent);
         request.setAttribute("topAccount", topAccount);
+         request.setAttribute("topTalent", topTalent);
         request.setAttribute("dao", dao);
         
          request.getRequestDispatcher("../admin_dashboard/DashBoard.jsp").forward(request, response);
