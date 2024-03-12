@@ -63,7 +63,7 @@
                     
                      <c:if test="${sessionScope.user != null}">
                         <div class="col-6">
-                            <a href="#" class="btn btn-block btn-danger btn-md mb-4">Send Message</a>
+                            <a href="createMessage?friendId=${accountTalent.getAccountID()}" class="btn btn-block btn-danger btn-md mb-4">Send Message</a>
                         </div>
                     </c:if>
                 </div>

@@ -11,10 +11,11 @@ import java.util.List;
  * @author ASUS
  */
 public class Talent {
+
     private int talentID;
     private String title;
     private String img;
-    private String  description;
+    private String description;
     private String createdAt;
     private int accountID;
     private String status;
@@ -35,6 +36,12 @@ public class Talent {
         this.status = status;
         this.reason = reason;
         this.approvedBy = approvedBy;
+    }
+
+    public Talent(int talentID, String title, String createdAt) {
+        this.talentID = talentID;
+        this.title = title;
+        this.createdAt = createdAt;
     }
 
     public int getTalentID() {
@@ -114,7 +121,4 @@ public class Talent {
         return "Talent{" + "talentID=" + talentID + ", title=" + title + ", img=" + img + ", description=" + description + ", createdAt=" + createdAt + ", accountID=" + accountID + ", status=" + status + ", reason=" + reason + ", approvedBy=" + approvedBy + '}';
     }
 
-  
-
-  
 }

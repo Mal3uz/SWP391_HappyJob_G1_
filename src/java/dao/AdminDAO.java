@@ -57,13 +57,11 @@ public class AdminDAO {
     public Map<Account, Integer> getTopAccountWithPurchaseCount() {
         Map<Account, Integer> accountPurchaseCountMap = new HashMap<>();
         String query = "SELECT TOP 5 A.Img, A.[Name], A.Email, A.Gender, COUNT(*) AS PurchaseCount\n"
-                + "FROM Transactions Tr\n"
-                + "JOIN Orders O ON Tr.OrderID = O.OrderID\n"
-                + "JOIN Talent T ON O.TalentID = T.TalentID\n"
-                + "JOIN Account A ON T.AccountID = A.AccountID\n"
-                + "WHERE Tr.[Status] = 'Completed'\n"
+                + " from Orders O \n"
+                + "JOIN Account A ON O.AccountID = A.AccountID\n"
+                + "WHERE O.[Status] = 'Completed'\n"
                 + "GROUP BY A.Img, A.[Name], A.Email, A.Gender\n"
-                + "ORDER BY PurchaseCount DESC;";
+                + "ORDER BY PurchaseCount DESC";
         try {
             conn = new DBContext().getConnection(); // Open connection to SQL
             ps = conn.prepareStatement(query);
@@ -550,6 +548,35 @@ public class AdminDAO {
         return list;
     }
 
+    public Map<Talent, Integer> getTopTalentWithAmountSold() {
+        Map<Talent, Integer> accountPurchaseCountMap = new HashMap<>();
+        String query = "SELECT TOP 5 T.TalentID, T.Title, T.CreatedAt, COUNT(*) AS AmountSold\n"
+                + " from Orders O \n"
+                + " JOIN  Talent T ON O.TalentID = T.TalentID\n"
+                + "JOIN Account A ON T.AccountID = A.AccountID\n"
+                + "WHERE O.[Status] = 'Completed'\n"
+                + "GROUP BY  T.TalentID, T.Title, T.CreatedAt\n"
+                + "ORDER BY AmountSold DESC";
+        try {
+            conn = new DBContext().getConnection(); // Open connection to SQL
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Talent talent = new Talent(rs.getInt("talentID"),
+                        rs.getString("title"),
+                        rs.getString("createdAt"));
+
+                int AmountSold = rs.getInt("AmountSold");
+
+                accountPurchaseCountMap.put(talent, AmountSold);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return accountPurchaseCountMap;
+    }
+
     //sp1
     public List<ServicePackage> ServicePackagesByTalentId(String talentId) {
         List<ServicePackage> list = new ArrayList<>();
@@ -860,7 +887,7 @@ public class AdminDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getInt(5),
+                        rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8)));
@@ -887,7 +914,7 @@ public class AdminDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getInt(5),
+                        rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8));
@@ -957,10 +984,9 @@ public class AdminDAO {
                 return new Orders(rs.getInt(1),
                         rs.getInt(2),
                         rs.getInt(3),
-                        rs.getInt(4),
-                        rs.getInt(5),
-                        rs.getString(6),
-                        rs.getString(7));
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6));
 
             }
         } catch (Exception e) {

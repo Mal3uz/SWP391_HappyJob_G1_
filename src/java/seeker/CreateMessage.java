@@ -3,24 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package admin;
+package seeker;
 
 import dao.AdminDAO;
 import entity.Account;
-import entity.Talent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Map;
+import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author DELL
  */
-public class DashBoard extends HttpServlet {
+public class CreateMessage extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,28 +32,20 @@ public class DashBoard extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
         AdminDAO dao = new AdminDAO();
-        int activeAccount = dao.getNumberAccountByStatus("Active");
-        int pendingAccount = dao.getNumberAccountByStatus("Pending");
-        int LockAccount =  dao.getNumberAccountByStatus("Lock");
-        int activeTalent = dao.getNumberTalentByStatus("Active");
-        int pendingTalent = dao.getNumberTalentByStatus("Pending");
-        int rejectTalent = dao.getNumberTalentByStatus("Reject");
-        Map<Account, Integer> topAccount = dao.getTopAccountWithPurchaseCount();
-        Map<Talent, Integer> topTalent = dao.getTopTalentWithAmountSold();
-         
-        request.setAttribute("activeAccount", activeAccount);
-        request.setAttribute("pendingAccount", pendingAccount);
-        request.setAttribute("LockAccount", LockAccount);
-        request.setAttribute("activeTalent", activeTalent);
-        request.setAttribute("pendingTalent", pendingTalent);
-        request.setAttribute("rejectTalent", rejectTalent);
-        request.setAttribute("topAccount", topAccount);
-         request.setAttribute("topTalent", topTalent);
-        request.setAttribute("dao", dao);
-        
-         request.getRequestDispatcher("../admin_dashboard/DashBoard.jsp").forward(request, response);
-                
+        int uId = account.getAccountID();
+         int friendId = Integer.parseInt(request.getParameter("friendId"));
+        String message = "hi";
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String formattedTime = currentTime.format(formatter);
+       dao.InsertMessage(uId, friendId, formattedTime, message);
+       response.sendRedirect("message");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
