@@ -2208,3 +2208,7 @@ li.clearfix {
 .selected {
         background-color: #555555;
 }
+
+#top{
+        overflow-x: hidden;
+}

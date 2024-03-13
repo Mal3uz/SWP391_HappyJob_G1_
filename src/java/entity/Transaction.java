@@ -10,10 +10,10 @@ package entity;
  */
 public class Transaction {
   private int transactionID;
-    private int wSeekerID;
-    private int wProviderID;
-    private int seekerPrice;
-    private int providerPrice;
+    private int wSenderID;
+    private int wReceiverID;
+    private int price;
+    private String transactionType;
     private int orderID;
     private String status;
     private String transactionDate;
@@ -21,12 +21,12 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(int transactionID, int wSeekerID, int wProviderID, int seekerPrice, int providerPrice, int orderID, String status, String transactionDate) {
+    public Transaction(int transactionID, int wSenderID, int wReceiverID, int price, String transactionType, int orderID, String status, String transactionDate) {
         this.transactionID = transactionID;
-        this.wSeekerID = wSeekerID;
-        this.wProviderID = wProviderID;
-        this.seekerPrice = seekerPrice;
-        this.providerPrice = providerPrice;
+        this.wSenderID = wSenderID;
+        this.wReceiverID = wReceiverID;
+        this.price = price;
+        this.transactionType = transactionType;
         this.orderID = orderID;
         this.status = status;
         this.transactionDate = transactionDate;
@@ -40,36 +40,36 @@ public class Transaction {
         this.transactionID = transactionID;
     }
 
-    public int getwSeekerID() {
-        return wSeekerID;
+    public int getwSenderID() {
+        return wSenderID;
     }
 
-    public void setwSeekerID(int wSeekerID) {
-        this.wSeekerID = wSeekerID;
+    public void setwSenderID(int wSenderID) {
+        this.wSenderID = wSenderID;
     }
 
-    public int getwProviderID() {
-        return wProviderID;
+    public int getwReceiverID() {
+        return wReceiverID;
     }
 
-    public void setwProviderID(int wProviderID) {
-        this.wProviderID = wProviderID;
+    public void setwReceiverID(int wReceiverID) {
+        this.wReceiverID = wReceiverID;
     }
 
-    public int getSeekerPrice() {
-        return seekerPrice;
+    public int getPrice() {
+        return price;
     }
 
-    public void setSeekerPrice(int seekerPrice) {
-        this.seekerPrice = seekerPrice;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public int getProviderPrice() {
-        return providerPrice;
+    public String getTransactionType() {
+        return transactionType;
     }
 
-    public void setProviderPrice(int providerPrice) {
-        this.providerPrice = providerPrice;
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
     }
 
     public int getOrderID() {
@@ -98,9 +98,9 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" + "transactionID=" + transactionID + ", wSeekerID=" + wSeekerID + ", wProviderID=" + wProviderID + ", seekerPrice=" + seekerPrice + ", providerPrice=" + providerPrice + ", orderID=" + orderID + ", status=" + status + ", transactionDate=" + transactionDate + '}';
+        return "Transaction{" + "transactionID=" + transactionID + ", wSenderID=" + wSenderID + ", wReceiverID=" + wReceiverID + ", price=" + price + ", transactionType=" + transactionType + ", orderID=" + orderID + ", status=" + status + ", transactionDate=" + transactionDate + '}';
     }
 
-    
+ 
     
 }

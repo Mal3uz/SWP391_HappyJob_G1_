@@ -13,22 +13,20 @@ public class Orders {
     private int orderID;
     private int talentID;
     private int accountID;
-    private int totalPrice;
-    private int deposit;
     private String timestamp;
     private String status;
+    private String orderType;
 
     public Orders() {
     }
 
-    public Orders(int orderID, int talentID, int accountID, int totalPrice, int deposit, String timestamp, String status) {
+    public Orders(int orderID, int talentID, int accountID, String timestamp, String status, String orderType) {
         this.orderID = orderID;
         this.talentID = talentID;
         this.accountID = accountID;
-        this.totalPrice = totalPrice;
-        this.deposit = deposit;
         this.timestamp = timestamp;
         this.status = status;
+        this.orderType = orderType;
     }
 
     public int getOrderID() {
@@ -55,22 +53,6 @@ public class Orders {
         this.accountID = accountID;
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public int getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(int deposit) {
-        this.deposit = deposit;
-    }
-
     public String getTimestamp() {
         return timestamp;
     }
@@ -87,11 +69,19 @@ public class Orders {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Orders{" + "orderID=" + orderID + ", talentID=" + talentID + ", accountID=" + accountID + ", totalPrice=" + totalPrice + ", deposit=" + deposit + ", timestamp=" + timestamp + ", status=" + status + '}';
+    public String getOrderType() {
+        return orderType;
     }
 
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
 
+    @Override
+    public String toString() {
+        return "Orders{" + "orderID=" + orderID + ", talentID=" + talentID + ", accountID=" + accountID + ", timestamp=" + timestamp + ", status=" + status + ", orderType=" + orderType + '}';
+    }
+    
+    
 
 }

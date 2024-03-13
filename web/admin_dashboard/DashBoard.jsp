@@ -281,88 +281,32 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Agent</th>
-                                            <th>Tickets</th>
-                                            <th>Time Spent</th>
-                                            <th>Feedback</th>
+                                            <th>Author</th>
+                                            <th>Title</th>
+                                            <th>Create At</th>
+                                            <th>Amount Sold</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <div class="fw-semibold">Elisa Shah</div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-primary">54</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge border border-light">2 Hrs 30 Mins</span>
-                                            </td>
-                                            <td>
-                                                <div class="starReadOnly1 rating-stars my-2"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <div class="fw-semibold">Ladonna Jones</div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-primary">49</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge border border-light">2 Hrs 21 Mins</span>
-                                            </td>
-                                            <td>
-                                                <div class="starReadOnly2 rating-stars my-2"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <div class="fw-semibold">Jewel Alexander</div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-primary">45</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge border border-light">2 Hrs 15 Mins</span>
-                                            </td>
-                                            <td>
-                                                <div class="starReadOnly1 rating-stars my-2"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>
-                                                <div class="fw-semibold">Rich Spears</div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-primary">42</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge border border-light">2 Hrs 10 Mins</span>
-                                            </td>
-                                            <td>
-                                                <div class="starReadOnly1 rating-stars my-2"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>
-                                                <div class="fw-semibold">Shelly Daniel</div>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-primary">38</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge border border-light">2Hrs 05Mins</span>
-                                            </td>
-                                            <td>
-                                                <div class="starReadOnly1 rating-stars my-2"></div>
-                                            </td>
-                                        </tr>
+                                        <c:forEach var="entry" items="${topTalent}" varStatus="status">
+                                             <c:set value="${dao.getAccountByTalentId(entry.key.getTalentID())}" var="accountTalent"></c:set>
+                                            <tr>
+                                                <td>${status.index}</td>
+                                              <td>
+                                                  ${accountTalent.name}
+                                                </td>
+                                                <td>
+                                                    <div class="fw-semibold">${entry.key.getTitle()}</div>
+                                                </td>                                       
+                                                <td>
+                                                      <div class="fw-semibold">${entry.key.getCreatedAt()}</div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-primary">${entry.value}</span>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+
                                     </tbody>
                                 </table>
                             </div>

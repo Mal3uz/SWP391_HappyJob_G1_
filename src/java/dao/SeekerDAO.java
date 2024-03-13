@@ -406,7 +406,7 @@ public class SeekerDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getInt(5),
+                        rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8)));
@@ -434,7 +434,7 @@ public class SeekerDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getInt(5),
+                        rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8)));
