@@ -4,6 +4,7 @@
  */
 package provider;
 
+import dao.ProductDAO;
 import dao.ProviderDAO;
 import dao.WalletDAO;
 import entity.Account;
@@ -43,11 +44,14 @@ public class OrderStatusControl extends HttpServlet {
             int proId = account.getAccountID();
             int ordId = Integer.parseInt(request.getParameter("id"));
             String status = request.getParameter("status");
-            double priceDouble = Double.parseDouble(request.getParameter("price"));
-            int price = (int) priceDouble;
             ProviderDAO pdao = new ProviderDAO();
+            SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            String createAt = sqlDateFormat.format(date);
             switch (status) {
                 case "accept":
+                    double priceDouble = Double.parseDouble(request.getParameter("price"));
+                    int price = (int) priceDouble;
                     int deposit = (int) (price * 0.3);
                     double balance = (Integer) session.getAttribute("balance");
                     if (balance >= deposit && account != null) {
@@ -55,12 +59,9 @@ public class OrderStatusControl extends HttpServlet {
                         int senderId = pdao.getWalletIdByAccountId(proId);
                         int receiverId = pdao.getWalletIdByAccountId(seekerId);
                         status = "Processing";
-                        SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        Date date = new Date();
-                        String createAt = sqlDateFormat.format(date);
                         pdao.updateStatusByOrderId(ordId, status);
                         int newBalance = (int) (balance - deposit);
-                         WalletDAO wdao = new WalletDAO(); 
+                        WalletDAO wdao = new WalletDAO();
                         wdao.updateNewBalance(proId, newBalance);
                         String transactionType = "Deposit";
                         String transStatus = "Success";
@@ -77,6 +78,10 @@ public class OrderStatusControl extends HttpServlet {
                 case "finish":
                     status = "Finish";
                     pdao.updateStatusByOrderId(ordId, status);
+                    ProductDAO pd = new ProductDAO();
+                    String productStatus = "Pending";
+                    String url = request.getParameter("reason");
+                   pd.insertProduct(ordId, proId, url, createAt, productStatus);
                     break;
                 case "cancel2":
                     status = "Cancel";

@@ -5,6 +5,7 @@
 package provider;
 
 import dao.ProviderDAO;
+import dao.TalentDAO;
 import entity.Account;
 import entity.Talent;
 import java.io.IOException;
@@ -40,11 +41,13 @@ public class LoadTalent extends HttpServlet {
         Object accObj = session.getAttribute("user");
         Account a = (Account) accObj;
         ProviderDAO pdao = new ProviderDAO();
+        TalentDAO tdao = new TalentDAO();
         if (action == null || action.isEmpty()) {
             List<Talent> lit = new ArrayList<>();
             int accId = a.getAccountID();
             lit = pdao.getListAllTalentByID(accId);
             request.setAttribute("lit", lit);
+            request.setAttribute("tdao", tdao);
             request.getRequestDispatcher("/provider/listTalents.jsp").forward(request, response);
         }
          

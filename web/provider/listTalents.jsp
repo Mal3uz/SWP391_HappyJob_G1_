@@ -114,12 +114,20 @@
                                             <td><img src="${p.img}" alt="" width="100px;"></td>
 
                                             <td>
-                                                <button class="btn btn-primary btn-sm trash" type="button" title="Delete" value="${p.talentID}"><i
-                                                        class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" type="button" title="Edit" id="show-emp"
-                                                        data-toggle="modal" data-target="#ModalUP${p.talentID}"><i class="fas fa-edit"></i>
-                                                </button>
+                                                <c:set var="talentExists" value="${tdao.doesTalentExist(p.talentID)}" />
+                                                <c:if test="${!talentExists}">
+                                                    <button class="btn btn-primary btn-sm trash" type="button" title="Delete" value="${p.talentID}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                    <button class="btn btn-primary btn-sm edit" type="button" title="Edit" id="show-emp"
+                                                            data-toggle="modal" data-target="#ModalUP${p.talentID}">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                        
+                                                </c:if>
+                                                 <c:if test="${talentExists}">
+                                                     <p class="btn btn-sm btn-warning">In an Order!</p>
+                                                      </c:if>
                                             </td>
                                         </tr>
 
@@ -149,7 +157,7 @@
                                                             <div class="form-group col-md-6">
                                                                 <label for="exampleSelect1"  id="exampleSelect1" class="control-label">Category</label>
                                                                 <select required="required" class="form-control" name="cid">
-                                                                    <option selected="selected" disabled="disabled">---Select---</option>
+                                                                    <option selected="selected" disabled="disabled" value="0">---Select---</option>
                                                                     <%
                                                                         DBContext dbContext = new DBContext();
                                                                         ProviderDAO p = new ProviderDAO(dbContext.getConnection());
