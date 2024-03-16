@@ -38,7 +38,8 @@ public class TalentManager extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
-         int cid = Integer.parseInt(request.getParameter("cid"));
+        System.out.println(action);
+            int cid = Integer.parseInt(request.getParameter("cid"));
         ProviderDAO pdao = new ProviderDAO();
         if (action.equalsIgnoreCase("deleteproduct")) {
             int product_id = Integer.parseInt(request.getParameter("product_id"));

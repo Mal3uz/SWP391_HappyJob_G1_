@@ -1,8 +1,3 @@
-<%-- 
-    Document   : order
-    Created on : Oct 19, 2021, 11:23:09 PM
-    Author     : Khuong Hung
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -113,6 +108,28 @@
                                         <td>${item.timestamp}</td>
                                         <td>${item.status}</td>
                                         <td>
+                                            <!-- Modal for Finish Case -->
+                                            <div class="modal fade" id="confirmFinishModal" tabindex="-1" role="dialog" aria-labelledby="confirmFinishModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="confirmFinishModalLabel">Finish Order</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Please provide a URL link to your Product:</p>
+                                                            <input type="text" class="form-control" id="finishReasonInput">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                            <button type="button" class="btn btn-primary" id="confirmFinishBtn">Finish</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <c:if test="${item.status == 'Pending'}">
                                                 <div class="btn-group" role="group">
                                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -130,12 +147,12 @@
                                                         Edit
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <a class="dropdown-item" href="OrderStatusControl?id=${item.id}&status=finish"  value="finish">Finish</a>
-                                                        <a class="dropdown-item" href="OrderStatusControl?id=${item.id}&status=cancel2"  value="cancel2">Cancel</a>
+                                                        <a class="dropdown-item finish" href="#" data-toggle="modal" data-target="#confirmFinishModal" data-orderid="${item.id}" data-status="finish">Finish</a>
+                                                        <a class="dropdown-item" href="OrderStatusControl?id=${item.id}&status=cancel2" value="cancel2">Cancel</a>
                                                     </div>
                                                 </div>
-
                                             </c:if>
+
 
                                         </td>
                                     </tr>
@@ -213,27 +230,65 @@
             }
         }
     </script>
-    
+
     <script>
-    $(document).ready(function () {
-        $(".accept").click(function (event) {
-            event.preventDefault(); // Prevent the default link behavior
-            
-            swal({
-                title: "Accept Order",
-                text: "If you agree, you need to deposit 30% of the amount of the work",
-                buttons: ["Cancel", "Accept"],
-            }).then((willAccept) => {
-                if (willAccept) {
-                    window.location.href = $(this).attr("href"); // Redirect to the href attribute
-                    swal("Order accepted!", {
-                        icon: "success"
-                    });
-                }
+        $(document).ready(function () {
+            $(".accept").click(function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+
+                swal({
+                    title: "Accept Order",
+                    text: "If you agree, you need to deposit 30% of the amount of the work",
+                    buttons: ["Cancel", "Accept"],
+                }).then((willAccept) => {
+                    if (willAccept) {
+                        window.location.href = $(this).attr("href"); // Redirect to the href attribute
+                        swal("Order accepted!", {
+                            icon: "success"
+                        });
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".finish").click(function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+
+                // Get order ID and status from data attributes
+                var orderId = $(this).data('orderid');
+                var status = $(this).data('status');
+
+                // Show the modal
+                $('#confirmFinishModal').modal('show');
+
+                // Handle click on "Finish" button in the modal
+                $('#confirmFinishBtn').click(function () {
+                    var reason = $('#finishReasonInput').val(); // Get the reason input
+
+                    // Redirect to the specified URL with order ID, status, and reason as parameters
+                    window.location.href = 'OrderStatusControl?id=' + orderId + '&status=' + status + '&reason=' + reason;
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Handle click on "Finish" button in the modal using event delegation
+            $(document).on('click', '#confirmFinishBtn', function () {
+                var orderId = $('.finish').data('orderid'); // Get order ID from data attribute
+                var status = $('.finish').data('status'); // Get status from data attribute
+                var reason = $('#finishReasonInput').val(); // Get the reason input
+
+                // Redirect to the specified URL with order ID, status, and reason as parameters
+                window.location.href = 'OrderStatusControl?id=' + orderId + '&status=' + status + '&reason=' + reason;
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>
