@@ -63,12 +63,14 @@
 
                         <nav class="mx-auto site-navigation">
                             <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-                                <li><a href="home" class="nav-link active">Home</a></li>
+                                <li><a href="Home.jsp" class="nav-link active">Home</a></li>
 
                                 <li class="has-children">
                                     <a href="#">Talent </a>
                                     <ul class="dropdown">
-                                        <li><a href="listTalentServlet">Talent Listings</a></li>
+                                        <li><a href="listTalent">Talent Listings</a></li>
+                                        <li><a href="waitingAccept">Waiting List</a></li>
+                                        <li><a href="historyOrder">History Order</a></li>
                                         <li><a href="dashboard">Dashboard</a></li>                                    
                                         <li><a href="PostTalent.jsp">Post a Talent</a></li>
                                     </ul>
