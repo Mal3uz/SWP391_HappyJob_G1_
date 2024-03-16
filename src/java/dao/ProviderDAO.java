@@ -298,7 +298,7 @@ public class ProviderDAO {
         String query = "select count (*) from Orders o\n"
                 + "join Talent t on o.TalentID = t.TalentID\n"
                 + "\n"
-                + "Where t.AccountID = ? and o.Status = 'Waiting'";
+                + "Where t.AccountID = ? ";
         int total = 0;
         try {
             conn = new DBContext().getConnection();
@@ -517,7 +517,7 @@ public class ProviderDAO {
 
     public static void main(String[] args) throws Exception {
         ProviderDAO p = new ProviderDAO();
-        p.AddTalent("Edit Logo", "abc", "Make an club logo", "2024-01-13", 7, 6);
+      //  p.AddTalent("Edit Logo", "abc", "Make an club logo", "2024-01-13", 7, 6);
         // p.deleteTalent(2);
         //   p.updateTalent(3, "Edit Logo", "Make an club logo", "2024-01-13", 7, "Aviable", "abc");
 //        List<Talent> list = new ArrayList<>();
@@ -549,6 +549,7 @@ public class ProviderDAO {
 //            System.out.println("Status: " + orderDetails.get("status"));
 //            System.out.println();
 //        }
+        System.out.println(p.getTotalOrder(5));
 
     }
 }
