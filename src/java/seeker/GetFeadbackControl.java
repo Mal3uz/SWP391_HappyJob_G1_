@@ -76,8 +76,7 @@ public class GetFeadbackControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Content, AccountID, TalentID, [Timestamp]
-        String talentIDParam = (String) request.getParameter("tid");
+       String talentIDParam = (String) request.getParameter("tid");
         int talentID = Integer.parseInt(talentIDParam);
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("user");
@@ -98,7 +97,7 @@ public class GetFeadbackControl extends HttpServlet {
              
         }
 
-        response.sendRedirect("./detailTalentServlet?tID="+talentID);
+        response.sendRedirect("./talentDetail?tID="+talentID);
     }
 
     /**
