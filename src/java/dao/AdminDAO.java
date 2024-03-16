@@ -927,6 +927,35 @@ public class AdminDAO {
 
     }
 
+    public List<Transaction> getListTransactionsByOrderId(String orderId) {
+        List<Transaction> listT = new ArrayList<>();
+        String query = "select * from Transactions trs\n"
+                + "join Orders o on trs.OrderID = o.OrderID\n"
+                + "where o.OrderID = ? ";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+             ps.setString(1, orderId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listT.add(new Transaction(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listT;
+
+    }
+
     //p1
     public List<Product> getProductPending() {
         List<Product> listP = new ArrayList<>();
@@ -941,11 +970,10 @@ public class AdminDAO {
                 listP.add(new Product(rs.getInt(1),
                         rs.getInt(2),
                         rs.getInt(3),
-                        rs.getInt(4),
+                        rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8)));
+                        rs.getString(7)));
 
             }
         } catch (Exception e) {
@@ -953,6 +981,20 @@ public class AdminDAO {
 
         return listP;
 
+    }
+
+    public void acceptProduct(String productId, String reason) {
+        String query = "UPDATE Product\n"
+                + "SET Status = 'Finish', Reason = ?\n"
+                + "WHERE Product.ProductID = ?;";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, reason);
+            ps.setString(2, productId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
     }
 
     public void rejectProduct(String productId, String reason) {

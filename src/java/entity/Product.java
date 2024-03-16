@@ -9,8 +9,7 @@ package entity;
  * @author DELL
  */
 public class Product {
-    private int productID;
-    private int transactionID;
+   private int productID;
     private int orderID;
     private int accountID;
     private String urlProduct;
@@ -21,9 +20,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(int productID, int transactionID, int orderID, int accountID, String urlProduct, String timestamp, String status, String reason) {
+    public Product(int productID, int orderID, int accountID, String urlProduct, String timestamp, String status, String reason) {
         this.productID = productID;
-        this.transactionID = transactionID;
         this.orderID = orderID;
         this.accountID = accountID;
         this.urlProduct = urlProduct;
@@ -38,14 +36,6 @@ public class Product {
 
     public void setProductID(int productID) {
         this.productID = productID;
-    }
-
-    public int getTransactionID() {
-        return transactionID;
-    }
-
-    public void setTransactionID(int transactionID) {
-        this.transactionID = transactionID;
     }
 
     public int getOrderID() {
@@ -98,9 +88,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "productID=" + productID + ", transactionID=" + transactionID + ", orderID=" + orderID + ", accountID=" + accountID + ", urlProduct=" + urlProduct + ", timestamp=" + timestamp + ", status=" + status + ", reason=" + reason + '}';
+        return "Product{" + "productID=" + productID + ", orderID=" + orderID + ", accountID=" + accountID + ", urlProduct=" + urlProduct + ", timestamp=" + timestamp + ", status=" + status + ", reason=" + reason + '}';
     }
-
     
     
 }
