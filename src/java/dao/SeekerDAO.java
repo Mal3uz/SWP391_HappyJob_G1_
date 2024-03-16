@@ -6,6 +6,7 @@ package dao;
 
 import entity.Account;
 import entity.Feedback;
+import entity.Orders;
 import entity.Rating;
 import entity.ServicePackage;
 import entity.Talent;
@@ -389,11 +390,11 @@ public class SeekerDAO {
     }
 
     //transaction
-    public List<Transaction> getListTransaction(int accountID, int talentID) {
-        List<Transaction> listF = new ArrayList<>();
-        String query = "select * from Transactions trs\n"
-                + "join Orders o on trs.OrderID = o.OrderID\n"
-                + "where o.AccountID = ? and o.TalentID = ? and trs.Status = 'Completed'";
+    public Orders getOrderByTAid(int accountID, int talentID) {
+        String query = "select * from Orders o\n"
+                + "join Account a on o.AccountID = a.AccountID\n"
+                + "join Talent t on o.TalentID = t.TalentID\n"
+                + "where o.Status = 'Completed' and o.AccountID = ? and o.TalentID = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -402,20 +403,13 @@ public class SeekerDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                listF.add(new  Transaction(rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getInt(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getString(7),
-                        rs.getString(8)));
+                return new Orders(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6));
 
             }
         } catch (Exception e) {
         }
 
-        return listF;
+        return  null;
 
     }
 
@@ -430,7 +424,7 @@ public class SeekerDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                listF.add(new  Transaction(rs.getInt(1),
+                listF.add(new Transaction(rs.getInt(1),
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
@@ -471,8 +465,7 @@ public class SeekerDAO {
     public static void main(String[] args) {
         SeekerDAO dao = new SeekerDAO();
         List<Talent> b = dao.getListTalentByCategoryId("1");
-      
-       
+
         Talent w = dao.getTalentByTransactionId("11");
         System.out.println(w);
     }

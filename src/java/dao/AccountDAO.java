@@ -51,93 +51,185 @@ public class AccountDAO {
         return null;
     }
 
-   public Account updateAccount(Account account) {
-    // Define the SQL query to update the account information
-    String query = "UPDATE Account SET";
+    public Account updateAccount(Account account) {
+        // Define the SQL query to update the account information
+        String query = "UPDATE Account SET";
 // Add email
-    if (account.getEmail() != null) {
-        query += " email = ?,";
-    }
-    
-    // Add name
-    if (account.getName() != null) {
-        query += " name = ?,";
-    }
-    
-    // Add dob
-    if (account.getDob() != null) {
-        query += " dob = ?,";
-    }
-    
-    // Add gender
-    if (account.getGender() != null) {
-        query += " gender = ?,";
-    }
-    
-    // Add img if a new image URL is provided
-    if (account.getImg() != null && !account.getImg().isEmpty()) {
-        query += " img = ?,";
-    }
-    
-    // Remove the trailing comma
-    query = query.substring(0, query.length() - 1);
-    
-    // Add WHERE clause to specify the account to update
-    query += " WHERE AccountID = ?";
-    
-    try {
-        // Get a connection to the database
-        conn = new DBContext().getConnection();
-        
-        // Create a PreparedStatement with the query
-        ps = conn.prepareStatement(query);
-        
-        // Set the parameters for the query
-        int parameterIndex = 1;
         if (account.getEmail() != null) {
-            ps.setString(parameterIndex++, account.getEmail());
+            query += " email = ?,";
         }
+
+        // Add name
         if (account.getName() != null) {
-            ps.setString(parameterIndex++, account.getName());
+            query += " name = ?,";
         }
+
+        // Add dob
         if (account.getDob() != null) {
-            ps.setDate(parameterIndex++, Date.valueOf(account.getDob()));
+            query += " dob = ?,";
         }
+
+        // Add gender
         if (account.getGender() != null) {
-            ps.setString(parameterIndex++, account.getGender());
+            query += " gender = ?,";
         }
+
+        // Add img if a new image URL is provided
         if (account.getImg() != null && !account.getImg().isEmpty()) {
-            ps.setString(parameterIndex++, account.getImg());
+            query += " img = ?,";
         }
-        // Set the AccountID parameter
-        ps.setInt(parameterIndex++, account.getAccountID());
-        
-        // Execute the update query
-        int affectedRows = ps.executeUpdate();
-        
-        // If the update was successful, return the updated account
-        if (affectedRows > 0) {
-            return account;
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        // Close resources
+
+        // Remove the trailing comma
+        query = query.substring(0, query.length() - 1);
+
+        // Add WHERE clause to specify the account to update
+        query += " WHERE AccountID = ?";
+
         try {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            // Get a connection to the database
+            conn = new DBContext().getConnection();
+
+            // Create a PreparedStatement with the query
+            ps = conn.prepareStatement(query);
+
+            // Set the parameters for the query
+            int parameterIndex = 1;
+            if (account.getEmail() != null) {
+                ps.setString(parameterIndex++, account.getEmail());
+            }
+            if (account.getName() != null) {
+                ps.setString(parameterIndex++, account.getName());
+            }
+            if (account.getDob() != null) {
+                ps.setDate(parameterIndex++, Date.valueOf(account.getDob()));
+            }
+            if (account.getGender() != null) {
+                ps.setString(parameterIndex++, account.getGender());
+            }
+            if (account.getImg() != null && !account.getImg().isEmpty()) {
+                ps.setString(parameterIndex++, account.getImg());
+            }
+            // Set the AccountID parameter
+            ps.setInt(parameterIndex++, account.getAccountID());
+
+            // Execute the update query
+            int affectedRows = ps.executeUpdate();
+
+            // If the update was successful, return the updated account
+            if (affectedRows > 0) {
+                return account;
+            }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+        // Return null if the update was not successful
+        return null;
+
     }
-    
-    // Return null if the update was not successful
-    return null;
-    
-}
 
+    public Account getAccountByTalentId(int talentId) {
+        String query = "select * from Account a\n"
+                + "join Talent t on a.AccountID = t.AccountID\n"
+                + "where t.TalentID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, talentId);
+            rs = ps.executeQuery();
 
+            while (rs.next()) {
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public Account getAccountByOrderId(int orderId) {
+        String query = "select * from Account a \n"
+                + "join Orders o on o.AccountID = a.AccountID\n"
+                + "where o.OrderID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, orderId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public Account getAccountTalentByOrderId(int orderId) {
+        String query = "select * from Account a \n"
+                + "join Talent t on a.AccountID = t.AccountID\n"
+                + "join Orders o on t.TalentID = o.TalentID\n"
+                + "where o.OrderID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, orderId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
 
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();

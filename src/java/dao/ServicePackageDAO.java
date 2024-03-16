@@ -26,14 +26,14 @@ public class ServicePackageDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public ArrayList<ServicePackage> listPackage(int talentID) {
+    public List<ServicePackage> listPackage(String talentID) {
         ArrayList<ServicePackage> sList = new ArrayList<>();
         String sql = "SELECT * FROM servicepackage where talentID= ?";
         try {
             con = (Connection) new DBContext().getConnection();
             ps = con.prepareStatement(sql);
 
-            ps.setInt(1, talentID);
+            ps.setString(1, talentID);
             rs = ps.executeQuery();
             while (rs.next()) {
                 sList.add(new ServicePackage(rs.getInt(1),
@@ -53,15 +53,45 @@ public class ServicePackageDAO {
         }
         return null;
     }
+    
+     public ServicePackage BasicPackageById(int talentId) {
+        String sql = "select * from ServicePackage s\n"
+                + "join Talent t on s.TalentID = t.TalentID\n"
+                + "where t.TalentID = ? and Type = 'Basic'";
+        try {
+              con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, talentId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new ServicePackage(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
 
     public List<ServicePackage> getServicePackageByID(int spid) {
         String query = "SELECT * FROM servicepackage WHERE packetID = ?";
         List<ServicePackage> list = new ArrayList<>();
 
-        try ( Connection con = new DBContext().getConnection();  PreparedStatement ps = con.prepareStatement(query)) {
+        try ( 
+                Connection con = new DBContext().getConnection(); 
+                PreparedStatement ps = con.prepareStatement(query)) {
 
             ps.setInt(1, spid);
-            try ( ResultSet rs = ps.executeQuery()) {
+            try ( 
+                    ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     ServicePackage servicePackage = new ServicePackage(
                             rs.getInt(1),
@@ -87,7 +117,9 @@ public class ServicePackageDAO {
     public int getTalentIDByPackId(int packId) throws Exception {
         String query = "SELECT TalentID FROM [ServicePackage] WHERE PacketID = ?";
 
-        try ( Connection con = new DBContext().getConnection();  PreparedStatement ps = con.prepareStatement(query)) {
+        try (
+                Connection con = new DBContext().getConnection();  
+                PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, packId);
             try ( ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {

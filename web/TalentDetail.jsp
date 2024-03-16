@@ -5,6 +5,7 @@
 --%>
 
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="components/Header.jsp" %>
@@ -29,7 +30,7 @@
     <div class="container">
         <div class="pl-2 font-weight-bold text-dark" 
              style="font-size: 30px"
-             >${talentChoiced.getTitle()}</div>
+             >${talent.getTitle()}</div>
         <div class="row align-items-center mb-5">
             <div class="col-lg-8 mb-4 mb-lg-0">
                 <div class="d-flex align-items-center">
@@ -37,11 +38,11 @@
                         <img src="images/person_2.jpg" alt="Image" class="img-person-talent">
                     </div>
                     <div>
-                        <h2>${accountTalent.getName()}</h2>
+                        <h2>${adao.getAccountByTalentId(talent.getTalentID()).getName()}</h2>
                         <div>
                             <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span><span class="text-primary">${accountTalent.getStatus()}</span></span>
                             <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
-                            <span class="m-2"><span class="icon-clock-o mr-2"></span>${accountTalent.getDob()}</span>
+                            <span class="m-2"><span class="icon-clock-o mr-2"></span>${adao.getAccountByTalentId(talent.getTalentID()).getDob()}</span>
                         </div>
                     </div>
                 </div>
@@ -54,7 +55,7 @@
                     <div class="col-6">
                         <a href="#" class="btn btn-block btn-primary btn-md mb-4">Save Job</a>
                     </div>
-                    <c:set value="${dao.getListTransaction(sessionScope.user.getAccountID(),talentChoiced.getTalentID())}" var="check"></c:set>
+                    <c:set value="${dao.getOrderByTAid(sessionScope.user.getAccountID(),talentChoiced.getTalentID())}" var="check"></c:set>
                     <c:if test="${sessionScope.user != null && sessionScope.user.getRoleID() == 3 && !check.isEmpty()}">
                         <div class="col-6">
                             <a href="feedback?tID=${tid}" class="btn btn-block btn-info btn-md">Feedback Now</a>
@@ -63,7 +64,7 @@
                     
                      <c:if test="${sessionScope.user != null}">
                         <div class="col-6">
-                            <a href="createMessage?friendId=${accountTalent.getAccountID()}" class="btn btn-block btn-danger btn-md mb-4">Send Message</a>
+                            <a href="createMessage?friendId=${adao.getAccountByTalentId(talent.getTalentID()).getAccountID()}" class="btn btn-block btn-danger btn-md mb-4">Send Message</a>
                         </div>
                     </c:if>
                 </div>
@@ -72,11 +73,11 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="mb-5">
-                    <figure class="mb-5"><img src="${talentChoiced.getImg()}" alt="Image" class="img-fluid rounded img-talent-choiced"></figure>
-                    <p>${talentChoiced.getImg()}</p>
+                    <figure class="mb-5"><img src="${talent.getImg()}" alt="Image" class="img-fluid rounded img-talent-choiced"></figure>
+                    <p>${talent.getImg()}</p>
 
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Job Description</h3>
-                    <p>${talentChoiced.getDescription()}</p>
+                    <p>${talent.getDescription()}</p>
                 </div>
                 <div class="mb-5">
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-rocket mr-3"></span>Responsibilities</h3>
@@ -137,6 +138,7 @@
 
 
             <div class="col-lg-4">
+                <div class="card" style="position: sticky; top: 130px;">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-basic" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Basic</button>
@@ -231,14 +233,7 @@
                         </c:if>
                     </c:forEach>
                 </div>
-                <div class="bg-light p-3 border rounded">
-                    <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Share</h3>
-                    <div class="px-3">
-                        <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-facebook"></span></a>
-                        <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-twitter"></span></a>
-                        <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-linkedin"></span></a>
-                        <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-pinterest"></span></a>
-                    </div>
+              
                 </div>
             </div>
         </div>
@@ -424,6 +419,28 @@
 
 </section>
 
+
+
+
+<section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 align-self-center text-center text-md-left mb-5 mb-md-0">
+                <h2 class="text-white">Get The Mobile Apps</h2>
+                <p class="mb-5 lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora adipisci impedit.</p>
+                <p class="mb-0">
+                    <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-apple mr-3"></span>App Store</a>
+                    <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-android mr-3"></span>Play Store</a>
+                </p>
+            </div>
+            <div class="col-md-6 ml-auto align-self-end">
+                <img src="images/apps.png" alt="Image" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<%@include file="components/Footer.jsp" %>
 
 
 
