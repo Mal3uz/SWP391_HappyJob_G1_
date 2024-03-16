@@ -69,10 +69,16 @@
                                     <a href="#">Talent </a>
                                     <ul class="dropdown">
                                         <li><a href="listTalent">Talent Listings</a></li>
-                                        <li><a href="waitingAccept">Waiting List</a></li>
-                                        <li><a href="historyOrder">History Order</a></li>
-                                        <li><a href="dashboard">Dashboard</a></li>                                    
-                                        <li><a href="PostTalent.jsp">Post a Talent</a></li>
+                                            <c:if test="${sessionScope.user != null && sessionScope.user.getRoleID() == 3}">
+
+                                            <li><a href="waitingAccept">Waiting List</a></li>
+                                            <li><a href="historyOrder">History Order</a></li>
+
+                                        </c:if>
+                                        <c:if test="${sessionScope.user != null && sessionScope.user.getRoleID() == 2 }">
+                                            <li><a href="dashboard">Dashboard</a></li>                                    
+                                            <li><a href="PostTalent.jsp">Post a Talent</a></li>
+                                            </c:if>
                                     </ul>
                                 </li>
 
@@ -86,12 +92,14 @@
                                     </ul>
                                 </li>
                                 <li class="has-children">
+
+                                 <c:if test="${sessionScope.user != null}">
                                     <a href="#">Notification <mark class="big swing">7</mark></a>
                                     <ul class="dropdown autohiden" style="  position: absolute;left: 50%;transform: translateX(-50%);">
                                         <li>
                                             <a href="javascript:void(0)" class="dropdown-item">
                                                 <div class="d-flex align-items-start py-2 " style=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
-                  
+
                                                     <div class="m-0">
                                                         <h6 class="mb-1 fw-semibold">2024-03-06
                                                             <span class=" bg-primary badge rounded-pill"> </span>
@@ -104,10 +112,19 @@
                                         </li>
                                         <li><a href="PostBlog.jsp">Post a Blog</a></li>
                                     </ul>
+
                                 </li>
                                 <li><a href="message">Message</a></li>
+                                </c:if>
+                                
+                                <c:if test="${sessionScope.user == null}">
+                                    <li><a href="Login.jsp">Notification</a></li>
+                                    <li><a href="Login.jsp">Message</a></li>
+                                    
+                                </c:if>
+                                
                                 <li class="has-children">
-                                    <a href="services.html">Category</a>
+                                    <a href="#">Category</a>
                                     <ul class="dropdown horizontal-dropdown"> <!-- Add a CSS class -->
                                         <style>
                                             body {
@@ -128,7 +145,6 @@
                                                 margin: 0;
                                                 position: relative; /* Set position to relative */
                                                 left: -150%; /* Shift to the left by 50% of its own width */
-
                                                 transform: translateX(-50%); /* Center the dropdown */
                                             }
 
@@ -170,8 +186,9 @@
 
                         <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
                             <div class="ml-auto">
-                                <a href="PostTalent.jsp" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
-
+                                <c:if test="${sessionScope.user != null}">
+                                    <a href="PostTalent.jsp" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-account_balance_wallet"></span>Wallet</a>
+                                </c:if>
                                 <c:if test="${sessionScope.user == null}">
                                     <a href="Login.jsp" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
                                 </c:if>

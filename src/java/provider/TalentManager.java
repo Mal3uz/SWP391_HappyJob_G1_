@@ -55,7 +55,7 @@ public class TalentManager extends HttpServlet {
             // img handle
             Part file = request.getPart("ProductImgURL");
             String imageFileName = file.getSubmittedFileName();
-            String uploadPath = "E:/SWP391_HappyJob_G1_-master/web/images/" + imageFileName;
+            String uploadPath = "D:/SWP391_HappyJob_G1_-master/web/images/" + imageFileName;
             FileOutputStream fos = new FileOutputStream(uploadPath);
             InputStream is = file.getInputStream();
 

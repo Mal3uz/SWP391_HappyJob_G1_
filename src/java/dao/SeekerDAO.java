@@ -6,6 +6,7 @@ package dao;
 
 import entity.Account;
 import entity.Feedback;
+import entity.Orders;
 import entity.Rating;
 import entity.ServicePackage;
 import entity.Talent;

@@ -179,6 +179,43 @@
         <servlet-name>HomePageServlet</servlet-name>
         <servlet-class>guest.servlet.HomePageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListTalentControl</servlet-name>
+        <servlet-class>hoang.ListTalentControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TalentDetailControl</servlet-name>
+        <servlet-class>hoang.TalentDetailControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadTalent</servlet-name>
+        <servlet-class>hoang.LoadTalent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WaitingAcceptControl</servlet-name>
+        <servlet-class>hoang.WaitingAcceptControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadWaitingControl</servlet-name>
+        <servlet-class>hoang.LoadWaitingControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetail</servlet-name>
+        <servlet-class>hoang.OrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcceptProductControl</servlet-name>
+        <servlet-class>admin.AcceptProductControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HistoryOrderControl</servlet-name>
+        <servlet-class>hoang.HistoryOrderControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadSearchControl</servlet-name>
+        <servlet-class>hoang.LoadSearchControl</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -346,6 +383,42 @@
     <servlet-mapping>
         <servlet-name>HomePageServlet</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>ListTalentControl</servlet-name>
+        <url-pattern>/listTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TalentDetailControl</servlet-name>
+        <url-pattern>/talentDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadTalent</servlet-name>
+        <url-pattern>/loadTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WaitingAcceptControl</servlet-name>
+        <url-pattern>/waitingAccept</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadWaitingControl</servlet-name>
+        <url-pattern>/loadWaiting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetail</servlet-name>
+        <url-pattern>/orderDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptProductControl</servlet-name>
+        <url-pattern>/admin/acceptProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistoryOrderControl</servlet-name>
+        <url-pattern>/historyOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadSearchControl</servlet-name>
+        <url-pattern>/loadSearch</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
