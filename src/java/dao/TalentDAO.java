@@ -353,10 +353,10 @@ public class TalentDAO {
     public static void main(String[] args) throws Exception {
         TalentDAO td = new TalentDAO();
 
-        double count = td.getNumberRatingOfTalent(6);
-        System.out.println(count);
+//        double count = td.getNumberRatingOfTalent(6);
+//        System.out.println(count);
 
-        List<Talent> t = td.getTalentByCriteria("d", 3, 0, 0, 2);
+        List<Talent> t = td.listAllTalent();
         int number = td.getTotalTalentCountByCriteria("d", 3, 0, 0);
         System.out.println(number);
         for (Talent talent : t) {

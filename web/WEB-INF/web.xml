@@ -215,7 +215,10 @@
         <servlet-name>LoadSearchControl</servlet-name>
         <servlet-class>hoang.LoadSearchControl</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>RequestAddMoneyControl</servlet-name>
+        <servlet-class>seeker.RequestAddMoney</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -384,7 +387,7 @@
         <servlet-name>HomePageServlet</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ListTalentControl</servlet-name>
         <url-pattern>/listTalent</url-pattern>
     </servlet-mapping>
@@ -419,6 +422,10 @@
     <servlet-mapping>
         <servlet-name>LoadSearchControl</servlet-name>
         <url-pattern>/loadSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestAddMoneyControl</servlet-name>
+        <url-pattern>/requestAddMoney</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

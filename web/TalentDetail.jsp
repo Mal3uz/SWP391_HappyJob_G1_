@@ -55,8 +55,8 @@
                     <div class="col-6">
                         <a href="#" class="btn btn-block btn-primary btn-md mb-4">Save Job</a>
                     </div>
-                    <c:set value="${dao.getOrderByTAid(sessionScope.user.getAccountID(),talentChoiced.getTalentID())}" var="check"></c:set>
-                    <c:if test="${sessionScope.user != null && sessionScope.user.getRoleID() == 3 && !check.isEmpty()}">
+                    <c:set value="${dao.getOrderByTAid(sessionScope.user.getAccountID(),talent.getTalentID())}" var="check"></c:set>
+                    <c:if test="${sessionScope.user != null && sessionScope.user.getRoleID() == 3 && check.isEmpty()}">
                         <div class="col-6">
                             <a href="feedback?tID=${tid}" class="btn btn-block btn-info btn-md">Feedback Now</a>
                         </div>

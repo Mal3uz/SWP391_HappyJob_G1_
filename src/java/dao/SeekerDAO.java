@@ -409,35 +409,7 @@ public class SeekerDAO {
         } catch (Exception e) {
         }
 
-        return  null;
-
-    }
-
-    public List<Transaction> getListTransactionByAccountId(int accountID) {
-        List<Transaction> listF = new ArrayList<>();
-        String query = "select * from Transactions \n"
-                + "where WSeekerID = ?  and (Status = 'refunded' or Status = 'Completed')";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setInt(1, accountID);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                listF.add(new Transaction(rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getInt(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6),
-                        rs.getString(7),
-                        rs.getString(8)));
-
-            }
-        } catch (Exception e) {
-        }
-
-        return listF;
+        return null;
 
     }
 
@@ -462,11 +434,59 @@ public class SeekerDAO {
         return null;
     }
 
+    public List<Transaction> getListTransactionByAId(int accountID) {
+        List<Transaction> listtTransactions = new ArrayList<>();
+        String query = "SELECT *\n"
+                + "FROM Transactions trs\n"
+                + "JOIN Wallet w ON ((trs.WSenderID = w.WalletID) OR (trs.WReceiverID = w.WalletID))\n"
+                + "WHERE w.WalletID = ?\n"
+                + "ORDER BY trs.transactiondate DESC;";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, accountID);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listtTransactions.add(new Transaction(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listtTransactions;
+    }
+
+    public void requestAddMoney(int accountId,int price, String date) {
+
+        String query = "INSERT INTO Transactions (wSenderID, wReceiverID, price, transactionType, orderID, status, transactionDate)\n"
+                + "VALUES (?, 1, ?, 'Add', null, 'Pending', ?);";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            // Set parameters
+            ps.setInt(1, accountId);
+            ps.setInt(2, price);
+            ps.setString(3, date);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+        }
+    }
+
     public static void main(String[] args) {
         SeekerDAO dao = new SeekerDAO();
         List<Talent> b = dao.getListTalentByCategoryId("1");
-
-        Talent w = dao.getTalentByTransactionId("11");
-        System.out.println(w);
+        List<Transaction> trans = dao.getListTransactionByAId(10);  
+        for (Transaction tran : trans) {
+            System.out.println(tran);
+        }
     }
 }

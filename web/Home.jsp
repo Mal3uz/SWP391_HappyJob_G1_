@@ -150,12 +150,12 @@
 
 
             <div class="col-md-6">
-                <img src="images/person_6.jpg" alt="Image" class="img-fluid mb-4 rounded">
+                <img src="team_img/hoang.jpg" alt="Image" class="img-fluid mb-4 rounded">
             </div>
 
             <div class="col-md-6">
-                <h3>Elisabeth Smith</h3>
-                <p class="text-muted">Creative Director</p>
+                <h3>Bùi Thái Hoàng</h3>
+                <p class="text-muted">Deverloper</p>
                 <p>Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae voluptatibus ut? Ex vel  ad explicabo iure ipsa possimus consectetur neque rem molestiae eligendi velit?.</p>
                 <div class="social mt-4">
                     <a href="#"><span class="icon-facebook"></span></a>
