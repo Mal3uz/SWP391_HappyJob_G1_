@@ -20,13 +20,13 @@
 
         <c:forEach items="${listT}" var="t" >
             <div class="talent-items">
-                <a href="talentDetail?tID=${t.getTalentID()}#nav-basic"><img class="talent-img" src="${t.getImg()}"></a>
+                <a href="talentDetail?tID=${t.getTalentID()}"><img class="talent-img" src="${t.getImg()}"></a>
 
                 <div class="talent-person">
                     <img class="talent-person-avt" src="images/person_1.jpg">
                     <div class="talent-person-name"> ${adao.getAccountByTalentId(t.getTalentID()).getName()}</div>
                 </div>
-                <a href="talentDetail?tID=${t.getTalentID()}#nav-basic"><div class="talent-title">${t.getTitle()}</div></a>
+                <a href="talentDetail?tID=${t.getTalentID()}"><div class="talent-title">${t.getTitle()}</div></a>
                 <div class="talent-star">
                     <c:set value="${tdao.getNumberRatingOfTalent(t.getTalentID())}" var="avgRating"></c:set>
                         <div class="black-color">
@@ -35,7 +35,7 @@
                     </div>
                     <c:set value="${tdao.getNumberOrderOfTalent(t.getTalentID())}" var="orderFisnish"></c:set>
                         <div>
-                            (${orderFisnish})
+                            (${orderFisnish} Order)
                     </div>
                 </div>
                 <c:set value="${spdao.BasicPackageById(t.getTalentID()).getPrice()}" var="price"></c:set>

@@ -34,6 +34,7 @@ public class FeedbackControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        // lay ra du lieu rating va feedback
        String talentIDParam = (String) request.getParameter("tID");
        int talentID = Integer.parseInt(talentIDParam);
        SeekerDAO dao = new SeekerDAO();

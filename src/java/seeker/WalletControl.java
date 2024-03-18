@@ -38,7 +38,7 @@ public class WalletControl extends HttpServlet {
         HttpSession session = request.getSession();
         Account u = (Account) session.getAttribute("user");
         Wallet w = dao.getWalletByAccountId(u.getAccountID());
-        List<Transaction> trans = dao.getListTransactionByAccountId(u.getAccountID());
+        List<Transaction> trans = dao.getListTransactionByAId(u.getAccountID());
         request.setAttribute("w", w);
         request.setAttribute("trans", trans);
         request.setAttribute("dao", dao);

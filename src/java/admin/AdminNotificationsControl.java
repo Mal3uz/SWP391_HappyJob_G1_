@@ -63,7 +63,7 @@ public class AdminNotificationsControl extends HttpServlet {
          AdminDAO dao = new AdminDAO();
          Account account = (Account)session.getAttribute("account");
        
-        List<Notifications> allNofication = dao.getListNotificationsesAdmin(String.valueOf(account.getAccountID()));
+        List<Notifications> allNofication = dao.getListNotificationsesByAccount(String.valueOf(account.getAccountID()));
       
  
         request.setAttribute("dao", dao);

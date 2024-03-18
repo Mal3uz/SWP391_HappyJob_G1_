@@ -187,7 +187,7 @@
                         <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
                             <div class="ml-auto">
                                 <c:if test="${sessionScope.user != null}">
-                                    <a href="PostTalent.jsp" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-account_balance_wallet"></span>Wallet</a>
+                                    <a href="wallet" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-account_balance_wallet"></span>Wallet</a>
                                 </c:if>
                                 <c:if test="${sessionScope.user == null}">
                                     <a href="Login.jsp" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
@@ -214,13 +214,7 @@
 
 
 
-                                            <script>
-                                                document.getElementById("profileLink").addEventListener("click", function (event) {
-                                                    event.preventDefault();
-
-                                                    window.location.href = "profileEdit";
-                                                });
-                                            </script>
+                                          
 
                                             <a class="dropdown-item" href="LogoutControl" >Logout</a>
                                         </div>

@@ -7,6 +7,7 @@ package admin;
 
 import dao.AdminDAO;
 import entity.Account;
+import entity.Talent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -63,8 +66,18 @@ public class AcceptTalentControl extends HttpServlet {
          HttpSession session = request.getSession();
          Account account = (Account)session.getAttribute("account");
         String approvedBy  =String.valueOf(account.getAccountID());
+        
         AdminDAO dao = new AdminDAO();
         dao.acceptTalent(id,approvedBy);
+        int accountTalent = dao.getAccountByTalentId(id).getAccountID();
+        Talent talent = dao.getTalentById(id);
+         LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String formattedTime = currentTime.format(formatter);
+        String mess1 = "You have approved Talent title: " + talent.getTitle() +" of Account: " + dao.getAccountByTalentId(id).getName();
+        String mess2 = "Admin have approved Talent title: " + talent.getTitle() +" of you";
+        dao.insertNotificationApprovel(account.getAccountID(), mess1, 0, formattedTime);
+        dao.insertNotificationApprovel(accountTalent, mess2, 0, formattedTime);
         response.sendRedirect("listTalent");
     } 
 

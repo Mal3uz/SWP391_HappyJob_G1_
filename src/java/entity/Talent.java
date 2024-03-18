@@ -21,7 +21,6 @@ public class Talent {
     private String status;
     private String reason;
     private int approvedBy;
-    private List<ServicePackage> servicePackages;
 
     public Talent() {
     }

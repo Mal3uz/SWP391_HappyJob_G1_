@@ -9,6 +9,14 @@
 
 <%@include file="components/Header.jsp" %>
 <!-- HOME -->
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+<script type="text/javascript">
+    (function () {
+        emailjs.init("vfQLfi9Kz87zH6Iq6");
+    })();
+</script>
 <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
     <div class="container">
         <div class="row">

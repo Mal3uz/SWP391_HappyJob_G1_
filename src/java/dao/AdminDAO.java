@@ -689,7 +689,7 @@ public class AdminDAO {
     public List<Notifications> getListNotificationsesByAccount(String accountID) {
         List<Notifications> listN = new ArrayList<>();
         String query = "select * from Notifications\n"
-                + "where AccountID = ?\n"
+                + "where [RecipientID] = ?\n"
                 + "order by CreatedAt desc";
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
@@ -700,10 +700,9 @@ public class AdminDAO {
             while (rs.next()) {
                 listN.add(new Notifications(rs.getInt(1),
                         rs.getInt(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getInt(5),
-                        rs.getString(6)));
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5)));
 
             }
         } catch (Exception e) {
@@ -712,52 +711,25 @@ public class AdminDAO {
         return listN;
 
     }
-
-    public List<Notifications> getListNotificationsesAdmin(String accountID) {
-        List<Notifications> listN = new ArrayList<>();
-        String query = "select * from Notifications\n"
-                + "where AccountID = ? or Message like '% created Talent%'\n"
-                + "order by CreatedAt desc";
-        try {
-            conn = new DBContext().getConnection();//mo ket noi vs sql
-            ps = conn.prepareStatement(query);
-            ps.setString(1, accountID);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                listN.add(new Notifications(rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getInt(5),
-                        rs.getString(6)));
-
-            }
-        } catch (Exception e) {
-        }
-
-        return listN;
-
-    }
-
-    public List<Notifications> getNewNotificationses() {
+    
+    public List<Notifications> getNewNotificationsesByAccount(int accountID) {
         List<Notifications> listN = new ArrayList<>();
         String query = "SELECT TOP 3 *\n"
-                + "FROM Notifications n\n"
-                + "Join Talent t on n.TalentID = t.TalentID\n"
-                + "ORDER BY t.CreatedAt DESC";
+                + "from Notifications\n"
+                + "where [RecipientID] = ?\n"
+                + "order by CreatedAt desc";
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
+             ps.setInt(1, accountID);
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 listN.add(new Notifications(rs.getInt(1),
                         rs.getInt(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getInt(5),
-                        rs.getString(6)));
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5)));
 
             }
         } catch (Exception e) {
@@ -767,13 +739,14 @@ public class AdminDAO {
 
     }
 
-    public int getNumberNewNotificationsesAdmin() {
+    public int getNumberNewNotificationses(int accountID) {
         String query = "SELECT COUNT(*)\n"
                 + "FROM Notifications\n"
-                + "where ( Message like '% created Talent%') and Status = 0";
+                + "where [RecipientID] = ?";
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
+             ps.setInt(1, accountID);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -789,12 +762,29 @@ public class AdminDAO {
     public void readAll(String accountID) {
         String query = "UPDATE Notifications\n"
                 + "SET Status = 1\n"
-                + "where AccountID = ? or Message like '% created Talent%'";
+                + "where AccountID = ? ";
 
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
             ps.setString(1, accountID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+
+    }
+
+    public void insertNotificationApprovel( int recipientId,String mess, int status, String createAt) {
+        String query = "INSERT INTO Notifications ( RecipientID, [Message],Status,CreatedAt)\n"
+                + "VALUES (?,?,?,?);";
+
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, recipientId);
+            ps.setString(2, mess);
+            ps.setInt(3, status);
+            ps.setString(4, createAt);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -935,7 +925,7 @@ public class AdminDAO {
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
-             ps.setString(1, orderId);
+            ps.setString(1, orderId);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -1043,13 +1033,15 @@ public class AdminDAO {
         List<Transaction> t = dao.getListTransactions();
         List<Product> a = dao.getProductPending();
         List<ServicePackage> b = dao.ServicePackagesByOrderId("2");
-        Map<Account, Integer> topAccounts = dao.getTopAccountWithPurchaseCount();
-
-        for (Map.Entry<Account, Integer> entry : topAccounts.entrySet()) {
-            Account account = entry.getKey();
-            Integer purchaseCount = entry.getValue();
-
-            System.out.println("Account: " + account.getName() + " - Purchase Count: " + purchaseCount);
-        }
+//        Map<Account, Integer> topAccounts = dao.getTopAccountWithPurchaseCount();
+//
+//        for (Map.Entry<Account, Integer> entry : topAccounts.entrySet()) {
+//            Account account = entry.getKey();
+//            Integer purchaseCount = entry.getValue();
+//
+//            System.out.println("Account: " + account.getName() + " - Purchase Count: " + purchaseCount);
+//        }
+//        
+      
     }
 }
