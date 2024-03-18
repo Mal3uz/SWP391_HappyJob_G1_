@@ -111,6 +111,106 @@
         </div>
         <!-- Row end -->
 
+
+
+        <!-- Row start -->
+        <div class="row gx-2">
+            <div class="col-xl-6 col-lg-12 col-12">
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <h5 class="card-title text-center">Top 5 Account</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="border rounded-3">
+                            <div class="table-responsive">
+                                <table class="table align-middle custom-table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Gender</th>
+                                            <th>Successful Orders</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <c:forEach var="entry" items="${topAccount}" varStatus="status">
+                                            <tr>
+                                                <td>${status.index}</td>
+                                                <td>
+                                                    <div class="fw-semibold">${entry.key.getName()}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="fw-semibold">${entry.key.getEmail()}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="fw-semibold">${entry.key.getGender()}</div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-primary">${entry.value}</span>
+                                                </td>
+                                                <td>
+                                                    <div class="starReadOnly1 rating-stars my-2"></div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-12">
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <h5 class="card-title text-center">Top 5 Talent</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="border rounded-3">
+                            <div class="table-responsive">
+                                <table class="table align-middle custom-table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Author</th>
+                                            <th>Title</th>
+                                            <th>Create At</th>
+                                            <th>Amount Sold</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="entry" items="${topTalent}" varStatus="status">
+                                            <c:set value="${dao.getAccountByTalentId(entry.key.getTalentID())}" var="accountTalent"></c:set>
+                                                <tr>
+                                                    <td>${status.index}</td>
+                                                <td>
+                                                    ${accountTalent.name}
+                                                </td>
+                                                <td>
+                                                    <div class="fw-semibold">${entry.key.getTitle()}</div>
+                                                </td>                                       
+                                                <td>
+                                                    <div class="fw-semibold">${entry.key.getCreatedAt()}</div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-primary">${entry.value}</span>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Row end -->
         <!-- Row start -->
         <div class="row gx-2">
             <div class="col-xl-12 col-lg-12 col-12">
@@ -218,106 +318,6 @@
 
         </div>
         <!-- Row end -->
-
-        <!-- Row start -->
-        <div class="row gx-2">
-            <div class="col-xl-6 col-lg-12 col-12">
-                <div class="card mb-2">
-                    <div class="card-header">
-                        <h5 class="card-title text-center">Top 5 Account</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="border rounded-3">
-                            <div class="table-responsive">
-                                <table class="table align-middle custom-table m-0">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Gender</th>
-                                            <th>Successful Orders</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <c:forEach var="entry" items="${topAccount}" varStatus="status">
-                                            <tr>
-                                                <td>${status.index}</td>
-                                                <td>
-                                                    <div class="fw-semibold">${entry.key.getName()}</div>
-                                                </td>
-                                                <td>
-                                                    <div class="fw-semibold">${entry.key.getEmail()}</div>
-                                                </td>
-                                                <td>
-                                                    <div class="fw-semibold">${entry.key.getGender()}</div>
-                                                </td>
-                                                <td>
-                                                    <span class="badge bg-primary">${entry.value}</span>
-                                                </td>
-                                                <td>
-                                                    <div class="starReadOnly1 rating-stars my-2"></div>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-12">
-                <div class="card mb-2">
-                    <div class="card-header">
-                        <h5 class="card-title text-center">Top 5 Talent</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="border rounded-3">
-                            <div class="table-responsive">
-                                <table class="table align-middle custom-table m-0">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Author</th>
-                                            <th>Title</th>
-                                            <th>Create At</th>
-                                            <th>Amount Sold</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="entry" items="${topTalent}" varStatus="status">
-                                             <c:set value="${dao.getAccountByTalentId(entry.key.getTalentID())}" var="accountTalent"></c:set>
-                                            <tr>
-                                                <td>${status.index}</td>
-                                              <td>
-                                                  ${accountTalent.name}
-                                                </td>
-                                                <td>
-                                                    <div class="fw-semibold">${entry.key.getTitle()}</div>
-                                                </td>                                       
-                                                <td>
-                                                      <div class="fw-semibold">${entry.key.getCreatedAt()}</div>
-                                                </td>
-                                                <td>
-                                                    <span class="badge bg-primary">${entry.value}</span>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- Row end -->
-
     </div>
     <!-- Container ends -->
 

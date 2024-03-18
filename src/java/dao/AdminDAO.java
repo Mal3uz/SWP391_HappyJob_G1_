@@ -260,16 +260,33 @@ public class AdminDAO {
 
     public List<Account> getListAccountBySenderID(int SenderId) {
         List<Account> listA = new ArrayList<>();
-        String query = "SELECT DISTINCT A.*, MAX(M.[Timestamp]) AS LatestMessageTime\n"
+        String query = "WITH SentMessages AS (\n"
+                + "SELECT DISTINCT A.*, MAX(M.[Timestamp]) AS LatestMessageTime\n"
+                + "FROM Account A\n"
+                + "JOIN Messagess M ON A.AccountID = M.SenderID\n"
+                + "WHERE M.ReceiverID = ?\n"
+                + "GROUP BY A.AccountID, A.[Password], A.Email, A.[Name], A.Dob, A.Gender, A.RoleID, A.Status, A.Img, A.VerificationCode\n"
+                + "\n"
+                + "),\n"
+                + "ReceivedMessages AS (\n"
+                + "SELECT DISTINCT A.*, MAX(M.[Timestamp]) AS LatestMessageTime\n"
                 + "FROM Account A\n"
                 + "JOIN Messagess M ON A.AccountID = M.ReceiverID\n"
                 + "WHERE M.SenderID = ?\n"
                 + "GROUP BY A.AccountID, A.[Password], A.Email, A.[Name], A.Dob, A.Gender, A.RoleID, A.Status, A.Img, A.VerificationCode\n"
+                + "\n"
+                + ")\n"
+                + "SELECT  *\n"
+                + "FROM SentMessages\n"
+                + "UNION\n"
+                + "SELECT *\n"
+                + "FROM ReceivedMessages\n"
                 + "ORDER BY LatestMessageTime DESC";
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
             ps.setInt(1, SenderId);
+            ps.setInt(2, SenderId);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -711,7 +728,7 @@ public class AdminDAO {
         return listN;
 
     }
-    
+
     public List<Notifications> getNewNotificationsesByAccount(int accountID) {
         List<Notifications> listN = new ArrayList<>();
         String query = "SELECT TOP 3 *\n"
@@ -721,7 +738,7 @@ public class AdminDAO {
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
-             ps.setInt(1, accountID);
+            ps.setInt(1, accountID);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -746,7 +763,7 @@ public class AdminDAO {
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
-             ps.setInt(1, accountID);
+            ps.setInt(1, accountID);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -774,7 +791,7 @@ public class AdminDAO {
 
     }
 
-    public void insertNotificationApprovel( int recipientId,String mess, int status, String createAt) {
+    public void insertNotificationApprovel(int recipientId, String mess, int status, String createAt) {
         String query = "INSERT INTO Notifications ( RecipientID, [Message],Status,CreatedAt)\n"
                 + "VALUES (?,?,?,?);";
 
@@ -973,15 +990,14 @@ public class AdminDAO {
 
     }
 
-    public void acceptProduct(String productId, String reason) {
+    public void acceptProduct(String productId) {
         String query = "UPDATE Product\n"
-                + "SET Status = 'Finish', Reason = ?\n"
+                + "SET Status = 'Finish', Reason =''"
                 + "WHERE Product.ProductID = ?;";
         try {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
-            ps.setString(1, reason);
-            ps.setString(2, productId);
+            ps.setString(1, productId);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -1042,6 +1058,6 @@ public class AdminDAO {
 //            System.out.println("Account: " + account.getName() + " - Purchase Count: " + purchaseCount);
 //        }
 //        
-      
+
     }
 }

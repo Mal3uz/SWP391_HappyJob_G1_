@@ -219,6 +219,14 @@
         <servlet-name>RequestAddMoneyControl</servlet-name>
         <servlet-class>seeker.RequestAddMoney</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NotificationControl</servlet-name>
+        <servlet-class>guest.servlet.NotificationControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MessageAddControl</servlet-name>
+        <servlet-class>guest.servlet.MessageAddControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -426,6 +434,14 @@
     <servlet-mapping>
         <servlet-name>RequestAddMoneyControl</servlet-name>
         <url-pattern>/requestAddMoney</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NotificationControl</servlet-name>
+        <url-pattern>/notification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessageAddControl</servlet-name>
+        <url-pattern>/messageAdd</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

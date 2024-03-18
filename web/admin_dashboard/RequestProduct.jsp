@@ -65,11 +65,9 @@
                                             </td>
                                             <td>2 mins ago</td>
                                             <td>
-                                                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" data-bs-custom-class="custom-tooltip-primary"
-                                                        data-bs-title="Edit">
-                                                    <i class="icon-check-circle"></i>
-                                                </button>
+                                               
+                                                <a onclick="showMess('${p.productID}', 'acceptProduct?pid=', '${p.orderID}', '${account.name}', 'accept')"  
+                                                   class="btn btn-outline-primary btn-sm"><i class="icon-check-circle"></i></a>
 
                                                 <a onclick="showMess('${p.productID}', 'rejectProduct?pid=', '${p.orderID}', '${account.name}', 'reject')"  
                                                    class="btn btn-outline-danger btn-sm"><i class="icon-trash"></i></a>

@@ -64,7 +64,7 @@
                     
                      <c:if test="${sessionScope.user != null}">
                         <div class="col-6">
-                            <a href="createMessage?friendId=${adao.getAccountByTalentId(talent.getTalentID()).getAccountID()}" class="btn btn-block btn-danger btn-md mb-4">Send Message</a>
+                            <a href="messageAdd?friendId=${adao.getAccountByTalentId(talent.getTalentID()).getAccountID()}" class="btn btn-block btn-danger btn-md mb-4">Send Message</a>
                         </div>
                     </c:if>
                 </div>
