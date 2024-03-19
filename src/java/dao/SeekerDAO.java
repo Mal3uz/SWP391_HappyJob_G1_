@@ -35,7 +35,7 @@ public class SeekerDAO {
         String query = "select * from Talent t\n"
                 + "join TalentCategory tc on t.TalentID = tc.TalentID\n"
                 + "join Category c on tc.CategoryID = c.CategoryID\n"
-                + "where c.CategoryID = ?";
+                + "where c.CategoryID = ? and t.Status = 'Active'";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -59,6 +59,56 @@ public class SeekerDAO {
 
         return listT;
 
+    }
+
+    public List<Talent> pagingActiveTalentCate(int index, String cateid) {
+        List<Talent> list = new ArrayList<>();
+        String sql = "select * from Talent t\n"
+                + "join TalentCategory tc on t.TalentID = tc.TalentID\n"
+                + "join Category c on tc.CategoryID = c.CategoryID\n"
+                + "where c.CategoryID = ? and t.Status = 'Active'\n"
+                + "order by c.CategoryID\n"
+                + "OFFSET ? rows fetch next 4 rows only;";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, cateid);
+            ps.setInt(2, (index - 1) * 4);
+
+            rs = ps.executeQuery();
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Talent(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getInt(9)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public int getNumberTalentByCate(String cateid) {
+        String sql = "select count(*) from Talent t\n"
+                + "join TalentCategory tc on t.TalentID = tc.TalentID\n"
+                + "join Category c on tc.CategoryID = c.CategoryID\n"
+                + "where c.CategoryID = ? and t.Status = 'Active'";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+             ps.setString(1, cateid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
     }
 
     public Talent getTalentByTalentId(String talentId) {
@@ -482,9 +532,8 @@ public class SeekerDAO {
         } catch (Exception e) {
         }
     }
-    
-    
-      public void requestWidthdraw(int accountId, int price, int orderid, String date) {
+
+    public void requestWidthdraw(int accountId, int price, int orderid, String date) {
 
         String query = "INSERT INTO Transactions (wSenderID, wReceiverID, price, transactionType, orderID, status, transactionDate)\n"
                 + "VALUES (?, 1, ?, 'Minus', ?, 'Pending', ?);";
@@ -523,8 +572,6 @@ public class SeekerDAO {
         }
         return orderId;
     }
-    
-    
 
     public static void main(String[] args) {
         SeekerDAO dao = new SeekerDAO();
@@ -533,5 +580,6 @@ public class SeekerDAO {
         for (Transaction tran : trans) {
             System.out.println(tran);
         }
+        System.out.println(dao.getNumberTalentByCate("4"));
     }
 }
