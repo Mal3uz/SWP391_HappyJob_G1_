@@ -62,11 +62,11 @@
                     <form action="checkout" method="POST">
                         <div class="row">
                             <div class="col-lg-5 col-md-5">
-                                <h3>Chi tiết đơn hàng</h3>
+                                <h3>Order Detail</h3>
                                 <div class="row">
 
                                     <div class="col-lg-12 mb-20">
-                                        <label>Tên khách hàng<span>*</span></label>
+                                        <label> Customer Name <span>*</span></label>
                                         <input readonly="" value="${sessionScope.user.getName()}" type="text">
                                     </div>
                                     <div class="col-lg-12 mb-20">
@@ -74,18 +74,14 @@
                                         <input readonly="" value="${sessionScope.user.getEmail()}" type="text">
                                     </div>
                                     <div class="col-lg-12 mb-20">
-                                        <label>Địa chỉ<span>*</span></label>
+                                        <label>Address<span>*</span></label>
                                         <input required name="address" type="text">
-                                    </div>
-                                    <div class="col-lg-12 mb-20">
-                                        <label>Số điện thoại<span>*</span></label>
-                                        <input required name="phone" type="number">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-7">
 
-                                <h3>Sản phẩm</h3>
+                                <h3>Order Detail</h3>
                                 <div class="order_table table-responsive">
                                     <table>
                                         <thead>

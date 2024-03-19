@@ -6,7 +6,9 @@
 package admin;
 
 import dao.AdminDAO;
+import dao.ProviderDAO;
 import entity.Account;
+import entity.Statistic;
 import entity.Talent;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +16,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +35,7 @@ public class DashBoard extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    throws ServletException, IOException, Exception {
         AdminDAO dao = new AdminDAO();
         int activeAccount = dao.getNumberAccountByStatus("Active");
         int pendingAccount = dao.getNumberAccountByStatus("Pending");
@@ -44,6 +49,17 @@ public class DashBoard extends HttpServlet {
         Map<Account, Integer> topAccount = dao.getTopAccountWithPurchaseCount();
         Map<Talent, Integer> topTalent = dao.getTopTalentWithAmountSold();
          
+        
+        ProviderDAO pdao = new ProviderDAO();
+        List<Statistic> appointment7day = pdao.getTransLast7Day();
+                 List<Statistic> reservation7day = pdao.getOrderLast7Day();
+                 int incomeMonth = pdao.incomeStatic();
+                 int incomeLastMonth = pdao.incomeStaticLastMonth();
+         request.setAttribute("appointment7day", appointment7day);
+                request.setAttribute("reservation7day", reservation7day);
+               request.setAttribute("Revenueappointment", incomeLastMonth);
+               request.setAttribute("Revenuereservation", incomeMonth);        
+                
         request.setAttribute("activeAccount", activeAccount);
         request.setAttribute("pendingAccount", pendingAccount);
         request.setAttribute("LockAccount", LockAccount);
@@ -73,7 +89,11 @@ public class DashBoard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     /** 
@@ -86,7 +106,11 @@ public class DashBoard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** 

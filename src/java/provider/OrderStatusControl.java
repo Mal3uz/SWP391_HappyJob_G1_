@@ -54,10 +54,9 @@ public class OrderStatusControl extends HttpServlet {
                     int price = (int) priceDouble;
                     int deposit = (int) (price * 0.3);
                     double balance = (Integer) session.getAttribute("balance");
-                    if (balance >= deposit && account != null) {
-                        int seekerId = pdao.getAccountIdByOrderId(ordId);
+                    if (balance >= deposit && account != null) {                        
                         int senderId = pdao.getWalletIdByAccountId(proId);
-                        int receiverId = pdao.getWalletIdByAccountId(seekerId);
+                        int receiverId = 1;
                         status = "Processing";
                         pdao.updateStatusByOrderId(ordId, status);
                         int newBalance = (int) (balance - deposit);
@@ -76,8 +75,8 @@ public class OrderStatusControl extends HttpServlet {
                     pdao.updateStatusByOrderId(ordId, status);
                     break;
                 case "finish":
-                    status = "Finish";
-                    pdao.updateStatusByOrderId(ordId, status);
+//                    status = "Finish";
+//                    pdao.updateStatusByOrderId(ordId, status);
                     ProductDAO pd = new ProductDAO();
                     String productStatus = "Pending";
                     String url = request.getParameter("reason");

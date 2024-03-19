@@ -57,7 +57,8 @@ public class AddTalentControl extends HttpServlet {
         Account acc = (Account) session.getAttribute("user");
         int id = acc.getAccountID();
         try {
-            FileOutputStream fos = new FileOutputStream(uploadPath);
+            if (acc.getRoleID() == 2) {
+                FileOutputStream fos = new FileOutputStream(uploadPath);
             InputStream is = file.getInputStream();
 
             byte[] data = new byte[is.available()];
@@ -78,8 +79,13 @@ public class AddTalentControl extends HttpServlet {
 
                     // Insert the service package into the database
                    spdao.insertServicePackage(talentID, servicePackageTitle, servicePackageDescription, servicePackagePrice, servicePackageRev, servicePackageType, servicePackageDL);
+                   response.sendRedirect("Home.jsp");
                 }
-           response.sendRedirect("Home.jsp");
+            }else{
+                  request.setAttribute("mess1", "You are not allow!");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+           
         } catch (Exception e) {
         }
 

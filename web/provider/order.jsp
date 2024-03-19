@@ -100,10 +100,10 @@
                                     <tr>
                                         <td>${item.name}</td>
                                         <td>${item.price}</td>
-                                        <td>${item.titles}</td>
+                                        <td>${item.serviceTitle}</td>
                                         <td>${item.description}</td>
+                                        <td>${item.talentTitle}</td>
                                         <td>${item.revisions}</td>
-                                        <td>${item.titlet}</td>
                                         <td>${item.deadline}</td>
                                         <td>${item.timestamp}</td>
                                         <td>${item.status}</td>
