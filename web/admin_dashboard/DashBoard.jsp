@@ -94,15 +94,15 @@
                         <div class="d-flex justify-content-center gap-4 my-4">
                             <div class="d-flex align-items-center">
                                 Success
-                                <span class="badge rounded-pill bg-primary ms-2">15</span>
+                                <span class="badge rounded-pill bg-primary ms-2">${orderFinish}</span>
                             </div>
                             <div class="d-flex align-items-center">
                                 Pending
-                                <span class="badge rounded-pill bg-info ms-2">18</span>
+                                <span class="badge rounded-pill bg-info ms-2">${orderPending}</span>
                             </div>
                             <div class="d-flex align-items-center">
                                 Failed
-                                <span class="badge rounded-pill bg-danger ms-2">13</span>
+                                <span class="badge rounded-pill bg-danger ms-2">${orderCancel}</span>
                             </div>
                         </div>
                     </div>

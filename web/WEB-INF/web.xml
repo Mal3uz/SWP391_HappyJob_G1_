@@ -124,10 +124,6 @@
         <servlet-class>admin.InvoiceList</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InvoiceDetail</servlet-name>
-        <servlet-class>admin.InvoiceDetail</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminProductControl</servlet-name>
         <servlet-class>admin.AdminProductControl</servlet-class>
     </servlet>
@@ -216,16 +212,24 @@
         <servlet-class>hoang.LoadSearchControl</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RequestAddMoneyControl</servlet-name>
-        <servlet-class>seeker.RequestAddMoney</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>NotificationControl</servlet-name>
         <servlet-class>guest.servlet.NotificationControl</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MessageAddControl</servlet-name>
         <servlet-class>guest.servlet.MessageAddControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoneTransaction</servlet-name>
+        <servlet-class>admin.DoneTransaction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMoneyMinus</servlet-name>
+        <servlet-class>admin.UpdateMoneyMinus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WithdrawControl</servlet-name>
+        <servlet-class>guest.servlet.WithdrawControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
@@ -340,10 +344,6 @@
         <url-pattern>/admin/invoiceList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InvoiceDetail</servlet-name>
-        <url-pattern>/admin/invoiceDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AdminProductControl</servlet-name>
         <url-pattern>/admin/product</url-pattern>
     </servlet-mapping>
@@ -432,16 +432,24 @@
         <url-pattern>/loadSearch</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RequestAddMoneyControl</servlet-name>
-        <url-pattern>/requestAddMoney</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>NotificationControl</servlet-name>
         <url-pattern>/notification</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MessageAddControl</servlet-name>
         <url-pattern>/messageAdd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoneTransaction</servlet-name>
+        <url-pattern>/admin/doneTransaction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMoneyMinus</servlet-name>
+        <url-pattern>/admin/updateMinus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WithdrawControl</servlet-name>
+        <url-pattern>/withdraw</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

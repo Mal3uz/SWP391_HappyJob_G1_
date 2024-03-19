@@ -59,7 +59,7 @@ public class AdminDAO {
         String query = "SELECT TOP 5 A.Img, A.[Name], A.Email, A.Gender, COUNT(*) AS PurchaseCount\n"
                 + " from Orders O \n"
                 + "JOIN Account A ON O.AccountID = A.AccountID\n"
-                + "WHERE O.[Status] = 'Completed'\n"
+                + "WHERE O.[Status] = 'Finish'\n"
                 + "GROUP BY A.Img, A.[Name], A.Email, A.Gender\n"
                 + "ORDER BY PurchaseCount DESC";
         try {
@@ -208,6 +208,36 @@ public class AdminDAO {
             conn = new DBContext().getConnection();//mo ket noi vs sql
             ps = conn.prepareStatement(query);
             ps.setString(1, walletId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public Account getAccountByTransactionId(String transactionId) {
+        String query = "select * from Account a\n"
+                + "join Wallet w on a.AccountID = w.AccountID\n"
+                + "join Transactions trs on trs.WSenderID = w.WalletID\n"
+                + " where trs.TransactionID = ?  ";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, transactionId);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -573,7 +603,7 @@ public class AdminDAO {
                 + " from Orders O \n"
                 + " JOIN  Talent T ON O.TalentID = T.TalentID\n"
                 + "JOIN Account A ON T.AccountID = A.AccountID\n"
-                + "WHERE O.[Status] = 'Completed'\n"
+                + "WHERE O.[Status] = 'Finish'\n"
                 + "GROUP BY  T.TalentID, T.Title, T.CreatedAt\n"
                 + "ORDER BY AmountSold DESC";
         try {
@@ -936,6 +966,46 @@ public class AdminDAO {
 
     }
 
+    public void updateStatusTransaction(String transactionId) {
+        String query = "UPDATE Transactions\n"
+                + "SET Status = 'Finish' \n"
+                + "WHERE TransactionID = ?;";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, transactionId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public List<Transaction> getTransactionsByTypeAndStatus() {
+        List<Transaction> listT = new ArrayList<>();
+        String query = "select * from Transactions\n"
+                + "where (TransactionType = 'Add' or TransactionType = 'Minus') and Status = 'Pending'";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listT.add(new Transaction(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listT;
+
+    }
+
     public List<Transaction> getListTransactionsByOrderId(String orderId) {
         List<Transaction> listT = new ArrayList<>();
         String query = "select * from Transactions trs\n"
@@ -1046,10 +1116,103 @@ public class AdminDAO {
 
     }
 
+    public List<Orders> getOrderByTypeAndStatus() {
+        List<Orders> listo = new ArrayList<>();
+        String query = "select * from Orders\n"
+                + "where OrderType != 'Paid' and Status = 'Pending'";
+
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listo.add(new Orders(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listo;
+
+    }
+
+    public int getNumberOrderByStatus(String Status1, String Status2) {
+        String query = "select count(*) from Orders\n"
+                + "where Status = ? or Status = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, Status1);
+            ps.setString(2, Status2);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
+    //w1
+    public int currentBalance(int accId) {
+        String query = "select Balance from \n"
+                + "Wallet WHERE  AccountID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, accId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
+    public void updateNewBalance(int accId, int newBalance) {
+        String query = "UPDATE Wallet SET Balance = ? WHERE  AccountID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, newBalance);
+            ps.setInt(2, accId);
+            rs = ps.executeQuery();
+
+        } catch (Exception e) {
+        }
+
+    }
+
+    public void updateOrderStatus(String status, int oid) {
+
+        String query = "UPDATE Orders\n"
+                + "SET Status = ? where OrderID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            // Set parameters
+            ps.setString(1, status);
+            ps.setInt(2, oid);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+        }
+    }
+
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
         List<Transaction> t = dao.getListTransactions();
-        List<Product> a = dao.getProductPending();
+        List<Transaction> a = dao.getTransactionsByTypeAndStatus();
+        for (Transaction transaction : a) {
+            System.out.println(transaction);
+        }
         List<ServicePackage> b = dao.ServicePackagesByOrderId("2");
 //        Map<Account, Integer> topAccounts = dao.getTopAccountWithPurchaseCount();
 //
@@ -1060,6 +1223,6 @@ public class AdminDAO {
 //            System.out.println("Account: " + account.getName() + " - Purchase Count: " + purchaseCount);
 //        }
 //        
-
+        dao.updateStatusTransaction("12");
     }
 }
