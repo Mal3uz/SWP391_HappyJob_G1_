@@ -303,47 +303,57 @@
                         <div class="upper-row">
 
                             <div class="icon-item">
-                                <div onclick="showMess('requestWithdraw','Withdraw')" class="btn btn-info">Withdraw <i class="icon-account_balance_wallet"></i></div>
+                                <div onclick="showMess('withdraw', 'Withdraw', ${sessionScope.user.getAccountID()})" class="btn btn-info">Withdraw <i class="icon-account_balance_wallet"></i></div>
                             </div>
                             <div class="icon-item">
-                                <div onclick="showMess('requestAddMoney','Add Money')" class="btn btn-info">Add money <i class="icon-money"></i></div>
+                                <div onclick="showMess('qrcode', 'Add Money', ${sessionScope.user.getAccountID()})" class="btn btn-info">Add money <i class="icon-money"></i></div>
                             </div>
                         </div>
                     </div>
                     <div class="transactions"><span class="t-desc">Recent Transactions</span>
+                        <input style="display:none;" id="curentblance" value="${sessionScope.balance}">
                         <div style="max-height: 400px;overflow-y: auto;">
-                        <c:forEach items="${trans}" var="trs" >
-                            <c:set value="${dao.getTalentByTransactionId(trs.getTransactionID())}" var="t"></c:set>    
-                                <div class="transaction">
+                            <c:forEach items="${trans}" var="trs" >
+                                <c:set value="${dao.getTalentByTransactionId(trs.getTransactionID())}" var="t"></c:set>  
+                                <c:if test="${trs.getStatus() == 'Success'}">
+                                    <div class="transaction">
+                                    </c:if>
+                                    <c:if test="${trs.getStatus() != 'Success'}">
+                                        <div class="transaction" style="opacity: 0.5;">
 
-                                    <div class="t-details">
-                                        <div class="t-title">${t.getTitle()}</div>
-                                    <div class="t-time">${trs.getTransactionDate()}
+                                        </c:if>
+                                        <div class="t-details">
+                                            <div class="t-title">${t.getTitle()}</div>
+                                            <c:if test="${trs.getStatus() != 'Success'}">
+                                                <div class="t-title text-info">${trs.getStatus()}</div>
+                                            </c:if>
+                                            <div class="t-time">${trs.getTransactionDate()}
+                                            </div>
+                                        </div>
+                                        <div class="t-amount">${trs.getTransactionType()}</div>
+                                        <c:choose>
+                                            <c:when test="${trs.getTransactionType() == 'Paided'  || trs.getTransactionType() == 'Withdraw'}">
+                                                <div class="t-desc text-danger">- $${trs.getPrice()}</div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="t-desc text-primary">+ $${trs.getPrice()}</div>
+                                            </c:otherwise>
+                                        </c:choose>
+
+
+
                                     </div>
-                                </div>
-                                <div class="t-amount">${trs.getTransactionType()}</div>
-                                <c:choose>
-                                    <c:when test="${trs.getTransactionType() == 'Paided'  || trs.getTransactionType() == 'Withdraw'}">
-                                        <div class="t-desc text-danger">- $${trs.getPrice()}</div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="t-desc text-primary">+ $${trs.getPrice()}</div>
-                                    </c:otherwise>
-                                </c:choose>
 
 
+                                </c:forEach>
                             </div>
-                       
+                        </div>
 
-                    </c:forEach>
-                            </div>
- </div>
-
+                    </div>
                 </div>
+
+
             </div>
-
-
-        </div>
         </div>
     </body>
 </section>
@@ -373,42 +383,61 @@
     </div>
 </div>
 <script>
-    function showMess(url,action) {
+    function showMess(url, action,accountid) {
 
         var option = confirm('Confirm to ' + action);
         if (option === true) {
-            if(action === "Withdraw"){
-                 alert("hello");
-            }else{
-                 // Show the modal
-            $('#rejectModal').modal('show');
-            $('.close').click(function () {
-                $('#rejectModal').modal('hide');
-            });
-            // When the save button is clicked
-            $('#saveBtn').click(function () {
-                var price = $('#rejectReason').val();
-                if (price.trim() === "") {
-                    alert("Must input number to continue");
-                    return;
-                }
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: {
-                        'price': price
-                    },
-                    success: function () {
-                        // Close the modal
-                        $('#rejectModal').modal('hide');
-                        window.location.href = url;
-
-                    }
+            if (action === "Withdraw") {
+                // Show the modal
+                $('#rejectModal').modal('show');
+                $('.close').click(function () {
+                    $('#rejectModal').modal('hide');
                 });
-            });
-                
+                // When the save button is clicked
+                $('#saveBtn').click(function () {
+                    var price = parseInt(($('#rejectReason').val()));
+                    var currentBalance = parseInt($('#curentblance').val());
+                    console.log(currentBalance);
+                      console.log(price);
+                      
+                       if(price <= currentBalance){
+                      window.location.href = url + '?' + 'price=' + price+ '&accountid='+accountid;
+                    }
+                    if(price > currentBalance){
+                        alert("The maximum amount you can withdraw is :" + currentBalance);
+                        return;
+                    }
+                    
+                    if (price.trim() === "") {
+                        alert("Must input number to continue");
+                        return;
+                    }
+
+                   
+                    
+
+                });
+            } else {
+                // Show the modal
+                $('#rejectModal').modal('show');
+                $('.close').click(function () {
+                    $('#rejectModal').modal('hide');
+                });
+                // When the save button is clicked
+                $('#saveBtn').click(function () {
+                    var price = $('#rejectReason').val();
+                    if (price.trim() === "") {
+                        alert("Must input number to continue");
+                        return;
+                    }
+
+                    window.location.href = url + '?' + 'price=' + price + '&payment_method=momo';
+                    ;
+
+                });
+
             }
-           
+
         }
     }
 </script>

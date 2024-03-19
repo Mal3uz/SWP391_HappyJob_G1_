@@ -35,12 +35,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="card mb-2">
-                    <div class="card-header">
+<!--                    <div class="card-header">
                         <div class="d-flex align-items-end justify-content-between">
                             <small class="small opacity-50">Select all checkboxes to send an update.</small>
                             <button class="btn btn-danger">Send to everyone</button>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="card-body">
                         <div class="border rounded-3">
                             <div class="table-responsive">
@@ -55,7 +55,7 @@
                                             <th>Name</th>
                                             <th>Gmail</th>
                                             <th>Status</th>
-                                            <th>Money Spent</th>
+                                            <th>Money Request</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>                   
@@ -67,21 +67,34 @@
                                                 </td>
                                                 <td>#${trs.transactionID}</td>
                                                 <td>${trs.transactionDate}</td>
-                                            <c:set var="account" value="${dao.getAccountByWalletId(trs.transactionID)}" />
+                                            <c:set var="account" value="${dao.getAccountByTransactionId(trs.transactionID)}" />
                                                 <td>
                                                     <div class="fw-semibold">${account.name}</div>
                                                 </td>
                                                 <td>${account.email}</td>
                                                 <td>
-                                                    <span class="badge bg-success">${trs.status}</span>
+                                                    <c:if test="${trs.transactionType == 'Add'}">
+                                                    <span class="badge bg-success">${trs.transactionType}</span>
+                                                    </c:if>
+                                                    <c:if test="${trs.transactionType == 'Minus'}">
+                                                    <span class="badge bg-danger">${trs.transactionType}</span>
+                                                    </c:if>
                                                 </td>
                                                 <td>
-                                                    <span class="badge border border-info text-info">${trs.totalPrice}</span>
+                                                    <span class="badge border bg-info text-white">${trs.price}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="invoiceDetail?id=${trs.transactionID}" class="btn btn-primary btn-sm">
-                                                       Detail
+                                                      <c:if test="${trs.transactionType == 'Add'}">
+                                                   <a href="updateMinus?aid=${account.accountID}&price=${trs.price}&oid=${trs.orderID}&trsid=${trs.transactionID}" class="btn btn-danger btn-sm">
+                                                      Add Money
                                                     </a>
+                                                    </c:if>
+                                                    <c:if test="${trs.transactionType == 'Minus'}">
+                                                   <a href="../qrcode?price=${trs.price}&payment_method=momo&tranid=${trs.transactionID}" class="btn btn-primary btn-sm">
+                                                       Pay Now
+                                                    </a>
+                                                    </c:if>
+                                                    
                                                 </td>
                                             </tr>
                                         </c:forEach>

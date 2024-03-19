@@ -98,7 +98,9 @@
                                         </thead>
                                         <tbody>
                                             <c:set var="servicePackages" value="${dao.ServicePackagesByOrderId(order.orderID)}" />
+                                            <c:set var="total" value="0" />
                                             <c:forEach var="p" items="${servicePackages}">
+                                                <c:set var="total" value="${total + p.price}" />
                                                 <tr>
                                                     <td>
                                                         <h6>${p.title}</h6>
@@ -115,6 +117,7 @@
                                                     <td>
                                                         <h6>$${p.price}</h6>
                                                     </td>
+                                                   
                                                 </tr>
                                             </c:forEach>
 
@@ -126,9 +129,9 @@
                                                     <h5 class="mt-4 text-primary">Total USD</h5>
                                                 </td>
                                                 <td>
-                                                    <p>${order.totalPrice}</p>
-                                                    <p>$5.00</p>
-                                                    <h5 class="mt-4 text-primary">$1015.00</h5>
+                                                    <p>$${total}</p>
+                                                    <p>$${total*0.05}</p>
+                                                    <h5 class="mt-4 text-primary">$${total +(total*0.05)}</h5>
                                                 </td>
                                             </tr>
                                            
