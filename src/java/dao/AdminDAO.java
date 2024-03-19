@@ -868,6 +868,39 @@ public class AdminDAO {
 
     }
 
+    public List<Messagess> getnewMessagesses(int ReceiverID) {
+        List<Messagess> listM = new ArrayList<>();
+        String query = "SELECT TOP 3 M1.*\n"
+                + "FROM Messagess M1\n"
+                + "JOIN (\n"
+                + "    SELECT SenderID, MAX([Timestamp]) AS LatestTimestamp\n"
+                + "    FROM Messagess\n"
+                + "    WHERE ReceiverID = ?\n"
+                + "    GROUP BY SenderID\n"
+                + ") AS M2 ON M1.SenderID = M2.SenderID AND M1.[Timestamp] = M2.LatestTimestamp\n"
+                + "ORDER BY M1.[Timestamp] DESC;";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, ReceiverID);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listM.add(new Messagess(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)));
+
+            }
+        } catch (Exception e) {
+        }
+
+        return listM;
+
+    }
+
     public void InsertMessage(int sendId, int receiverId, String date, String content) {
 
         String query = "INSERT INTO Messagess (SenderID, ReceiverID, Timestamp,Content)\n"
@@ -1209,8 +1242,8 @@ public class AdminDAO {
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
         List<Transaction> t = dao.getListTransactions();
-        List<Transaction> a = dao.getTransactionsByTypeAndStatus();
-        for (Transaction transaction : a) {
+        List<Messagess> a = dao.getnewMessagesses(11);
+        for (Messagess transaction : a) {
             System.out.println(transaction);
         }
         List<ServicePackage> b = dao.ServicePackagesByOrderId("2");

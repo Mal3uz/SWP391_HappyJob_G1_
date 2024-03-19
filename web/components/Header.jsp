@@ -190,7 +190,7 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="Contact.jsp">Contact</a></li>
+                                <li><a href="Contact.jsp">Report</a></li>
                             </ul>
                         </nav>
 
@@ -220,7 +220,12 @@
                                         <div class="dropdown-menu">
 
                                             <a class="dropdown-item" href="Profile.jsp">Profile Details</a>
-                                            <a class="dropdown-item" href="wallet"> Balance: ${sessionScope.balance}</a>
+                                            <c:if test="${sessionScope.user.getRoleID() == 1}">
+                                                <a class="dropdown-item" href="./admin/dashBoard"> Dashboard</a>
+                                            </c:if>
+                                              <c:if test="${sessionScope.user.getRoleID() == 2}">
+                                                <a class="dropdown-item" href="dashboard"> Dashboard</a>
+                                            </c:if>
 
 
 
