@@ -47,6 +47,7 @@ public class ListTalentControl extends HttpServlet {
         if (count % 4 != 0) {
             endPage++;
         }
+         request.setAttribute("numberjob", count);
         request.setAttribute("endP", endPage);
         request.setAttribute("listT", listT);
         request.setAttribute("adao", adao);

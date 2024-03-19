@@ -41,11 +41,12 @@ public class LoadWaitingControl extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("user");
         String indexPage = request.getParameter("index");
-
+  
+      
         if (indexPage != null) {
             int index = Integer.parseInt(indexPage);
             List<Talent> talentList = null;
-
+           
             if (index == 1) {
                 talentList = tdao.getTalentByOrderStatus(account.getAccountID(), "Pending");
             } else if (index == 2) {
@@ -77,7 +78,7 @@ public class LoadWaitingControl extends HttpServlet {
                     if (index == 1) {
                         out.println("<a href=\"deleteOrder?orderId= \" class=\"btn btn-block btn-danger\" style=\"position: unset;height: unset;\">Delete</a>");
                     } else if (index == 2) {
-                        out.println("<a href=\"cancelOrder?orderId= \" class=\"btn btn-block btn-danger\" style=\"position: unset;height: unset;\">Cancel</a>");
+                        out.println("<a href=\"cancelOrder?orderId="+(odao.getOrderProcessByTAID(account.getAccountID(), tWatingAccept.getTalentID())).getOrderID()+" \" class=\"btn btn-block btn-danger\" style=\"position: unset;height: unset;\">Cancel</a>");
                     }
 
                     out.println("</div>");

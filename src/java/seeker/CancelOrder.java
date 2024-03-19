@@ -3,23 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package guest.servlet;
+package seeker;
 
-import dao.SeekerDAO;
-import entity.Talent;
+import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author DELL
  */
-public class CategoryControl extends HttpServlet {
+public class CancelOrder extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,27 +28,10 @@ public class CategoryControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String id = request.getParameter("id");
-        String indexString = request.getParameter("index");
-        
-        int index = 1;
-        if(indexString != null){
-          index = Integer.parseInt(indexString);
-        }
-        SeekerDAO dao = new SeekerDAO();
-         List<Talent> listT = dao.pagingActiveTalentCate(index,id);
-        
-          int count = dao.getNumberTalentByCate(id);
-
-        int endPage = count / 4;
-        if (count % 4 != 0) {
-            endPage++;
-        }
-         request.setAttribute("numberjob", count);
-         request.setAttribute("endP", endPage);
-         request.setAttribute("listT", listT);
-         request.setAttribute("dao", dao);
-         request.getRequestDispatcher("ListCategory.jsp").forward(request, response);
+         String orderid = request.getParameter("orderId");
+         OrderDAO odao = new OrderDAO();
+         odao.cancelOrder(orderid);
+         response.sendRedirect("waitingAccept");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

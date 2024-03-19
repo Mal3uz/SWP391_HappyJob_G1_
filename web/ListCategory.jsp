@@ -7,33 +7,19 @@
 <%@include file="components/Header.jsp" %>
 <%@include file="components/Search.jsp" %>
 
+
 <section class="site-section" id="next">
     <div class="container">
         <div class="row mb-5 justify-content-center">
             <div class="col-md-7 text-center">
-                <h2 class="section-title mb-2">43,167 Talent Listed</h2>
+                <h2 class="section-title mb-2">${numberjob} Talent Listed</h2>
             </div>
         </div>
 
-        <div class="row pagination-wrap">
-            <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
-                <span>Showing 1-7 Of 43,167 Jobs</span>
-            </div>
-            <div class="col-md-6 text-center text-md-right">
-                <div class="custom-pagination ml-auto">
-                    <a href="#" class="prev">Prev</a>
-                    <div class="d-inline-block">
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                    </div>
-                    <a href="#" class="next">Next</a>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="container-list-talent">
+ <div id="container-list-talent" style="padding-top: 10px; margin-top: 10px; width: 100%; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+
 
 
         <c:forEach items="${listT}" var="t" >
@@ -59,6 +45,42 @@
                 <div class="black-color">From $${packet.getPrice()}</div>
             </div>
         </c:forEach>
+    </div>
+          <script>
+            function handlePaginationClick(pageNumber) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'loadTalent',
+                    data: {
+                        index: pageNumber
+                    },
+                    success: function (data) {
+                        var row = document.getElementById("container-list-talent");
+                        row.innerHTML = data;
+                    }
+                });
+            }
+
+        </script>
+    <div id="paging" class="container ">
+        <div class="row pagination-wrap">
+            <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+                <span>Showing 1-${endP} Of ${numberjob} Jobs</span>
+            </div>
+            <div class="col-md-6 text-center text-md-right">
+                <div class="custom-pagination ml-auto">
+                    <a href="#" class="prev">Prev</a>
+                    <div  class="d-inline-block">
+
+                        <c:forEach begin="1" end="${endP}" var="i">
+                            <a href="javascript:void(0);" onclick="handlePaginationClick(${i})" class="active">${i}</a>
+
+                        </c:forEach>
+                    </div>
+                    <a href="#" class="next">Next</a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

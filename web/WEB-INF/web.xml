@@ -231,6 +231,10 @@
         <servlet-name>WithdrawControl</servlet-name>
         <servlet-class>guest.servlet.WithdrawControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CancelOrder</servlet-name>
+        <servlet-class>seeker.CancelOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -450,6 +454,10 @@
     <servlet-mapping>
         <servlet-name>WithdrawControl</servlet-name>
         <url-pattern>/withdraw</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelOrder</servlet-name>
+        <url-pattern>/cancelOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

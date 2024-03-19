@@ -12,7 +12,7 @@
 <section class="site-section" id="next">
     <div class="row mb-5 justify-content-center">
         <div class="col-md-7 text-center">
-            <h2 class="section-title mb-2">43,167 Talent Listed</h2>
+            <h2 class="section-title mb-2">${numberjob} Talent Listed</h2>
         </div>
     </div>
     <div id="container-list-talent" style="padding-top: 10px; margin-top: 10px; width: 100%; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
@@ -64,7 +64,7 @@
     <div id="paging" class="container ">
         <div class="row pagination-wrap">
             <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
-                <span>Showing 1-7 Of 43,167 Jobs</span>
+                <span>Showing 1-${endP} Of ${numberjob} Jobs</span>
             </div>
             <div class="col-md-6 text-center text-md-right">
                 <div class="custom-pagination ml-auto">
