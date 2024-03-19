@@ -38,10 +38,7 @@
                 <div class="card mb-2">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div class="search-container d-sm-block d-none">
-                                <input type="text" class="form-control" placeholder="Search" />
-                                <i class="icon-search"></i>
-                            </div>
+                            
                            
                             <table class="table table-bordered table-striped align-middle m-0">
                                 <thead>
@@ -88,6 +85,7 @@
 
                                                 </div>
                                             </td>
+                                            <c:if test="${a.roleID != 1}">
                                             <td>
                                                <c:if test="${a.status != 'Pending'}">
                                                 <a href="#" onclick="showMess(${a.accountID},'Unlock','unlockAccount?aid=')" >
@@ -106,6 +104,7 @@
                                                 </a>
                                                </c:if>
                                             </td>
+                                            </c:if>
                                         </tr>
 
                                     </c:forEach>

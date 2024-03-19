@@ -43,6 +43,9 @@ public class DashBoard extends HttpServlet {
         int activeTalent = dao.getNumberTalentByStatus("Active");
         int pendingTalent = dao.getNumberTalentByStatus("Pending");
         int rejectTalent = dao.getNumberTalentByStatus("Reject");
+        int orderFinish = dao.getNumberOrderByStatus("Finish", "Finish");
+        int orderPending = dao.getNumberOrderByStatus("Pending", "Processing");
+        int orderCancel = dao.getNumberOrderByStatus("Scancel", "Cancel");
         Map<Account, Integer> topAccount = dao.getTopAccountWithPurchaseCount();
         Map<Talent, Integer> topTalent = dao.getTopTalentWithAmountSold();
          
@@ -64,7 +67,11 @@ public class DashBoard extends HttpServlet {
         request.setAttribute("pendingTalent", pendingTalent);
         request.setAttribute("rejectTalent", rejectTalent);
         request.setAttribute("topAccount", topAccount);
-         request.setAttribute("topTalent", topTalent);
+        request.setAttribute("topTalent", topTalent);
+        request.setAttribute("orderFinish", orderFinish);
+        request.setAttribute("orderPending", orderPending);
+        request.setAttribute("orderCancel", orderCancel);  
+        
         request.setAttribute("dao", dao);
         
          request.getRequestDispatcher("../admin_dashboard/DashBoard.jsp").forward(request, response);

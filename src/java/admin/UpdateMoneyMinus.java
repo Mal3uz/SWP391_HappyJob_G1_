@@ -5,21 +5,20 @@
 
 package admin;
 
+
 import dao.AdminDAO;
-import entity.Transaction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author DELL
  */
-public class InvoiceDetail extends HttpServlet {
+public class UpdateMoneyMinus extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,13 +29,22 @@ public class InvoiceDetail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String transactionId = request.getParameter("id");
-         AdminDAO dao = new AdminDAO();
-        Transaction transaction = dao.getTransactionById(transactionId);
-
-       request.setAttribute("dao", dao);
-       request.setAttribute("transaction", transaction);
-       request.getRequestDispatcher("../admin_dashboard/InvoiceDetail.jsp").forward(request, response);
+        int aidInt = Integer.parseInt(request.getParameter("aid"));
+        int orderid = Integer.parseInt(request.getParameter("oid"));
+         int priceInt = Integer.parseInt(request.getParameter("price"));
+         String transactionId = request.getParameter("trsid");
+         System.out.println(aidInt);
+         System.out.println(orderid);
+         System.out.println(priceInt);
+       AdminDAO dao = new AdminDAO();
+       int newbalance = (dao.currentBalance(aidInt) + priceInt);
+        System.out.println(dao.currentBalance(aidInt));
+        System.out.println(priceInt);
+        System.out.println(dao.currentBalance(aidInt) + priceInt);
+       dao.updateNewBalance(aidInt, newbalance);
+       dao.updateOrderStatus("Done",orderid);
+       dao.updateStatusTransaction(transactionId);
+       response.sendRedirect("invoiceList");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

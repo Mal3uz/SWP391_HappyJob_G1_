@@ -109,8 +109,8 @@
 
 
 
-            <div class="col-md-6">
-                <img src="team_img/dat.jpg" alt="Image" class="img-fluid mb-4 rounded">
+            <div class="col-md-6" >
+                <img src="team_img/dat1.jpg" alt="Image" class="img-fluid mb-4 rounded" style="width: 500px; height: 500px; object-fit: cover;">
             </div>
 
             <div class="col-md-6">
@@ -126,7 +126,7 @@
             </div>
 
             <div class="col-md-6 order-md-2 ml-md-auto">
-                <img src="team_img/phuong.jpg" alt="Image" class="img-fluid mb-4 rounded">
+                <img src="team_img/phuong.jpg" alt="Image" class="img-fluid mb-4 rounded" style="width: 500px; height: 500px; object-fit: cover;">
             </div>
 
             <div class="col-md-6">
@@ -140,22 +140,22 @@
                     <a href="#"><span class="icon-linkedin"></span></a>
                 </div>
             </div>
-            
-            
-            
-            
+
+
+
+
         </div>
-         <div class="row align-items-center block__69944">
+        <div class="row align-items-center block__69944">
 
 
 
-            <div class="col-md-6">
-                <img src="images/person_6.jpg" alt="Image" class="img-fluid mb-4 rounded">
+            <div class="col-md-6" >
+                <img src="team_img/hoang.jpg" alt="Image" class="img-fluid mb-4 rounded" style="width: 500px; height: 500px; object-fit: cover;">
             </div>
 
             <div class="col-md-6">
-                <h3>Elisabeth Smith</h3>
-                <p class="text-muted">Creative Director</p>
+                <h3>Bùi Thái Hoàng</h3>
+                <p class="text-muted">Deverloper</p>
                 <p>Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae voluptatibus ut? Ex vel  ad explicabo iure ipsa possimus consectetur neque rem molestiae eligendi velit?.</p>
                 <div class="social mt-4">
                     <a href="#"><span class="icon-facebook"></span></a>
@@ -166,11 +166,11 @@
             </div>
 
             <div class="col-md-6 order-md-2 ml-md-auto">
-                <img src="images/person_5.jpg" alt="Image" class="img-fluid mb-4 rounded">
+                <img src="team_img/lamanh.jpg" alt="Image" class="img-fluid mb-4 rounded" style="width: 500px; height: 500px; object-fit: cover;">
             </div>
 
             <div class="col-md-6">
-                <h3>Chintan Patel</h3>
+                <h3>Phạm Lâm Anh</h3>
                 <p class="text-muted">Creative Director</p>
                 <p>Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae voluptatibus ut? Ex vel  ad explicabo iure ipsa possimus consectetur neque rem molestiae eligendi velit?.</p>
                 <div class="social mt-4">
@@ -180,21 +180,19 @@
                     <a href="#"><span class="icon-linkedin"></span></a>
                 </div>
             </div>
-            
-            
-            
-            
+
+
+
+
         </div>
-         <div class="row align-items-center block__69944">
+        <div class="row align-items-center block__69944">
 
-
-
-            <div class="col-md-6">
-                <img src="images/person_6.jpg" alt="Image" class="img-fluid mb-4 rounded">
+            <div class="col-md-6" >
+                <img src="team_img/hau.jpg" alt="Image" class="img-fluid mb-4 rounded" style="width: 500px; height: 500px; object-fit: cover;">
             </div>
 
             <div class="col-md-6">
-                <h3>Elisabeth Smith</h3>
+                <h3>Đặng Văn Hậu</h3>
                 <p class="text-muted">Creative Director</p>
                 <p>Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem voluptatum repudiandae voluptatibus ut? Ex vel  ad explicabo iure ipsa possimus consectetur neque rem molestiae eligendi velit?.</p>
                 <div class="social mt-4">
@@ -205,9 +203,9 @@
                 </div>
             </div>
 
-            
-            
-            
+
+
+
         </div>
 </section>
 

@@ -9,6 +9,10 @@
 
 <%@include file="components/Header.jsp" %>
 <!-- HOME -->
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+
 <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
     <div class="container">
         <div class="row">
@@ -30,13 +34,9 @@
                 <form action="#" class="">
 
                     <div class="row form-group">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">First Name</label>
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Full Name</label>
                             <input type="text" id="fname" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="text-black" for="lname">Last Name</label>
-                            <input type="text" id="lname" class="form-control">
                         </div>
                     </div>
 
@@ -59,13 +59,13 @@
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label class="text-black" for="message">Message</label> 
-                            <textarea name="message" id="message" cols="30" rows="7" class="form-control" placeholder="Write your notes or questions here..."></textarea>
+                            <textarea name="message" id="message" cols="30" rows="7" class="form-control" placeholder="Write your problems or questions here..."></textarea>
                         </div>
                     </div>
 
                     <div class="row form-group">
-                        <div class="col-md-12">
-                            <input type="submit" value="Send Message" class="btn btn-primary btn-md text-white">
+                        <div class="col-md-12" >
+                            <button onclick="sendMail();" class="btn btn-primary btn-md text-white">Send</button>
                         </div>
                     </div>
 
@@ -74,14 +74,14 @@
             </div>
             <div class="col-lg-5 ml-auto">
                 <div class="p-4 mb-3 bg-white">
-                    <p class="mb-0 font-weight-bold">Address</p>
-                    <p class="mb-4">203 Fake St. Mountain View, San Francisco, California, USA</p>
+                    <p class="mb-0 font-weight-bold">Description</p>
+                    <p class="mb-4">If you experience any issues or problems with your system, please contact us.</p>
 
                     <p class="mb-0 font-weight-bold">Phone</p>
-                    <p class="mb-4"><a href="#">+1 232 3235 324</a></p>
+                    <p class="mb-4"><a href="#">+76 *** 7588</a></p>
 
                     <p class="mb-0 font-weight-bold">Email Address</p>
-                    <p class="mb-0"><a href="#">youremail@domain.com</a></p>
+                    <p class="mb-0">phuongnampham7823@gmail.com</p>
 
                 </div>
             </div>
@@ -131,6 +131,31 @@
         </div>
     </div>
 </section>
+
+<script type="text/javascript">
+    function sendMail(){
+         (function () {
+        emailjs.init("vfQLfi9Kz87zH6Iq6");
+    })();
+    
+    var params = {
+        sendername: document.querySelector("#fname").value,
+        subject: document.querySelector("#subject").value,
+        message: document.querySelector("#message").value,
+        mail: document.querySelector("#email").value
+     
+        
+    };
+    
+    var serviceID = "service_7k9gb1e";
+    var templateID = "template_c6h4tam";
+    emailjs.send(serviceID,templateID,params)
+            .then(res =>{
+                alert("Sent email successfully");
+            });
+    }
+   
+</script>
 
 <%@include file="components/Footer.jsp" %>
 

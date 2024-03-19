@@ -10,8 +10,7 @@ package entity;
  */
 public class Notifications {
     private int notificationID;
-    private int accountID ;
-    private int talentID;
+    private int recipientID;
     private String message;
     private int status;
     private String createdAt;
@@ -19,10 +18,9 @@ public class Notifications {
     public Notifications() {
     }
 
-    public Notifications(int notificationID, int accountID, int talentID, String message, int status, String createdAt) {
+    public Notifications(int notificationID, int recipientID, String message, int status, String createdAt) {
         this.notificationID = notificationID;
-        this.accountID = accountID;
-        this.talentID = talentID;
+        this.recipientID = recipientID;
         this.message = message;
         this.status = status;
         this.createdAt = createdAt;
@@ -36,20 +34,12 @@ public class Notifications {
         this.notificationID = notificationID;
     }
 
-    public int getAccountID() {
-        return accountID;
+    public int getRecipientID() {
+        return recipientID;
     }
 
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
-    }
-
-    public int getTalentID() {
-        return talentID;
-    }
-
-    public void setTalentID(int talentID) {
-        this.talentID = talentID;
+    public void setRecipientID(int recipientID) {
+        this.recipientID = recipientID;
     }
 
     public String getMessage() {
@@ -78,10 +68,10 @@ public class Notifications {
 
     @Override
     public String toString() {
-
-        return "Notifications{" + "notificationID=" + notificationID + ", accountID=" + accountID + ", talentID=" + talentID + ", message=" + message + ", status=" + status + ", createdAt=" + createdAt + '}';
-
+        return "Notifications{" + "notificationID=" + notificationID + ", recipientID=" + recipientID + ", message=" + message + ", status=" + status + ", createdAt=" + createdAt + '}';
     }
+
+   
 
 
 }

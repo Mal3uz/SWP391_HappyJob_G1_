@@ -3,11 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package admin;
+package guest.servlet;
 
 import dao.AdminDAO;
 import entity.Account;
-import entity.Orders;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -22,7 +21,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author DELL
  */
-public class RejectProductControl extends HttpServlet {
+public class MessageAddControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,7 +32,16 @@ public class RejectProductControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       response.sendRedirect("product");
+        AdminDAO dao = new AdminDAO();
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("user");
+        int friendId = Integer.parseInt(request.getParameter("friendId"));
+           LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String formattedTime = currentTime.format(formatter);
+        dao.InsertMessage(account.getAccountID(),friendId,formattedTime,"hi");
+        response.sendRedirect("message");
+               
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,20 +68,7 @@ public class RejectProductControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String id = request.getParameter("pid");
-        String reason = request.getParameter("reason");
-        AdminDAO dao = new AdminDAO();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        dao.rejectProduct(id, reason);
-        Orders order = dao.getOrderByProductID(id);
-          LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        String formattedTime = currentTime.format(formatter);
-        String mess1 = "You have reject product in orderID : " + order.getOrderID() +" of Account: " + dao.getAccountByProductId(id).getName() + " because : "+reason;
-        String mess2 = "Admin have reject product in orderID : " + order.getOrderID() +" of you" + " BECAUSE : "+reason;
-        dao.insertNotificationApprovel(account.getAccountID(), mess1, 0, formattedTime);
-        dao.insertNotificationApprovel( dao.getAccountByProductId(id).getAccountID(), mess2, 0, formattedTime);
+        processRequest(request, response);
     }
 
     /** 

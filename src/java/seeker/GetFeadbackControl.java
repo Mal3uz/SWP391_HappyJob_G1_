@@ -76,6 +76,7 @@ public class GetFeadbackControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // them du lieu vao database
        String talentIDParam = (String) request.getParameter("tid");
         int talentID = Integer.parseInt(talentIDParam);
         HttpSession session = request.getSession();

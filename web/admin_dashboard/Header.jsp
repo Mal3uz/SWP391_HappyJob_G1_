@@ -81,43 +81,22 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-md shadow-sm">
                                             <h5 class="fw-semibold px-3 py-2 m-0">Messages</h5>
-
+                                         
+                         <c:set value="${dao.getnewMessagesses(sessionScope.user.getAccountID())}" var="newmess"></c:set>
+                         <c:forEach items="${newmess}" var="m">
                                             <a href="javascript:void(0)" class="dropdown-item">
                                                 <div class="d-flex align-items-start py-2">
                                                     <div class="p-3 bg-danger rounded-circle me-3">
                                                         MS
                                                     </div>
                                                     <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">Moory Sammy</h6>
-                                                        <p class="mb-1">Sent a mail.</p>
-                                                        <p class="small m-0 opacity-50">3 Mins Ago</p>
+                                                        <h6 class="mb-1 fw-semibold">${dao.getAccountById(m.getSenderID()).getName()}</h6>
+                                                        <p class="mb-1">${m.getContent()}</p>
+                                                        <p class="small m-0 opacity-50">${m.getTimestamp()}</p>
                                                     </div>
                                                 </div>
                                             </a>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                <div class="d-flex align-items-start py-2">
-                                                    <div class="p-3 bg-primary rounded-circle me-3">
-                                                        KY
-                                                    </div>
-                                                    <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">Kyle Yomaha</h6>
-                                                        <p class="mb-1">Need support.</p>
-                                                        <p class="small m-0 opacity-50">5 Mins Ago</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                <div class="d-flex align-items-start py-2">
-                                                    <div class="p-3 bg-success rounded-circle me-3">
-                                                        SB
-                                                    </div>
-                                                    <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">Srinu Basava</h6>
-                                                        <p class="mb-1">Purchased a NotePad.</p>
-                                                        <p class="small m-0 opacity-50">7 Mins Ago</p>
-                                                    </div>
-                                                </div>
-                                            </a>
+                                           </c:forEach>
                                             <div class="d-grid p-3 border-top">
                                                 <a href="message" class="btn btn-outline-primary">View all</a>
                                             </div>
@@ -127,13 +106,13 @@
                                         <a class="dropdown-toggle d-flex p-3 position-relative" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="icon-twitch fs-4 lh-1"></i>
-                                            <c:set value="${dao.getNumberNewNotificationsesAdmin()}" var="number"></c:set>
+                                            <c:set value="${dao.getNumberNewNotificationses(sessionScope.user.getAccountID())}" var="number"></c:set>
                                             <span class="count rounded-circle bg-danger">${number}</span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-md shadow-sm">
                                             <h5 class="fw-semibold px-3 py-2 m-0">Notifications
                                                <a href="readAll" class="btn btn-info float-end ">Read All</a></h5>
-                                            <c:set var="newNotification" value="${dao.getNewNotificationses()}" />
+                                            <c:set var="newNotification" value="${dao.getNewNotificationsesByAccount(sessionScope.user.getAccountID())}" />
                                             <c:forEach var="n" items="${newNotification}">
                                                 <a href="javascript:void(0)" class="dropdown-item">
                                                     <div class="d-flex align-items-start py-2 ${n.status == 0 ? '':'opacity-50' }" style=" white-space: nowrap;
@@ -157,17 +136,13 @@
                                     <div class="dropdown ms-2">
                                         <a class="dropdown-toggle d-flex align-items-center user-settings" href="#!" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span class="d-none d-md-block">Kasey Petersen</span>
+                                            <span class="d-none d-md-block">${sessionScope.user.getName()}</span>
                                             <img src="../admin_dashboard/assets/images/user3.png" class="img-3x m-2 me-0 rounded-5" alt="Bootstrap Gallery" />
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-sm shadow-sm gap-3" style="">
-                                            <a class="dropdown-item d-flex align-items-center py-2" href="agent-profile.html"><i
-                                                    class="icon-smile fs-4 me-3"></i>User Profile</a>
-                                            <a class="dropdown-item d-flex align-items-center py-2" href="account-settings.html"><i
-                                                    class="icon-settings fs-4 me-3"></i>Account
-                                                Settings</a>
-                                            <a class="dropdown-item d-flex align-items-center py-2" href="login.html"><i
-                                                    class="icon-log-out fs-4 me-3"></i>Logout</a>
+                                           
+                                            <a class="dropdown-item d-flex align-items-center py-2" href="./../Home.jsp"><i
+                                                    class="icon-log-out fs-4 me-3"></i>Home</a>
                                         </div>
                                     </div>
 
