@@ -7,8 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <jsp:useBean id="CategoryDAOInstance" scope="request" class="dao.CategoryDAO" />
-
+<jsp:useBean id="AdminDAOInstance" scope="request" class="dao.AdminDAO" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -93,36 +96,43 @@
                                 </li>
                                 <li class="has-children">
 
-                                 <c:if test="${sessionScope.user != null}">
-                                    <a href="#">Notification <mark class="big swing">7</mark></a>
-                                    <ul class="dropdown autohiden" style="  position: absolute;left: 50%;transform: translateX(-50%);">
-                                        <li>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                <div class="d-flex align-items-start py-2 " style=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
+                                    <c:if test="${sessionScope.user != null}">
+                                        <c:set var="number" value="${AdminDAOInstance.getNumberNewNotificationses(sessionScope.user.getAccountID())}" />
+                                        <a href="#">Notification <mark class="big swing">${number}</mark></a>
+                                        <ul class="dropdown autohiden" style="  position: absolute;left: 50%;transform: translateX(-50%);">
+                                            <c:set var="notifications" value="${AdminDAOInstance.getNewNotificationsesByAccount(sessionScope.user.getAccountID())}" />
+                                            <c:forEach var="notification" items="${notifications}">
+                                                <li>
+                                                    <a href="javascript:void(0)" class="dropdown-item">
+                                                        <div class="d-flex align-items-start py-2 " style=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">
 
-                                                    <div class="m-0">
-                                                        <h6 class="mb-1 fw-semibold">2024-03-06
-                                                            <span class=" bg-primary badge rounded-pill"> </span>
-                                                        </h6>
-                                                        <p class="mb-1">Proder4 created Talent : Dịch vụ tối ưu hóa tốc độ website TalentID: 12</p>
-                                                        <p class="small m-0 opacity-50">08:59:58</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li><a href="PostBlog.jsp">Post a Blog</a></li>
-                                    </ul>
+                                                            <div class="m-0">
+                                                                <h6 class="mb-1 fw-semibold">${fn:substring(notification.createdAt, 0, 10)}
+                                                                    <span class=" bg-primary badge rounded-pill"> </span>
+                                                                </h6>
+                                                                <p class="mb-1">${notification.getMessage()}</p>
+                                                                <p class="small m-0 opacity-50">${fn:substring(ư.createdAt, 11, 19)}</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </c:forEach>
 
-                                </li>
-                                <li><a href="message">Message</a></li>
-                                </c:if>
-                                
+                                            <div class="d-grid p-3 float-right">
+                                                <a href="notification" class="btn btn-outline-primary " >View all</a>
+                                            </div>
+                                        </ul>
+
+                                    </li>
+                                    <li><a href="message">Message</a></li>
+                                    </c:if>
+
                                 <c:if test="${sessionScope.user == null}">
                                     <li><a href="Login.jsp">Notification</a></li>
                                     <li><a href="Login.jsp">Message</a></li>
-                                    
+
                                 </c:if>
-                                
+
                                 <li class="has-children">
                                     <a href="#">Category</a>
                                     <ul class="dropdown horizontal-dropdown"> <!-- Add a CSS class -->
@@ -180,7 +190,7 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="Contact.jsp">Contact</a></li>
+                                <li><a href="Contact.jsp">Report</a></li>
                             </ul>
                         </nav>
 
@@ -210,11 +220,16 @@
                                         <div class="dropdown-menu">
 
                                             <a class="dropdown-item" href="Profile.jsp">Profile Details</a>
-                                            <a class="dropdown-item" href="wallet"> Balance: ${sessionScope.balance}</a>
+                                            <c:if test="${sessionScope.user.getRoleID() == 1}">
+                                                <a class="dropdown-item" href="./admin/dashBoard"> Dashboard</a>
+                                            </c:if>
+                                              <c:if test="${sessionScope.user.getRoleID() == 2}">
+                                                <a class="dropdown-item" href="dashboard"> Dashboard</a>
+                                            </c:if>
 
 
 
-                                          
+
 
                                             <a class="dropdown-item" href="LogoutControl" >Logout</a>
                                         </div>

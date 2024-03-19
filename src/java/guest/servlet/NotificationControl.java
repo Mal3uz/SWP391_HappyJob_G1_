@@ -3,23 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package admin;
+package guest.servlet;
 
 import dao.AdminDAO;
-import entity.Transaction;
+import entity.Account;
+import entity.Notifications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  *
  * @author DELL
  */
-public class InvoiceDetail extends HttpServlet {
+public class NotificationControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,13 +32,19 @@ public class InvoiceDetail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String transactionId = request.getParameter("id");
-         AdminDAO dao = new AdminDAO();
-        Transaction transaction = dao.getTransactionById(transactionId);
-
-       request.setAttribute("dao", dao);
-       request.setAttribute("transaction", transaction);
-       request.getRequestDispatcher("../admin_dashboard/InvoiceDetail.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet NotificationControl</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet NotificationControl at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -50,7 +58,17 @@ public class InvoiceDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+       HttpSession session = request.getSession();
+         AdminDAO dao = new AdminDAO();
+         Account account = (Account)session.getAttribute("account");
+       
+        List<Notifications> allNofication = dao.getListNotificationsesByAccount(String.valueOf(account.getAccountID()));
+      
+ 
+        request.setAttribute("dao", dao);
+        request.setAttribute("listN", allNofication);
+       
+        request.getRequestDispatcher("Notifications.jsp").forward(request, response);
     } 
 
     /** 

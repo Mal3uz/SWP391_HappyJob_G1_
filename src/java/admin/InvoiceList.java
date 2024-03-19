@@ -31,8 +31,8 @@ public class InvoiceList extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
        AdminDAO dao = new AdminDAO();
-       List<Transaction> listT = dao.getListTransactions();
-
+       List<Transaction> listT = dao.getTransactionsByTypeAndStatus();
+       
        request.setAttribute("dao", dao);
        request.setAttribute("listT", listT);
        request.getRequestDispatcher("../admin_dashboard/InvoiceList.jsp").forward(request, response);

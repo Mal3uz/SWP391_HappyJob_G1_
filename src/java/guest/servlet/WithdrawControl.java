@@ -3,11 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package admin;
+package guest.servlet;
 
 import dao.AdminDAO;
-import entity.Account;
-import entity.Orders;
+import dao.SeekerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -22,7 +21,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author DELL
  */
-public class AcceptProductControl extends HttpServlet {
+public class WithdrawControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,22 +32,21 @@ public class AcceptProductControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         String id = request.getParameter("pid");
-           AdminDAO dao = new AdminDAO();
-            HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        dao.acceptProduct(id);
-        Orders order = dao.getOrderByProductID(id);
+        int priceInt = Integer.parseInt(request.getParameter("price"));
+         int aidInt = Integer.parseInt(request.getParameter("accountid")); 
+        SeekerDAO sdao = new SeekerDAO();
+         AdminDAO dao = new AdminDAO();
+         int current =  dao.currentBalance(aidInt);
+         int newbalance = (current - priceInt);
+          HttpSession session = request.getSession();
+          session.setAttribute("balance", newbalance);
          LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         String formattedTime = currentTime.format(formatter);
-        String mess1 = "You have approvel product in orderID : " + order.getOrderID() +" of Account: " + dao.getAccountByProductId(id).getName();
-        String mess2 = "Admin have approvel product in orderID : " + order.getOrderID() +" of you" ;
-        dao.insertNotificationApprovel(account.getAccountID(), mess1, 0, formattedTime);
-        dao.insertNotificationApprovel( dao.getAccountByProductId(id).getAccountID(), mess2, 0, formattedTime);
-
-
-        response.sendRedirect("product");
+         int orderid = sdao.createOrderWithType(aidInt,formattedTime,"Minus");
+         sdao.requestWidthdraw(aidInt, priceInt , orderid, formattedTime);
+         dao.updateNewBalance(aidInt, newbalance);
+         response.sendRedirect("wallet");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

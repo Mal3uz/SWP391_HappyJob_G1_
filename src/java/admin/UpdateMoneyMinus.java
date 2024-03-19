@@ -3,25 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package seeker;
+package admin;
 
-import dao.SeekerDAO;
-import entity.Account;
+
+import dao.AdminDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author DELL
  */
-public class RequestAddMoney extends HttpServlet {
+public class UpdateMoneyMinus extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,8 +29,22 @@ public class RequestAddMoney extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       response.sendRedirect("wallet");
-        
+        int aidInt = Integer.parseInt(request.getParameter("aid"));
+        int orderid = Integer.parseInt(request.getParameter("oid"));
+         int priceInt = Integer.parseInt(request.getParameter("price"));
+         String transactionId = request.getParameter("trsid");
+         System.out.println(aidInt);
+         System.out.println(orderid);
+         System.out.println(priceInt);
+       AdminDAO dao = new AdminDAO();
+       int newbalance = (dao.currentBalance(aidInt) + priceInt);
+        System.out.println(dao.currentBalance(aidInt));
+        System.out.println(priceInt);
+        System.out.println(dao.currentBalance(aidInt) + priceInt);
+       dao.updateNewBalance(aidInt, newbalance);
+       dao.updateOrderStatus("Done",orderid);
+       dao.updateStatusTransaction(transactionId);
+       response.sendRedirect("invoiceList");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,16 +71,7 @@ public class RequestAddMoney extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       String priceString = request.getParameter("price");
-        System.out.println(priceString);
-        int price = Integer.parseInt(priceString);
-           SeekerDAO dao = new SeekerDAO();
-        HttpSession session = request.getSession();
-        Account u = (Account) session.getAttribute("user");
-        LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedCurrentTime = currentTime.format(formatter);
-        dao.requestAddMoney(u.getAccountID(),price,formattedCurrentTime);
+        processRequest(request, response);
     }
 
     /** 

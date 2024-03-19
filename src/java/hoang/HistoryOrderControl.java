@@ -37,7 +37,7 @@ public class HistoryOrderControl extends HttpServlet {
         AccountDAO adao = new  AccountDAO();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("user");
-        List<Talent> watingAccept = tdao.getTalentByOrderStatus(account.getAccountID(),"Completed");
+        List<Talent> watingAccept = tdao.getTalentByOrderStatus(account.getAccountID(),"Finish");
         request.setAttribute("watingAccept", watingAccept);
         request.setAttribute("adao", adao);
         request.getRequestDispatcher("HistoryOrder.jsp").forward(request, response);  
