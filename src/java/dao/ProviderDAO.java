@@ -5,6 +5,7 @@
 package dao;
 
 import entity.Category;
+import entity.Statistic;
 import entity.Talent;
 import java.security.Provider;
 import java.sql.Connection;
@@ -223,7 +224,7 @@ public class ProviderDAO {
         return cList;
     }
 
-    public void addOrder(int accId, int talentId, String datetime, int packId, String status, String oderType) {
+    public int addOrder(int accId, int talentId, String datetime, int packId, String status, String oderType) {
 
         try {
             String sql = "insert into [Orders] values(?,?,?,?,?)";
@@ -250,10 +251,12 @@ public class ProviderDAO {
                 ps.setInt(2, packId);
 
                 ps.executeUpdate();
+                return orderId;
             }
 
         } catch (Exception e) {
         }
+        return -1;
     }
 
     public int getIdByEmai(String email) throws Exception {
@@ -515,9 +518,257 @@ public class ProviderDAO {
         }
     }
 
+    public List<Statistic> getTransLast7Day() throws Exception {
+        List<Statistic> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = new DBContext().getConnection();
+
+            query = "SELECT p.day, COALESCE(COUNT(t.TransactionID), 0) AS count FROM (\n"
+                    + "         SELECT CAST(GETDATE() AS DATE) AS day\n"
+                    + "         UNION\n"
+                    + "            SELECT DATEADD(DAY, -1, CAST(GETDATE() AS DATE))\n"
+                    + "            UNION\n"
+                    + "            SELECT DATEADD(DAY, -2, CAST(GETDATE() AS DATE))\n"
+                    + "             UNION\n"
+                    + "            SELECT DATEADD(DAY, -3, CAST(GETDATE() AS DATE))\n"
+                    + "            UNION\n"
+                    + "           SELECT DATEADD(DAY, -4, CAST(GETDATE() AS DATE))\n"
+                    + "         UNION\n"
+                    + "          SELECT DATEADD(DAY, -5, CAST(GETDATE() AS DATE))\n"
+                    + "           UNION\n"
+                    + "            SELECT DATEADD(DAY, -6, CAST(GETDATE() AS DATE))\n"
+                    + "            ) AS p\n"
+                    + "                    LEFT JOIN Transactions AS t ON p.day = t.TransactionDate\n"
+                    + "		\n"
+                    + "                    GROUP BY p.day\n"
+                    + "                    ORDER BY p.day ASC;";
+
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Statistic(rs.getDate(1), rs.getInt(2)));
+            }
+        } catch (SQLException e) {
+            // Handle exceptions
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                // Handle exceptions
+            }
+        }
+
+        return list;
+    }
+
+    public List<Statistic> getOrderLast7Day() throws Exception {
+        List<Statistic> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = new DBContext().getConnection();
+
+            query = "SELECT\n"
+                    + "    p.day,\n"
+                    + "    COALESCE(COUNT(o.OrderID), 0) AS count\n"
+                    + "FROM\n"
+                    + "    (\n"
+                    + "        SELECT CAST(GETDATE() AS DATE) AS day\n"
+                    + "        UNION\n"
+                    + "        SELECT DATEADD(DAY, -1, CAST(GETDATE() AS DATE))\n"
+                    + "        UNION\n"
+                    + "        SELECT DATEADD(DAY, -2, CAST(GETDATE() AS DATE))\n"
+                    + "        UNION\n"
+                    + "        SELECT DATEADD(DAY, -3, CAST(GETDATE() AS DATE))\n"
+                    + "        UNION\n"
+                    + "        SELECT DATEADD(DAY, -4, CAST(GETDATE() AS DATE))\n"
+                    + "        UNION\n"
+                    + "        SELECT DATEADD(DAY, -5, CAST(GETDATE() AS DATE))\n"
+                    + "        UNION\n"
+                    + "        SELECT DATEADD(DAY, -6, CAST(GETDATE() AS DATE))\n"
+                    + "    ) AS p\n"
+                    + "LEFT JOIN Orders AS o ON CAST(o.[Timestamp] AS DATE) = p.day\n"
+                    + "GROUP BY\n"
+                    + "    p.day\n"
+                    + "ORDER BY\n"
+                    + "    p.day ASC;";
+
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Statistic(rs.getDate(1), rs.getInt(2)));
+            }
+        } catch (SQLException e) {
+            // Handle exceptions
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                // Handle exceptions
+            }
+        }
+
+        return list;
+    }
+
+    public int incomeStatic() throws SQLException, Exception {
+        int income = 0;
+        String query = "SELECT "
+                + "    SUM(t.Price) AS TotalPrice "
+                + "FROM "
+                + "    Transactions t "
+                + "JOIN "
+                + "    Orders o ON t.OrderID = o.OrderID "
+                + "WHERE "
+                + "    MONTH(t.TransactionDate) = MONTH(GETDATE()) "
+                + "    AND YEAR(t.TransactionDate) = YEAR(GETDATE()) "
+                + "    AND o.Status = 'Finish' "
+                + "    AND t.TransactionType = 'Paid'";
+
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                income = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            // Handle exceptions
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return income;
+    }
+
+    public int incomeStaticLastMonth() throws SQLException, Exception {
+        int income = 0;
+
+        // Get the first day of the last month
+        LocalDate firstDayOfLastMonth = LocalDate.now().minusMonths(1).withDayOfMonth(1);
+
+        String query = "SELECT "
+                + "    SUM(t.Price) AS TotalPrice "
+                + "FROM "
+                + "    Transactions t "
+                + "JOIN "
+                + "    Orders o ON t.OrderID = o.OrderID "
+                + "WHERE "
+                + "    MONTH(t.TransactionDate) = MONTH(?) "
+                + "    AND YEAR(t.TransactionDate) = YEAR(?) "
+                + "    AND o.Status = 'Finish' "
+                + "    AND t.TransactionType = 'Paid'";
+
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+
+            // Set parameters
+            ps.setObject(1, firstDayOfLastMonth);
+            ps.setObject(2, firstDayOfLastMonth);
+
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                income = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            // Handle exceptions
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return income;
+    }
+
+    public int incomeStaticById(int pId) throws SQLException, Exception {
+        int income = 0;
+        String query = "	SELECT \n"
+                + "    SUM(t.Price) AS TotalPrice \n"
+                + "FROM \n"
+                + "    Transactions t\n"
+                + "JOIN \n"
+                + "    Orders o ON t.OrderID = o.OrderID\n"
+                + "	join\n"
+                + "	Talent tl on o.TalentID = tl.TalentID\n"
+                + "WHERE \n"
+                + "    \n"
+                + "	 o.Status = 'Finish'\n"
+                + "	and t.TransactionType = 'Paid'\n"
+                + "	and tl.AccountID = ?\n"
+                + "    ";
+
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, pId);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                income = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            // Handle exceptions
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return income;
+    }
+
     public static void main(String[] args) throws Exception {
         ProviderDAO p = new ProviderDAO();
-      //  p.AddTalent("Edit Logo", "abc", "Make an club logo", "2024-01-13", 7, 6);
+        //  p.AddTalent("Edit Logo", "abc", "Make an club logo", "2024-01-13", 7, 6);
         // p.deleteTalent(2);
         //   p.updateTalent(3, "Edit Logo", "Make an club logo", "2024-01-13", 7, "Aviable", "abc");
 //        List<Talent> list = new ArrayList<>();
@@ -534,22 +785,23 @@ public class ProviderDAO {
 //            System.out.println(talent);
 //        }
         // p.deleteTalent(13);
-//        List<Map<String, Object>> orderDetailsList = p.getOrderDetailsByAccountId2(5);
+//        List<Map<String, Object>> orderDetailsList = p.getOrderDetailsByAccountId(5);
 //
 //        for (Map<String, Object> orderDetails : orderDetailsList) {
 //            System.out.println("ID: " + orderDetails.get("id"));
 //            System.out.println("Account Name: " + orderDetails.get("name"));
 //            System.out.println("Price: " + orderDetails.get("price"));
-//            System.out.println("Service Title: " + orderDetails.get("serviceTitle"));
+//            System.out.println("Service Title: " + orderDetails.get("titles"));
 //            System.out.println("Description: " + orderDetails.get("description"));
-//            System.out.println("Talent Title: " + orderDetails.get("talentTitle"));
+//            System.out.println("Talent Title: " + orderDetails.get("titlet"));
 //            System.out.println("Timestamp: " + orderDetails.get("timestamp"));
 //            System.out.println("Revisions: " + orderDetails.get("revisions"));
 //            System.out.println("Deadline: " + orderDetails.get("deadline"));
 //            System.out.println("Status: " + orderDetails.get("status"));
 //            System.out.println();
 //        }
-        System.out.println(p.getTotalOrder(5));
+        int i = p.incomeStaticById(5);
+        System.out.println(i);
 
     }
 }

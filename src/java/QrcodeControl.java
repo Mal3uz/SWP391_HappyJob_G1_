@@ -68,7 +68,8 @@ public class QrcodeControl extends HttpServlet {
                 else if (payment_method.equals("wallet")) {
                     if (u != null && balance > total) {
                         String oderType = "Paid";
-                        pdao.addOrder(accId, talentId, createAt, packId,"Pending",oderType);
+                      int ordID =  pdao.addOrder(accId, talentId, createAt, packId,"Pending",oderType);
+                        pdao.insertTransaction(accId, 1, total, oderType, ordID, "Success", createAt);
                         int newBalance = (int) Math.round(balance - total);
                         session.removeAttribute("balance");
                         session.setAttribute("balance", newBalance);

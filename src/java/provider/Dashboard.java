@@ -7,6 +7,7 @@ package provider;
 
 import dao.ProviderDAO;
 import entity.Account;
+import entity.Statistic;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -48,12 +49,21 @@ public class Dashboard extends HttpServlet {
                int totalTalent =  pdao.getTotalPost(accId);
                 int totalOrder = pdao.getTotalOrder(accId);
                 List<Map<String, Object>> items = new ArrayList<>();
+                 List<Statistic> appointment7day = pdao.getTransLast7Day();
+                 List<Statistic> reservation7day = pdao.getOrderLast7Day();
+                 int incomeMonth = pdao.incomeStatic();
+                 int incomeLastMonth = pdao.incomeStaticLastMonth();
+                 int providerIncome = pdao.incomeStaticById(accId);
                 items = pdao.getOrderDetailsByDay(accId);
                 request.setAttribute("product", totalTalent);
-                request.setAttribute("user", 12);
+                request.setAttribute("user", providerIncome);
                 request.setAttribute("bill", totalOrder);
                 request.setAttribute("low", 12);
                  request.setAttribute("items", items);
+                 request.setAttribute("appointment7day", appointment7day);
+                request.setAttribute("reservation7day", reservation7day);
+               request.setAttribute("Revenueappointment", incomeLastMonth);
+               request.setAttribute("Revenuereservation", incomeMonth);
               //  request.setAttribute("billbyday", billbyday);
                 request.getRequestDispatcher("/provider/index.jsp").forward(request, response);
             } else {

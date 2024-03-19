@@ -52,6 +52,6 @@ public class WalletDAO {
      
          public static void main(String[] args) throws Exception {
         WalletDAO aO = new WalletDAO();
-      aO.updateNewBalance(13, 10000);
+      aO.updateNewBalance(14, 10000);
     }
 }

@@ -2,6 +2,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 
@@ -83,9 +84,9 @@
                         <div class="col-md-6">
                             <div class="widget-small primary coloured-icon"><i class='icon bx bxs-user-account fa-3x'></i>
                                 <div class="info">
-                                    <h4>Total Customers</h4>
-                                    <p><b>${requestScope.user} customers</b></p>
-                                    <p class="info-tong">Total number of clients managed.</p>
+                                    <h4>Total Incomes</h4>
+                                    <p><b>${requestScope.user}$</b></p>
+                                    <p class="info-tong">Your incomes when using the system.</p>
                                 </div>
                             </div>
                         </div>
@@ -119,6 +120,35 @@
                                 </div>
                             </div>
                         </div>
+                                    
+                                                                                                                                                                     
+                            <div class="col-xl-8 col-lg-7 mt-4">
+                                <div class="card shadow border-0 p-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="align-items-center mb-0">Order statistics</h6>
+                                       
+                                    </div>
+                                    <div id="dashboard" class="apex-chart"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-lg-5 mt-4">
+                                <div class="card shadow border-0 p-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="align-items-center mb-0">Revenue</h6>
+                                      
+                                    </div>
+                                    <div id="department" class="apex-chart"></div>
+                                </div>
+                            </div>
+                               
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                         <!-- col-12 -->
                         <div class="col-md-12">
                             <div class="tile">
@@ -146,8 +176,8 @@
                                                     <td>${item.price}</td>
                                                     <td>${item.titles}</td>
                                                     <td>${item.description}</td>
-                                                    <td>${item.revisions}</td>
                                                     <td>${item.titlet}</td>
+                                                    <td>${item.revisions}</td>
                                                     <td>${item.deadline}</td>
                                                     <td>${item.timestamp}</td>
                                                 </tr>
@@ -184,6 +214,11 @@
         <script src="provider/js/plugins/pace.min.js"></script>
         <!--===============================================================================================-->
         <!--===============================================================================================-->
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/simplebar.min.js"></script>
+        <script src="js/apexcharts.min.js"></script>
+        <script src="js/feather.min.js"></script>
+        <script src="js/app.js"></script>
         <script type="text/javascript">
                             var data = {
                                 labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
@@ -254,6 +289,85 @@
                     return i;
                 }
             }
+        </script>
+        
+        <script>
+                                                var options1 = {
+                                                    series: [{
+                                                            name: 'Transactions',
+                                                            data: [<c:forEach items="${appointment7day}" var="a">${a.count},</c:forEach>]
+                                                        }, {
+                                                            name: 'Orders',
+                                                            data: [<c:forEach items="${reservation7day}" var="r">${r.count},</c:forEach>]
+                                                        }],
+                                                    chart: {
+                                                        type: 'bar',
+                                                        height: 350,
+                                                        stacked: true,
+                                                        toolbar: {
+                                                            show: true
+                                                        },
+                                                        zoom: {
+                                                            enabled: true
+                                                        }
+                                                    },
+                                                    responsive: [{
+                                                            breakpoint: 480,
+                                                            options: {
+                                                                legend: {
+                                                                    position: 'bottom',
+                                                                    offsetX: -10,
+                                                                    offsetY: 0
+                                                                }
+                                                            }
+                                                        }],
+                                                    plotOptions: {
+                                                        bar: {
+                                                            horizontal: false,
+                                                            borderRadius: 10
+                                                        },
+                                                    },
+                                                    xaxis: {
+                                                        type: 'text',
+                                                                categories: [<c:forEach items="${appointment7day}" var="a">'<fmt:formatDate pattern="dd/MM/yyyy" value="${a.date}"/>',</c:forEach>
+                                                                ],
+                                                    },
+                                                    legend: {
+                                                        position: 'right',
+                                                        offsetY: 40
+                                                    },
+                                                    fill: {
+                                                        opacity: 1
+                                                    }
+                                                };
+                                                var chart1 = new ApexCharts(document.querySelector("#dashboard"), options1);
+                                                chart1.render();
+            </script>
+
+
+        <script>
+            var options2 = {
+                series: [${Revenueappointment}, ${Revenuereservation}],
+                chart: {
+                    width: 450,
+                    type: 'pie',
+                },
+
+                labels: ['This month', 'Last month'],
+                responsive: [{
+                        breakpoint: 600,
+                        options: {
+                            chart: {
+                                width: 500
+                            },
+                            legend: {
+                                position: 'bottom'
+                            },
+                        }
+                    }]
+            };
+            var chart2 = new ApexCharts(document.querySelector("#department"), options2);
+            chart2.render();
         </script>
     </body>
 
