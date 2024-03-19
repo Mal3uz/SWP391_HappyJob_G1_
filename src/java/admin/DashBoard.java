@@ -52,13 +52,13 @@ public class DashBoard extends HttpServlet {
         
         ProviderDAO pdao = new ProviderDAO();
         List<Statistic> appointment7day = pdao.getTransLast7Day();
-                 List<Statistic> reservation7day = pdao.getOrderLast7Day();
-                 int incomeMonth = pdao.incomeStatic();
-                 int incomeLastMonth = pdao.incomeStaticLastMonth();
-         request.setAttribute("appointment7day", appointment7day);
-                request.setAttribute("reservation7day", reservation7day);
-               request.setAttribute("Revenueappointment", incomeLastMonth);
-               request.setAttribute("Revenuereservation", incomeMonth);        
+        List<Statistic> reservation7day = pdao.getOrderLast7Day();
+        int incomeMonth = pdao.incomeStatic();
+        int incomeLastMonth = pdao.incomeStaticLastMonth();
+        request.setAttribute("appointment7day", appointment7day);
+        request.setAttribute("reservation7day", reservation7day);
+        request.setAttribute("Revenueappointment", incomeLastMonth);
+        request.setAttribute("Revenuereservation", incomeMonth);        
                 
         request.setAttribute("activeAccount", activeAccount);
         request.setAttribute("pendingAccount", pendingAccount);

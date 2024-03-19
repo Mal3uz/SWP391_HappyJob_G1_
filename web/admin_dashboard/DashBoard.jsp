@@ -110,11 +110,21 @@
             </div>
         </div>
         <!-- Row end -->
+        <div class="row gx-2 mb-5">
+            <div class="col-xl-12 col-lg-12 mt-4">
+                <div class="card shadow border-0 p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="align-items-center mb-0">Order statistics</h6>
 
-
+                    </div>
+                    <div id="dashboard" class="apex-chart"></div>
+                </div>
+            </div>
+        </div>
+             
 
         <!-- Row start -->
-        <div class="row gx-2">
+        <div class="row gx-2 ">
             <div class="col-xl-6 col-lg-12 col-12">
                 <div class="card mb-2">
                     <div class="card-header">
@@ -212,11 +222,64 @@
         </div>
         <!-- Row end -->
         <!-- Row start -->
-        
+
         <!-- Row end -->
     </div>
     <!-- Container ends -->
 
 </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+   
+ <script>
+                                                var options1 = {
+                                                    series: [{
+                                                            name: 'Transactions',
+                                                            data: [<c:forEach items="${appointment7day}" var="a">${a.count},</c:forEach>]
+                                                        }, {
+                                                            name: 'Orders',
+                                                            data: [<c:forEach items="${reservation7day}" var="r">${r.count},</c:forEach>]
+                                                        }],
+                                                    chart: {
+                                                        type: 'bar',
+                                                        height: 350,
+                                                        stacked: true,
+                                                        toolbar: {
+                                                            show: true
+                                                        },
+                                                        zoom: {
+                                                            enabled: true
+                                                        }
+                                                    },
+                                                    responsive: [{
+                                                            breakpoint: 480,
+                                                            options: {
+                                                                legend: {
+                                                                    position: 'bottom',
+                                                                    offsetX: -10,
+                                                                    offsetY: 0
+                                                                }
+                                                            }
+                                                        }],
+                                                    plotOptions: {
+                                                        bar: {
+                                                            horizontal: false,
+                                                            borderRadius: 10
+                                                        },
+                                                    },
+                                                    xaxis: {
+                                                        type: 'text',
+                                                                categories: [<c:forEach items="${appointment7day}" var="a">'<fmt:formatDate pattern="dd/MM/yyyy" value="${a.date}"/>',</c:forEach>
+                                                                ],
+                                                    },
+                                                    legend: {
+                                                        position: 'right',
+                                                        offsetY: 40
+                                                    },
+                                                    fill: {
+                                                        opacity: 1
+                                                    }
+                                                };
+                                                var chart1 = new ApexCharts(document.querySelector("#dashboard"), options1);
+                                                chart1.render();
+            </script>
 <%@include file="Footer.jsp" %>
