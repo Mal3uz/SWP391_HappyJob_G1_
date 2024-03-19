@@ -42,6 +42,10 @@
                                 <iframe style="align-content: center;"height="650px" width="450px" src="https://nhantien.momo.vn/01242626359/${total}"></iframe>
                             </div>
                             <a href="Home.jsp">Continue hiring</a>
+                            
+                            <c:if test="${trans!= null}">
+                                  <a href="./admin/doneTransaction?id=${trans}">Update finish order</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>
