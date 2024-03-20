@@ -14,7 +14,7 @@
 <!-- HOME -->
 <% if (blog!=null) { %>
 <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
-    <div class="container">
+    <div class="container" style="opacity: 0">
         <div class="row">
             <div class="col-md-12">
 
@@ -37,6 +37,20 @@
     }
 </style>
 <section class="site-section" id="next-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <h1 class=""><%=blog.title%></h1>
+                <h4 class=""><%=blog.description%></h4>
+                <div class="custom-breadcrumbs mb-0 d-flex justify-content-center mt-1">
+                    <span class="slash text-black">được đăng bởi <%= blog.admin_name%> (<%=blog.views%> lượt xem)</span>
+                    <span class="mx-2 slash">|</span>
+                    <span class=""><strong><%=blog.created_at%></strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <img src="<%=request.getContextPath()%>/<%=blog.thumbnail%>" alt="" style="width: 100%">
