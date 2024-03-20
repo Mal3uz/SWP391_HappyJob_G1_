@@ -72,11 +72,11 @@ public class LoadWaitingControl extends HttpServlet {
                     out.println("</div>");
                     out.println("<div class=\"col-lg-5 d-flex justify-content-end\">");
                     out.println("<div class=\"job-listing d-block mr-2\">");
-                    out.println("<a href=\"orderDetail?tID=" + tWatingAccept.getTalentID() + "\" class=\"btn btn-block btn-info\" style=\"position: unset;height: unset;\">Details</a>");
+//                    out.println("<a href=\"orderDetail?tID=" + tWatingAccept.getTalentID() + "\" class=\"btn btn-block btn-info\" style=\"position: unset;height: unset;\">Details</a>");
                     out.println("</div>");
                     out.println("<div class=\"job-listing d-block\">");
                     if (index == 1) {
-                        out.println("<a href=\"deleteOrder?orderId= \" class=\"btn btn-block btn-danger\" style=\"position: unset;height: unset;\">Delete</a>");
+//                        out.println("<a href=\"deleteOrder?orderId= \" class=\"btn btn-block btn-danger\" style=\"position: unset;height: unset;\">Delete</a>");
                     } else if (index == 2) {
                         out.println("<a href=\"cancelOrder?orderId="+(odao.getOrderProcessByTAID(account.getAccountID(), tWatingAccept.getTalentID())).getOrderID()+" \" class=\"btn btn-block btn-danger\" style=\"position: unset;height: unset;\">Cancel</a>");
                     }

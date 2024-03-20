@@ -491,7 +491,7 @@ public class SeekerDAO {
                 + "FROM Transactions trs\n"
                 + "JOIN Wallet w ON ((trs.WSenderID = w.WalletID) OR (trs.WReceiverID = w.WalletID))\n"
                 + "WHERE w.WalletID = ?\n"
-                + "ORDER BY trs.transactiondate DESC;";
+                + "ORDER BY trs.transactiondate ASC;";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -580,6 +580,6 @@ public class SeekerDAO {
         for (Transaction tran : trans) {
             System.out.println(tran);
         }
-        System.out.println(dao.getNumberTalentByCate("4"));
+        System.out.println(dao.getListTransactionByAId(6));
     }
 }

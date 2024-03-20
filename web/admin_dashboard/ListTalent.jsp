@@ -38,7 +38,7 @@
                 <div class="col-sm-3 p-2">
                     <a href="talentDetail?tid=${t.talentID}" class="text-decoration-none">
                         <div class="card card-talent ">
-                            <img src="${t.img}" class="card-img-top custom-height img-thumbnail" alt="Bootstrap Gallery" style="width: 350px;height:200px;object-fit: cover;">
+                            <img src="../${t.img}" class="card-img-top custom-height img-thumbnail" alt="Bootstrap Gallery" style="width: 350px;height:200px;object-fit: cover;">
                             <div class="card-body">
                                 <div class="talent-person d-flex align-items-center">
                                     <img class="talent-person-avt rounded-circle" style="height: 30px;margin: 5px;" src="../images/person_1.jpg">

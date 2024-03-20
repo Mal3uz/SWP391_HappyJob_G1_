@@ -46,12 +46,12 @@
                                 </div>
                             </div>
                             <div class="col-lg-5 d-flex justify-content-end">
-                                <div class="job-listing d-block mr-2">
+<!--                                <div class="job-listing d-block mr-2">
                                     <a href="orderDetail?tID=${tWatingAccept.getTalentID()}"  class="btn btn-block btn-info" style="position: unset;height: unset;">Details</a>                    
-                                </div>
-                                <div class="job-listing d-block">
+                                </div>-->
+<!--                                <div class="job-listing d-block">
                                      <a href="orderDetail?tID=${tWatingAccept.getTalentID()}"  class="btn btn-block btn-danger" style="position: unset;height: unset;">Delete</a>             
-                                </div>
+                                </div>-->
                             </div>
 
                         </div>

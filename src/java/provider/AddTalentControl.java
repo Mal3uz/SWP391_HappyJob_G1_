@@ -4,6 +4,7 @@
  */
 package provider;
 
+import dao.AdminDAO;
 import dao.ProviderDAO;
 import dao.ServicePackageDAO;
 import entity.Account;
@@ -25,7 +26,6 @@ import java.util.Date;
  *
  * @author ASUS
  */
-
 @MultipartConfig
 public class AddTalentControl extends HttpServlet {
 
@@ -51,23 +51,24 @@ public class AddTalentControl extends HttpServlet {
         // img handler
         Part file = request.getPart("ProductImgURL");
         String imageFileName = file.getSubmittedFileName();
-        String uploadPath = "E:/SWP391_HappyJob_G1_-master/web/images/" + imageFileName;
+        String uploadPath = "E:/SWP391_HappyJob_G1_/web/images/" + imageFileName;
         ServicePackageDAO spdao = new ServicePackageDAO();
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("user");
         int id = acc.getAccountID();
+        String name = acc.getName();
         try {
             if (acc.getRoleID() == 2) {
                 FileOutputStream fos = new FileOutputStream(uploadPath);
-            InputStream is = file.getInputStream();
+                InputStream is = file.getInputStream();
 
-            byte[] data = new byte[is.available()];
-            is.read(data);
-            fos.write(data);
-            fos.close();
-            ProviderDAO pdao = new ProviderDAO();
-           int talentID = pdao.AddTalent(title,"images/"+imageFileName, Description, createAt, id,cid);
-            // Get values for the three service packages
+                byte[] data = new byte[is.available()];
+                is.read(data);
+                fos.write(data);
+                fos.close();
+                ProviderDAO pdao = new ProviderDAO();
+                int talentID = pdao.AddTalent(title, "images/" + imageFileName, Description, createAt, id, cid);
+                // Get values for the three service packages
                 for (int i = 1; i <= 3; i++) {
                     String servicePackageTitle = request.getParameter("servicePackageTitle" + i);
                     String servicePackageDescription = request.getParameter("servicePackageDescription" + i);
@@ -78,14 +79,21 @@ public class AddTalentControl extends HttpServlet {
                     // Add more service package attributes as needed
 
                     // Insert the service package into the database
-                   spdao.insertServicePackage(talentID, servicePackageTitle, servicePackageDescription, servicePackagePrice, servicePackageRev, servicePackageType, servicePackageDL);
-                   response.sendRedirect("Home.jsp");
+                    spdao.insertServicePackage(talentID, servicePackageTitle, servicePackageDescription, servicePackagePrice, servicePackageRev, servicePackageType, servicePackageDL);
+
                 }
-            }else{
-                  request.setAttribute("mess1", "You are not allow!");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+
+                AdminDAO dao = new AdminDAO();
+                String mess1 = "You have succesfully create Talent title : " + title;
+                String mess2 = "Account " + name + " have create Talemt title : " + title;
+                dao.insertNotificationApprovel(id, mess1, 0, createAt);
+                dao.insertNotificationApprovel(1, mess2, 0, createAt);
+                response.sendRedirect("Home.jsp");
+            } else {
+                request.setAttribute("mess1", "You are not allow!");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
-           
+
         } catch (Exception e) {
         }
 

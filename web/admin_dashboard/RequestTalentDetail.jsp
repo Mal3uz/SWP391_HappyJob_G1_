@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <section class="py-5 bg-image overlay-primary fixed overlay d-flex align-items-center justify-content-center" style="background-image: url('../admin_dashboard/assets/images/placeholder.jpg'); height: 50vh;">
-                        <img src="${t.img}" alt="Image" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+                        <img src="../${Talent.getImg()}" alt="Image" class="img-fluid" style="max-height: 100%; max-width: 100%;">
                     </section>
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Job Description</h3>
                     <p>${Talent.description}</p>
