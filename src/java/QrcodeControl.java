@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+import dao.AdminDAO;
 import dao.ProviderDAO;
 import dao.SeekerDAO;
 import dao.ServicePackageDAO;
@@ -47,6 +48,7 @@ public class QrcodeControl extends HttpServlet {
             Object accObj = session.getAttribute("user");
             Account a = (Account) accObj;
             int accId = a.getAccountID();
+            String name = a.getName();
             Object u = session.getAttribute("user");
 
             System.out.println("abc");
@@ -73,12 +75,25 @@ public class QrcodeControl extends HttpServlet {
                     request.getRequestDispatcher("qrcode.jsp").forward(request, response);
                 }
 
-                 }
-                else if (payment_method.equals("wallet")) {
+                 }else if (payment_method.equals("wallet")) {
+                    int talentId = (Integer) session.getAttribute("talentId");
+                    int packId = (Integer) session.getAttribute("packId");
+                    int total = (int) (spdao.getPriceByPackId(packId) * 1.05);
                     if (u != null && balance > total) {
                         String oderType = "Paid";
-                      int ordID =  pdao.addOrder(accId, talentId, createAt, packId,"Pending",oderType);
+                        int ordID =  pdao.addOrder(accId, talentId, createAt, packId,"Pending",oderType);
                         pdao.insertTransaction(accId, 1, total, oderType, ordID, "Success", createAt);
+                        
+                        
+                        
+                         AdminDAO dao = new AdminDAO();
+                String mess1 = "You have successfully order Talent title : " + (dao.getTalentById(Integer.toString(talentId))).getTitle();
+                String mess2 = "Account " + name + " have order Talent title : " + (dao.getTalentById(Integer.toString(talentId))).getTitle();
+                dao.insertNotificationApprovel(accId, mess1, 0, createAt);
+                dao.insertNotificationApprovel((dao.getTalentById(Integer.toString(talentId))).getAccountID(), mess2, 0, createAt);
+                        
+                        
+                        
                         int newBalance = (int) Math.round(balance - total);
                         session.removeAttribute("balance");
                         session.setAttribute("balance", newBalance);
@@ -88,12 +103,7 @@ public class QrcodeControl extends HttpServlet {
                      request.setAttribute("mess1", "Please make sure the wallet balance is sufficient for payment");
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
-
                 } else {
-                    request.setAttribute("mess1", "Please make sure the wallet balance is sufficient for payment");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
-            } else {
                 response.sendRedirect("Login.jsp");
             }
 
