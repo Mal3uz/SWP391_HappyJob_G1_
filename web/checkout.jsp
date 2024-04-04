@@ -102,6 +102,14 @@
                                                     <td> ${p.getDescription()}</td>
                                                 </tr>
                                             </c:forEach>
+                                            <c:forEach items="${listAddMore}" var="p">
+                                                <tr>
+                                                    <td><strong>${p.getTitle()}</strong></td>
+                                                    <td> ${p.getType()}</td>
+                                                    <td> ${p.getPrice()}</td>
+                                                    <td> ${p.getDescription()}</td>
+                                                </tr>
+                                            </c:forEach>
                                         </tbody>
                                         <c:if test="${sessionScope.user!=null}">
                                             <tfoot>
