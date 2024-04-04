@@ -118,7 +118,9 @@
                                                     </strong>
                                                 </li>
                                             </ul>
-                                            <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
+                                               <button type="button" class="btn w-100 bg-dark text-white border-0 rounded-10" data-bs-toggle="modal" data-bs-target="#orderOptionsModal" onclick="openOrderOptionsModal()">
+                                            Continue
+                                        </button>
                                         </div>
                                     </div>  
                                 </c:if>
@@ -144,13 +146,15 @@
                                                     </strong>
                                                 </li>
                                             </ul>
-                                            <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
+                                               <button type="button" class="btn w-100 bg-dark text-white border-0 rounded-10" data-bs-toggle="modal" data-bs-target="#orderOptionsModal" onclick="openOrderOptionsModal()">
+                                            Continue
+                                        </button>
                                         </div>
                                     </div>
                                 </c:if>
                                 <c:if test="${p.type == 'Premium'}">
                                     <div class="tab-pane fade" id="nav-premium" role="tabpanel" aria-labelledby="nav-premium-tab">
-                                         <div class="bg-light p-3 border rounded mb-4">
+                                        <div class="bg-light p-3 border rounded mb-4">
                                             <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
                                                 <h3 class="text-primary">${p.title}</h3>
                                                 <h4>US${p.price}$</h4>
@@ -170,8 +174,10 @@
                                                     </strong>
                                                 </li>
                                             </ul>
-                                            <button class="w-100 p-3 bg-dark text-white border-0 rounded-10">Continue</button>
-                                        </div>
+                                                    <button type="button" class="btn w-100 bg-dark text-white border-0 rounded-10" data-bs-toggle="modal" data-bs-target="#orderOptionsModal" onclick="openOrderOptionsModal()">
+                                            Continue
+                                        </button>
+                                               </div>
                                     </div>
                                 </c:if>
                             </c:forEach>
@@ -213,7 +219,55 @@
 
 </div>
 <!-- App body ends -->
+
+<div class="modal fade" id="orderOptionsModal"  aria-labelledby="orderOptionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderOptionsModalLabel">Order options</h5>
+                <button type="button" class="btn-close bg-primary" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group mt-3">
+
+                    <c:forEach items="${aPackage}" var="p">
+                        <li class="list-group-item">  
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">${p.title}</span>
+                                <span class="text-muted">${p.deadline}</span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="additionalRevision">
+                                    <label class="form-check-label" for="additionalRevision"></label>
+                                </div>
+                            </div>
+                            <p class="mb-0">${p.description}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <span class="text-muted">$${p.price}</span>
+                            </div>
+                        </li>
+                    </c:forEach>
+
+                    <!-- Other options -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    function openOrderOptionsModal() {
+        const modal = document.querySelector('#orderOptionsModal');
+
+
+        modal.classList.add('show');
+
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.parentNode.removeChild(backdrop);
+        }
+       
+    }
+
 
     function showMess(id, url, title, name, key) {
         if (key === "reject") {
