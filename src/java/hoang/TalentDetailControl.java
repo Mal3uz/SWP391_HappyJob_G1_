@@ -44,11 +44,12 @@ public class TalentDetailControl extends HttpServlet {
         List<Talent> listT = tdao.listAllTalent();
         Talent talent = tdao.getTalentById(tid);
         List<ServicePackage> lPackage = sdao.listPackage(tid);
-         
+         List<ServicePackage> addPackage = sdao.listPackageAdd(tid);
      
         request.setAttribute("listPackage", lPackage);
         request.setAttribute("talent", talent);
         request.setAttribute("listT", listT);
+        request.setAttribute("aPackage", addPackage);
         request.setAttribute("adao", adao);
         
          //lam anh code o day nhe
