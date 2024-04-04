@@ -54,7 +54,10 @@
                                     <button type="button" class="btn btn-primary btn-lg btn-block text-white btn-search" onclick="submitData()"><span class="icon-search icon mr-2"></span>Search Job</button>
                                 </div>
                             </div>
-                        </form>
+                        </form                       >
+                        
+                        
+                        
 
                         <script>
                             var searchData = {};
