@@ -55,14 +55,14 @@
                     <div class="col-6">
                         <a href="#" class="btn btn-block btn-primary btn-md mb-4">Save Job</a>
                     </div>
-                    <c:set value="${dao.getOrderByTAid(sessionScope.user.getAccountID(),talent.getTalentID())}" var="check"></c:set>
-                    <c:if test="${sessionScope.user != null && sessionScope.user.getRoleID() == 3 && check.isEmpty()}">
+
+                    <c:if test="${sessionScope.user != null && sessionScope.user.getRoleID() == 3 }">
                         <div class="col-6">
                             <a href="feedback?tID=${tid}" class="btn btn-block btn-info btn-md">Feedback Now</a>
                         </div>
                     </c:if>
-                    
-                     <c:if test="${sessionScope.user != null}">
+
+                    <c:if test="${sessionScope.user != null}">
                         <div class="col-6">
                             <a href="messageAdd?friendId=${adao.getAccountByTalentId(talent.getTalentID()).getAccountID()}" class="btn btn-block btn-danger btn-md mb-4">Send Message</a>
                         </div>
@@ -139,330 +139,408 @@
 
             <div class="col-lg-4">
                 <div class="card" style="position: sticky; top: 130px;">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-basic" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Basic</button>
-                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-standard" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Standard</button>
-                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-premium" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Premium</button>
-                        <!--<button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>-->
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <c:forEach items="${listPackage}" var="p">
-
-                        <c:if test="${p.getType()=='basic'}">
-                            <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                                <div class="bg-light p-3 border rounded mb-4">
-                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
-                                        <h3 class="text-primary  ">${p.getTitle()}</h3>
-                                        <h4>US$${p.getPrice()}</h4>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-basic" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Basic</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-standard" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Standard</button>
+                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-premium" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Premium</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <c:set var="pid" value="" />
+                        <c:forEach items="${listPackage}" var="p">
+                            <c:if test="${p.getType()=='basic'}">
+                                <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                    <div class="bg-light p-3 border rounded mb-4">
+                                        <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                            <h3 class="text-primary  ">${p.getTitle()}</h3>
+                                            <h4>US$${p.getPrice()}</h4>
+                                        </div>
+                                        <ul class="list-unstyled pl-3 mb-0">
+                                            <li class="mb-2">${p.getDescription()}</li>
+                                            <li class="mb-2">
+                                                <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                    <div class="icon-clock-o"></div>
+                                                    <div>${p.getDeadline()} Days Delivery</div>
+                                                </strong>
+                                            </li>
+                                            <li class="mb-2">
+                                                <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                    <div class="icon-repeat"></div>
+                                                    <div>${p.getRevisions()} Revisions</div>
+                                                </strong>
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="btn w-100 bg-dark text-white border-0 rounded-10" data-bs-toggle="modal" data-bs-target="#orderOptionsModal" onclick="onItemClick(${p.getPackageID()})">
+                                            Continue
+                                        </button>
                                     </div>
-                                    <ul class="list-unstyled pl-3 mb-0">
-                                        <li class="mb-2">${p.getDescription()}</li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-clock-o"></div>
-                                                <div>${p.getDeadline()} Days Delivery</div>
-                                            </strong>
-                                        </li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-repeat"></div>
-                                                <div>${p.getRevisions()} Revisions</div>
-                                            </strong>
-                                        </li>
-                                    </ul>
-                                    <a href="checkout?id=${p.getPackageID()}" class="btn w-100 bg-dark text-white border-0 rounded-10">Continue</a>
+                                </div>
+                            </c:if>
+                            <c:if test="${p.getType()=='standard'}">
+                                <div class="tab-pane fade show" id="nav-standard" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                    <div class="bg-light p-3 border rounded mb-4">
+                                        <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                            <h3 class="text-primary  ">${p.getTitle()}</h3>
+                                            <h4>US$${p.getPrice()}</h4>
+                                        </div>
+                                        <ul class="list-unstyled pl-3 mb-0">
+                                            <li class="mb-2">${p.getDescription()}</li>
+                                            <li class="mb-2">
+                                                <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                    <div class="icon-clock-o"></div>
+                                                    <div>${p.getDeadline()} Days Delivery</div>
+                                                </strong>
+                                            </li>
+                                            <li class="mb-2">
+                                                <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                    <div class="icon-repeat"></div>
+                                                    <div>${p.getRevisions()} Revisions</div>
+                                                </strong>
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="btn w-100 bg-dark text-white border-0 rounded-10" data-bs-toggle="modal" data-bs-target="#orderOptionsModal" onclick="onItemClick(${p.getPackageID()})">
+                                            Continue
+                                        </button>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${p.getType()=='premium'}">
+                                <div class="tab-pane fade show" id="nav-premium" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                    <div class="bg-light p-3 border rounded mb-4">
+                                        <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
+                                            <h3 class="text-primary  ">${p.getTitle()}</h3>
+                                            <h4>US$${p.getPrice()}</h4>
+                                        </div>
+                                        <ul class="list-unstyled pl-3 mb-0">
+                                            <li class="mb-2">${p.getDescription()}</li>
+                                            <li class="mb-2">
+                                                <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                    <div class="icon-clock-o"></div>
+                                                    <div>${p.getDeadline()} Days Delivery</div>
+                                                </strong>
+                                            </li>
+                                            <li class="mb-2">
+                                                <strong class="text-black d-flex align-items-center" style="gap:5px;">
+                                                    <div class="icon-repeat"></div>
+                                                    <div>${p.getRevisions()} Revisions</div>
+                                                </strong>
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="btn w-100 bg-dark text-white border-0 rounded-10" data-bs-toggle="modal" data-bs-target="#orderOptionsModal" onclick="onItemClick(${p.getPackageID()})">
+                                            Continue
+                                        </button>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+
+                        
+<!--                        modal here-->
+            <div class="modal fade " id="orderOptionsModal"  aria-labelledby="orderOptionsModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="orderOptionsModalLabel">Order options</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group mt-3">
+
+                                <c:forEach items="${aPackage}" var="p">
+                                    <li class="list-group-item">  
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="fw-bold">${p.title}</span>
+                                            <span class="text-muted">${p.deadline}</span>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="additionalRevision" value="${p.packageID}" onclick="handleCheckboxChange(this)">
+                                                <label class="form-check-label" for="additionalRevision"></label>
+                                            </div>
+                                        </div>
+                                        <p class="mb-0">${p.description}</p>
+                                        <div class="d-flex justify-content-between align-items-center mt-2">
+                                            <span class="text-muted">$${p.price}</span>
+                                        </div>
+                                    </li>
+                                </c:forEach>
+
+                                <!-- Other options -->
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn w-100 bg-primary text-white border-0 rounded-10 continue-button" onclick="continueToCheckout(selectedId, selectedPackages)">Continue</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                let selectedId;
+                const selectedPackages = [];
+
+                // Hàm này được gọi khi người dùng click vào nút "Continue"
+                function continueToCheckout(pid, lid) {
+                    // Thiết lập href cho nút "Continue" với giá trị pid
+                    const continueButton = document.querySelector('.continue-button');
+                    continueButton.href = `checkout?id=` + pid + `&&lid=` + lid;
+
+                }
+                // Hàm này được gọi khi người dùng click vào một item trong list
+                function onItemClick(pid) {
+                    selectedId = pid;
+
+                    openOrderOptionsModal(pid);
+                }
+
+                // Hàm này được gọi để mở modal và thiết lập pid
+                function openOrderOptionsModal(pid) {
+                    const modal = document.querySelector('#orderOptionsModal');
+
+
+                    modal.classList.add('show');
+                   
+
+                    const backdrop = document.querySelector('.modal-backdrop');
+                    if (backdrop) {
+                        backdrop.parentNode.removeChild(backdrop);
+                    }
+                    continueToCheckout(pid);
+                }
+
+
+                function handleCheckboxChange(checkbox) {
+                    if (checkbox.checked) {
+                        // Nếu checkbox được chọn, thêm gói dịch vụ vào mảng
+                        selectedPackages.push(checkbox.value); // giả sử checkbox có giá trị là id của gói dịch vụ
+                    } else {
+                        // Nếu checkbox bị bỏ chọn, loại bỏ gói dịch vụ khỏi mảng
+                        const index = selectedPackages.indexOf(checkbox.value);
+                        if (index !== -1) {
+                            selectedPackages.splice(index, 1);
+                        }
+                    }
+                }
+            </script>
+
+
+
+
+
+
+
+
+
+
+
+
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+            </section>
+
+            <section class="site-section" id="next">
+                <div class="container">
+
+                    <div class="row mb-5 justify-content-center">
+                        <div class="col-md-7 text-center">
+                            <h2 class="section-title mb-2">22,392 Related Jobs</h2>
+                        </div>
+                    </div>
+
+                    <ul class="job-listings mb-5">
+                        <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                            <a href="job-single.html"></a>
+                            <div class="job-listing-logo">
+                                <img src="images/job_logo_1.jpg" alt="Image" class="img-fluid">
+                            </div>
+
+                            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                                <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                                    <h2>Product Designer</h2>
+                                    <strong>Adidas</strong>
+                                </div>
+                                <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                    <span class="icon-room"></span> New York, New York
+                                </div>
+                                <div class="job-listing-meta">
+                                    <span class="badge badge-danger">Part Time</span>
                                 </div>
                             </div>
-                        </c:if>
-                        <c:if test="${p.getType()=='standard'}">
-                            <div class="tab-pane fade show" id="nav-standard" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                                <div class="bg-light p-3 border rounded mb-4">
-                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
-                                        <h3 class="text-primary  ">${p.getTitle()}</h3>
-                                        <h4>US$${p.getPrice()}</h4>
-                                    </div>
-                                    <ul class="list-unstyled pl-3 mb-0">
-                                        <li class="mb-2">${p.getDescription()}</li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-clock-o"></div>
-                                                <div>${p.getDeadline()} Days Delivery</div>
-                                            </strong>
-                                        </li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-repeat"></div>
-                                                <div>${p.getRevisions()} Revisions</div>
-                                            </strong>
-                                        </li>
-                                    </ul>
-                                    <a href="checkout?id=${p.getPackageID()}" class="btn w-100 bg-dark text-white border-0 rounded-10">Continue</a>
 
+                        </li>
+                        <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                            <a href="job-single.html"></a>
+                            <div class="job-listing-logo">
+                                <img src="images/job_logo_2.jpg" alt="Image" class="img-fluid">
+                            </div>
+
+                            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                                <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                                    <h2>Digital Marketing Director</h2>
+                                    <strong>Sprint</strong>
+                                </div>
+                                <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                    <span class="icon-room"></span> Overland Park, Kansas 
+                                </div>
+                                <div class="job-listing-meta">
+                                    <span class="badge badge-success">Full Time</span>
                                 </div>
                             </div>
-                        </c:if>
-                        <c:if test="${p.getType()=='premium'}">
-                            <div class="tab-pane fade show" id="nav-premium" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                                <div class="bg-light p-3 border rounded mb-4">
-                                    <div class="mt-3 h5 pl-3 mb-3 d-flex justify-content-between">
-                                        <h3 class="text-primary  ">${p.getTitle()}</h3>
-                                        <h4>US$${p.getPrice()}</h4>
-                                    </div>
-                                    <ul class="list-unstyled pl-3 mb-0">
-                                        <li class="mb-2">${p.getDescription()}</li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-clock-o"></div>
-                                                <div>${p.getDeadline()} Days Delivery</div>
-                                            </strong>
-                                        </li>
-                                        <li class="mb-2">
-                                            <strong class="text-black d-flex align-items-center" style="gap:5px;">
-                                                <div class="icon-repeat"></div>
-                                                <div>${p.getRevisions()} Revisions</div>
-                                            </strong>
-                                        </li>
-                                    </ul>
-                                    <a href="checkout?id=${p.getPackageID()}" class="btn w-100 bg-dark text-white border-0 rounded-10">Continue</a>
+                        </li>
 
+                        <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                            <a href="job-single.html"></a>
+                            <div class="job-listing-logo">
+                                <img src="images/job_logo_3.jpg" alt="Image" class="img-fluid">
+                            </div>
 
+                            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                                <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                                    <h2>Back-end Engineer (Python)</h2>
+                                    <strong>Amazon</strong>
+                                </div>
+                                <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                    <span class="icon-room"></span> Overland Park, Kansas 
+                                </div>
+                                <div class="job-listing-meta">
+                                    <span class="badge badge-success">Full Time</span>
                                 </div>
                             </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-              
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+                        </li>
 
-</section>
+                        <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                            <a href="job-single.html"></a>
+                            <div class="job-listing-logo">
+                                <img src="images/job_logo_4.jpg" alt="Image" class="img-fluid">
+                            </div>
 
-<section class="site-section" id="next">
-    <div class="container">
+                            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                                <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                                    <h2>Senior Art Director</h2>
+                                    <strong>Microsoft</strong>
+                                </div>
+                                <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                    <span class="icon-room"></span> Anywhere 
+                                </div>
+                                <div class="job-listing-meta">
+                                    <span class="badge badge-success">Full Time</span>
+                                </div>
+                            </div>
+                        </li>
 
-        <div class="row mb-5 justify-content-center">
-            <div class="col-md-7 text-center">
-                <h2 class="section-title mb-2">22,392 Related Jobs</h2>
-            </div>
-        </div>
+                        <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                            <a href="job-single.html"></a>
+                            <div class="job-listing-logo">
+                                <img src="images/job_logo_5.jpg" alt="Image" class="img-fluid">
+                            </div>
 
-        <ul class="job-listings mb-5">
-            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                <a href="job-single.html"></a>
-                <div class="job-listing-logo">
-                    <img src="images/job_logo_1.jpg" alt="Image" class="img-fluid">
-                </div>
+                            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                                <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                                    <h2>Product Designer</h2>
+                                    <strong>Puma</strong>
+                                </div>
+                                <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                    <span class="icon-room"></span> San Mateo, CA 
+                                </div>
+                                <div class="job-listing-meta">
+                                    <span class="badge badge-success">Full Time</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                            <a href="job-single.html"></a>
+                            <div class="job-listing-logo">
+                                <img src="images/job_logo_1.jpg" alt="Image" class="img-fluid">
+                            </div>
 
-                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                        <h2>Product Designer</h2>
-                        <strong>Adidas</strong>
-                    </div>
-                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                        <span class="icon-room"></span> New York, New York
-                    </div>
-                    <div class="job-listing-meta">
-                        <span class="badge badge-danger">Part Time</span>
-                    </div>
-                </div>
+                            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                                <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                                    <h2>Product Designer</h2>
+                                    <strong>Adidas</strong>
+                                </div>
+                                <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                    <span class="icon-room"></span> New York, New York
+                                </div>
+                                <div class="job-listing-meta">
+                                    <span class="badge badge-danger">Part Time</span>
+                                </div>
+                            </div>
 
-            </li>
-            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                <a href="job-single.html"></a>
-                <div class="job-listing-logo">
-                    <img src="images/job_logo_2.jpg" alt="Image" class="img-fluid">
-                </div>
+                        </li>
+                        <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                            <a href="job-single.html"></a>
+                            <div class="job-listing-logo">
+                                <img src="images/job_logo_2.jpg" alt="Image" class="img-fluid">
+                            </div>
 
-                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                        <h2>Digital Marketing Director</h2>
-                        <strong>Sprint</strong>
-                    </div>
-                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                        <span class="icon-room"></span> Overland Park, Kansas 
-                    </div>
-                    <div class="job-listing-meta">
-                        <span class="badge badge-success">Full Time</span>
-                    </div>
-                </div>
-            </li>
+                            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                                <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                                    <h2>Digital Marketing Director</h2>
+                                    <strong>Sprint</strong>
+                                </div>
+                                <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                    <span class="icon-room"></span> Overland Park, Kansas 
+                                </div>
+                                <div class="job-listing-meta">
+                                    <span class="badge badge-success">Full Time</span>
+                                </div>
+                            </div>
+                        </li>
 
-            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                <a href="job-single.html"></a>
-                <div class="job-listing-logo">
-                    <img src="images/job_logo_3.jpg" alt="Image" class="img-fluid">
-                </div>
 
-                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                        <h2>Back-end Engineer (Python)</h2>
-                        <strong>Amazon</strong>
-                    </div>
-                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                        <span class="icon-room"></span> Overland Park, Kansas 
-                    </div>
-                    <div class="job-listing-meta">
-                        <span class="badge badge-success">Full Time</span>
-                    </div>
-                </div>
-            </li>
 
-            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                <a href="job-single.html"></a>
-                <div class="job-listing-logo">
-                    <img src="images/job_logo_4.jpg" alt="Image" class="img-fluid">
-                </div>
 
-                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                        <h2>Senior Art Director</h2>
-                        <strong>Microsoft</strong>
-                    </div>
-                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                        <span class="icon-room"></span> Anywhere 
-                    </div>
-                    <div class="job-listing-meta">
-                        <span class="badge badge-success">Full Time</span>
-                    </div>
-                </div>
-            </li>
+                    </ul>
 
-            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                <a href="job-single.html"></a>
-                <div class="job-listing-logo">
-                    <img src="images/job_logo_5.jpg" alt="Image" class="img-fluid">
+                    <div class="row pagination-wrap">
+                        <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+                            <span>Showing 1-7 Of 22,392 Jobs</span>
+                        </div>
+                        <div class="col-md-6 text-center text-md-right">
+                            <div class="custom-pagination ml-auto">
+                                <a href="#" class="prev">Prev</a>
+                                <div class="d-inline-block">
+                                    <a href="#" class="active">1</a>
+                                    <a href="#">2</a>
+                                    <a href="#">3</a>
+                                    <a href="#">4</a>
+                                </div>
+                                <a href="#" class="next">Next</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                        <h2>Product Designer</h2>
-                        <strong>Puma</strong>
-                    </div>
-                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                        <span class="icon-room"></span> San Mateo, CA 
-                    </div>
-                    <div class="job-listing-meta">
-                        <span class="badge badge-success">Full Time</span>
-                    </div>
-                </div>
-            </li>
-            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                <a href="job-single.html"></a>
-                <div class="job-listing-logo">
-                    <img src="images/job_logo_1.jpg" alt="Image" class="img-fluid">
-                </div>
+            </section>
 
-                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                        <h2>Product Designer</h2>
-                        <strong>Adidas</strong>
-                    </div>
-                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                        <span class="icon-room"></span> New York, New York
-                    </div>
-                    <div class="job-listing-meta">
-                        <span class="badge badge-danger">Part Time</span>
+
+
+
+            <section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 align-self-center text-center text-md-left mb-5 mb-md-0">
+                            <h2 class="text-white">Get The Mobile Apps</h2>
+                            <p class="mb-5 lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora adipisci impedit.</p>
+                            <p class="mb-0">
+                                <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-apple mr-3"></span>App Store</a>
+                                <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-android mr-3"></span>Play Store</a>
+                            </p>
+                        </div>
+                        <div class="col-md-6 ml-auto align-self-end">
+                            <img src="images/apps.png" alt="Image" class="img-fluid">
+                        </div>
                     </div>
                 </div>
+            </section>
 
-            </li>
-            <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                <a href="job-single.html"></a>
-                <div class="job-listing-logo">
-                    <img src="images/job_logo_2.jpg" alt="Image" class="img-fluid">
-                </div>
-
-                <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                    <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                        <h2>Digital Marketing Director</h2>
-                        <strong>Sprint</strong>
-                    </div>
-                    <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                        <span class="icon-room"></span> Overland Park, Kansas 
-                    </div>
-                    <div class="job-listing-meta">
-                        <span class="badge badge-success">Full Time</span>
-                    </div>
-                </div>
-            </li>
+            <%@include file="components/Footer.jsp" %>
 
 
-
-
-        </ul>
-
-        <div class="row pagination-wrap">
-            <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
-                <span>Showing 1-7 Of 22,392 Jobs</span>
-            </div>
-            <div class="col-md-6 text-center text-md-right">
-                <div class="custom-pagination ml-auto">
-                    <a href="#" class="prev">Prev</a>
-                    <div class="d-inline-block">
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                    </div>
-                    <a href="#" class="next">Next</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</section>
-
-
-
-
-<section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 align-self-center text-center text-md-left mb-5 mb-md-0">
-                <h2 class="text-white">Get The Mobile Apps</h2>
-                <p class="mb-5 lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora adipisci impedit.</p>
-                <p class="mb-0">
-                    <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-apple mr-3"></span>App Store</a>
-                    <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-android mr-3"></span>Play Store</a>
-                </p>
-            </div>
-            <div class="col-md-6 ml-auto align-self-end">
-                <img src="images/apps.png" alt="Image" class="img-fluid">
-            </div>
-        </div>
-    </div>
-</section>
-
-<%@include file="components/Footer.jsp" %>
-
-
-
-<section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 align-self-center text-center text-md-left mb-5 mb-md-0">
-                <h2 class="text-white">Get The Mobile Apps</h2>
-                <p class="mb-5 lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora adipisci impedit.</p>
-                <p class="mb-0">
-                    <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-apple mr-3"></span>App Store</a>
-                    <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span class="icon-android mr-3"></span>Play Store</a>
-                </p>
-            </div>
-            <div class="col-md-6 ml-auto align-self-end">
-                <img src="images/apps.png" alt="Image" class="img-fluid">
-            </div>
-        </div>
-    </div>
-</section>
-
-<%@include file="components/Footer.jsp" %>
 
 
 
