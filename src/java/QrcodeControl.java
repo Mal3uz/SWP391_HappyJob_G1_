@@ -9,6 +9,7 @@ import dao.SeekerDAO;
 import dao.ServicePackageDAO;
 import dao.WalletDAO;
 import entity.Account;
+import entity.ServicePackage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,7 +18,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,7 +43,7 @@ public class QrcodeControl extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-          
+
             HttpSession session = request.getSession(true);
             SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
@@ -56,54 +59,69 @@ public class QrcodeControl extends HttpServlet {
             System.out.println(payment_method);
             ProviderDAO pdao = new ProviderDAO();
             ServicePackageDAO spdao = new ServicePackageDAO();
-           
+
             WalletDAO wdao = new WalletDAO();
             double balance = (Integer) session.getAttribute("balance");
             if (payment_method.equals("momo")) {
                 if (u != null) {
-                      SeekerDAO sdao = new SeekerDAO();
+                    SeekerDAO sdao = new SeekerDAO();
                     String trans = request.getParameter("tranid");
                     String priceString = request.getParameter("price");
                     int price = Integer.parseInt(priceString);
                     System.out.println(price);
-                    int orderid = sdao.createOrderWithType(accId,createAt,"Add");
-                    sdao.requestAddMoney(accId, price,orderid,createAt);
-                    
+                    int orderid = sdao.createOrderWithType(accId, createAt, "Add");
+                    sdao.requestAddMoney(accId, price, orderid, createAt);
+
                     request.setAttribute("total", price);
                     request.setAttribute("trans", trans);
                     System.out.println(trans);
                     request.getRequestDispatcher("qrcode.jsp").forward(request, response);
                 }
 
-                 }else if (payment_method.equals("wallet")) {
-                    int talentId = (Integer) session.getAttribute("talentId");
-                    int packId = (Integer) session.getAttribute("packId");
-                    int total = (int) (spdao.getPriceByPackId(packId) * 1.05);
-                    if (u != null && balance > total) {
-                        String oderType = "Paid";
-                        int ordID =  pdao.addOrder(accId, talentId, createAt, packId,"Pending",oderType);
-                        pdao.insertTransaction(accId, 1, total, oderType, ordID, "Success", createAt);
-                        
-                        
-                        
-                         AdminDAO dao = new AdminDAO();
-                String mess1 = "You have successfully order Talent title : " + (dao.getTalentById(Integer.toString(talentId))).getTitle();
-                String mess2 = "Account " + name + " have order Talent title : " + (dao.getTalentById(Integer.toString(talentId))).getTitle();
-                dao.insertNotificationApprovel(accId, mess1, 0, createAt);
-                dao.insertNotificationApprovel((dao.getTalentById(Integer.toString(talentId))).getAccountID(), mess2, 0, createAt);
-                        
-                        
-                        
-                        int newBalance = (int) Math.round(balance - total);
-                        session.removeAttribute("balance");
-                        session.setAttribute("balance", newBalance);
-                        wdao.updateNewBalance(accId, newBalance);
-                        response.sendRedirect("Home.jsp");
-                    }else {
-                     request.setAttribute("mess1", "Please make sure the wallet balance is sufficient for payment");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+            } else if (payment_method.equals("wallet")) {
+                int talentId = (Integer) session.getAttribute("talentId");
+                String lidParam = (String) session.getAttribute("lidParam");
+                int packId = (Integer) session.getAttribute("packId");
+                int total = (int) (spdao.getPriceByPackId(packId) * 1.05);
+
+                if (u != null && balance > total) {
+                    String oderType = "Paid";
+                    int ordID = pdao.addOrder(accId, talentId, createAt, packId, "Pending", oderType);
+                    if (lidParam != null && !lidParam.isEmpty()) {
+                        // Tách chuỗi lid thành một mảng các ID gói dịch vụ
+                        String[] lidArray = lidParam.split(",");
+                        // Chuyển đổi mảng lidArray thành mảng số nguyên
+                        int[] packageIDs = Arrays.stream(lidArray)
+                                .mapToInt(Integer::parseInt)
+                                .toArray();
+                        List<ServicePackage> listAddMore = spdao.listPackageAdd(packageIDs);
+                        if (listAddMore != null && !listAddMore.isEmpty()) {
+                            for (ServicePackage pkg : listAddMore) {
+                                total += pkg.getPrice();
+                            }
+                        }
+
+                       pdao.addOrderDetail(ordID, packageIDs);
                     }
+                    
+                    pdao.insertTransaction(accId, 1, total, oderType, ordID, "Success", createAt);
+
+                    AdminDAO dao = new AdminDAO();
+                    String mess1 = "You have successfully order Talent title : " + (dao.getTalentById(Integer.toString(talentId))).getTitle();
+                    String mess2 = "Account " + name + " have order Talent title : " + (dao.getTalentById(Integer.toString(talentId))).getTitle();
+                    dao.insertNotificationApprovel(accId, mess1, 0, createAt);
+                    dao.insertNotificationApprovel((dao.getTalentById(Integer.toString(talentId))).getAccountID(), mess2, 0, createAt);
+
+                    int newBalance = (int) Math.round(balance - total);
+                    session.removeAttribute("balance");
+                    session.setAttribute("balance", newBalance);
+                    wdao.updateNewBalance(accId, newBalance);
+                    response.sendRedirect("Home.jsp");
                 } else {
+                    request.setAttribute("mess1", "Please make sure the wallet balance is sufficient for payment");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+            } else {
                 response.sendRedirect("Login.jsp");
             }
 
