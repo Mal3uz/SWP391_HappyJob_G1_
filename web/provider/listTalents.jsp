@@ -124,18 +124,35 @@
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                         
+<!--                                                        click here-->
+                                                     <a href="postServiceTalent?tid=${p.talentID}"class="btn btn-primary btn-sm" type="button" title="Add">
+                                                        <i class="fas fa-plus"></i>
+                                                    </a>
+
                                                 </c:if>
-                                                 <c:if test="${talentExists}">
-                                                     <p class="btn btn-sm btn-warning">In an Order!</p>
-                                                      </c:if>
+                                                <c:if test="${talentExists}">
+                                                    <p class="btn btn-sm btn-warning">In an Order!</p>
+                                                </c:if>
                                             </td>
                                         </tr>
 
+
+
+
+                                   
+                                        
+                                        
+                                                                         
+                                 
+
+
+
+
                                         <!--
-                                        MODAL
+                                        MODAL Update
                                         -->
 
-                                    <div class="modal fade" id="ModalUP${p.talentID}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+                                        <div class="modal fade" id="ModalUP${p.talentID}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
                                          data-keyboard="false">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <form id="editTalentForm${p.talentID}" action="udtalent?action=updateproduct" method="post" enctype="multipart/form-data">
@@ -213,6 +230,13 @@
                                     <!--
                                   MODAL
                                     -->
+
+
+
+
+
+
+
                                 </c:forEach>
                                 </tbody>
                             </table>
