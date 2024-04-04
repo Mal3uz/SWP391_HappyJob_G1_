@@ -220,7 +220,9 @@
                                 <li class="nav-item ">
                                     <a class="nav-link" href="product"> List Product </a>
                                 </li>
-
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="<%=request.getContextPath()%>/admin/manage-blog"> List blogs </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
