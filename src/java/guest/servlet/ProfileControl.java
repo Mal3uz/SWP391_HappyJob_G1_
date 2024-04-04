@@ -27,6 +27,7 @@ public class ProfileControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
+            
             // Get the user profile from the session
             HttpSession session = request.getSession();
             Profile userProfile = (Profile) session.getAttribute("userProfile");
@@ -37,6 +38,7 @@ public class ProfileControl extends HttpServlet {
             } else {
                 // If the user is not logged in, redirect to the login page
                 response.sendRedirect("Login.jsp");
+                
             }
         } catch (Exception ex) {
             response.getWriter().println("Error retrieving profile data: " + ex.getMessage());
