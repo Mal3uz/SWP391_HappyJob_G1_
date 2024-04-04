@@ -252,6 +252,7 @@ public class SeekerDAO {
         return null;
     }
 
+    //update profile
     public void UpdateAccount(String name, String gender, String dob, String imgurl, int accountID) {
         String query = "UPDATE Account SET [Name] = ?, Dob = ?, Gender = ?, Img = ?  WHERE AccountID = ?";
         try {

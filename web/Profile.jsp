@@ -54,10 +54,7 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">${sessionScope.user.getDob()}</div>
                             </div>
-                            
-                            <!-- Repeat similar blocks for other profile information -->
-                            <!-- ... -->
-
+                         
                             <hr>
 
                             <div class="row">
@@ -67,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Your existing code for project status cards -->
+                  
                 </div>
             </div>
         </div>

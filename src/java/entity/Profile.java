@@ -74,4 +74,11 @@ public class Profile {
     public void setImg(String img) {
         this.img = img;
     }
+
+    @Override
+    public String toString() {
+        return "Profile{" + "accountID=" + accountID + ", name=" + name + ", email=" + email + ", password=" + password + ", gender=" + gender + ", about=" + about + ", birthday=" + birthday + ", img=" + img + '}';
+    }
+    
+    
 }
