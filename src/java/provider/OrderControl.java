@@ -72,6 +72,8 @@ public class OrderControl extends HttpServlet {
             Object accObj = session.getAttribute("user");
             Account a = (Account) accObj;
             int accId = a.getAccountID();
+            ProviderDAO prodao = new  ProviderDAO();
+            request.setAttribute("prodao", prodao);
             items = new ProviderDAO().getOrderDetailsByAccountId(accId);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,6 +83,7 @@ public class OrderControl extends HttpServlet {
         }
 
         request.setAttribute("items", items);
+      
         request.getRequestDispatcher("/provider/order.jsp").forward(request, response);
     }
 
