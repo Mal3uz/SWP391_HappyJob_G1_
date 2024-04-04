@@ -6,6 +6,7 @@
 package admin;
 
 import dao.AdminDAO;
+import dao.ServicePackageDAO;
 import entity.Account;
 import entity.ServicePackage;
 import entity.Talent;
@@ -61,10 +62,13 @@ public class AdminTalentDetailControl extends HttpServlet {
         
         String talentId = request.getParameter("tid");
          AdminDAO dao = new AdminDAO();
+          ServicePackageDAO sdao = new ServicePackageDAO();
         Talent tDetail = dao.getTalentById(talentId);
        Account account = dao.getAccountByTalentId(talentId);
        List<ServicePackage> service = dao.ServicePackagesByTalentId(talentId);
-  
+        List<ServicePackage> addPackage = sdao.listPackageAdd(talentId);
+        
+  request.setAttribute("aPackage", addPackage);
          request.setAttribute("dao", dao);
         request.setAttribute("Talent", tDetail);
         request.setAttribute("account", account);
