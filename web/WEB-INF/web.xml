@@ -73,7 +73,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminMessage</servlet-name>
-        <servlet-class>admin.AdminMessage</servlet-class>
+<servlet-class>admin.AdminMessage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MessageDetail</servlet-name>
@@ -156,7 +156,7 @@
         <servlet-class>guest.servlet.CategoryControl</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FeedbackControl</servlet-name>
+<servlet-name>FeedbackControl</servlet-name>
         <servlet-class>seeker.FeedbackControl</servlet-class>
     </servlet>
     <servlet>
@@ -235,6 +235,18 @@
         <servlet-name>CancelOrder</servlet-name>
         <servlet-class>seeker.CancelOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PostServiceTalent</servlet-name>
+<servlet-class>provider.PostServiceTalent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateServiceTalent</servlet-name>
+        <servlet-class>provider.UpdateServiceTalent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteServicePackage</servlet-name>
+        <servlet-class>provider.DeleteServicePackage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControl</servlet-name>
         <url-pattern>/LoginControl</url-pattern>
@@ -304,7 +316,7 @@
         <url-pattern>/admin/messageDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddTalentControl</servlet-name>
+<servlet-name>AddTalentControl</servlet-name>
         <url-pattern>/AddTalentControl</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -384,7 +396,7 @@
         <url-pattern>/feedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetFeedbackControl</servlet-name>
+<servlet-name>GetFeedbackControl</servlet-name>
         <url-pattern>/getFeedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -458,6 +470,18 @@
     <servlet-mapping>
         <servlet-name>CancelOrder</servlet-name>
         <url-pattern>/cancelOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServiceTalent</servlet-name>
+        <url-pattern>/postServiceTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+<servlet-name>UpdateServiceTalent</servlet-name>
+        <url-pattern>/updateServiceTalent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteServicePackage</servlet-name>
+        <url-pattern>/deleteServicePackage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
