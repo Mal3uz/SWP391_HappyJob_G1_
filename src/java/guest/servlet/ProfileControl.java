@@ -40,6 +40,8 @@ public class ProfileControl extends HttpServlet {
                 response.sendRedirect("Login.jsp");
                 
             }
+            
+            
         } catch (Exception ex) {
             response.getWriter().println("Error retrieving profile data: " + ex.getMessage());
         }
