@@ -46,6 +46,7 @@ public class LoadTalent extends HttpServlet {
             List<Talent> lit = new ArrayList<>();
             int accId = a.getAccountID();
             lit = pdao.getListAllTalentByID(accId);
+            request.setAttribute("pdao", pdao);
             request.setAttribute("lit", lit);
             request.setAttribute("tdao", tdao);
             request.getRequestDispatcher("/provider/listTalents.jsp").forward(request, response);
