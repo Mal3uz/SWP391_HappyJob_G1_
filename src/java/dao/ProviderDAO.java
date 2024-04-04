@@ -5,6 +5,7 @@
 package dao;
 
 import entity.Category;
+import entity.ServicePackage;
 import entity.Statistic;
 import entity.Talent;
 import java.security.Provider;
@@ -384,7 +385,7 @@ public class ProviderDAO {
     public List<Map<String, Object>> getOrderDetailsByAccountId(int accountId) throws SQLException, Exception {
         List<Map<String, Object>> orderDetailsList = new ArrayList<>();
 
-        String query = "SELECT o.OrderID, a.Name, s.Price, s.Title, s.Description, t.Title AS TalentTitle, o.Timestamp, s.Revisions, s.Deadline, o.Status \n"
+        String query = "SELECT o.OrderID, a.Name, s.Price, s.Title, s.Description,s.Type, t.Title AS TalentTitle, o.Timestamp, s.Revisions, s.Deadline, o.Status \n"
                 + "                            FROM Orders o \n"
                 + "                            JOIN OrderDetail od ON o.OrderID = od.OrderID \n"
                 + "                            JOIN ServicePackage s ON od.PacketID = s.PacketID \n"
@@ -404,6 +405,7 @@ public class ProviderDAO {
                     orderDetails.put("price", rs.getDouble("Price"));
                     orderDetails.put("serviceTitle", rs.getString("Title"));
                     orderDetails.put("description", rs.getString("Description"));
+                    orderDetails.put("type", rs.getString("Type"));
                     orderDetails.put("talentTitle", rs.getString("TalentTitle"));
                     orderDetails.put("timestamp", rs.getTimestamp("Timestamp"));
                     orderDetails.put("revisions", rs.getInt("Revisions"));
@@ -764,6 +766,175 @@ public class ProviderDAO {
         }
 
         return income;
+    }
+
+    //code here
+    public void addOrderDetail(int orderId, int packetid[]) throws Exception {
+        String sql = "insert into [orderdetail] values(?,?)";
+
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            for (int packId : packetid) {
+                ps.setInt(1, orderId);
+                ps.setInt(2, packId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ nếu cần thiết
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public List<ServicePackage> getListServicePackageTalentByID(int tID) {
+        List<ServicePackage> tList = new ArrayList<>();
+        String sql = "SELECT * FROM ServicePackage \n"
+                + "where TalentID = ? ";
+        try {
+            conn = (Connection) new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, tID);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                tList.add(new ServicePackage(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8)));
+            }
+            return tList;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public int totalPriceOrder(int orderid) throws SQLException, Exception {
+        int total = 0;
+        String query = " select sum(Price) from ServicePackage sp\n"
+                + " join OrderDetail od on sp.PacketID = od.PacketID\n"
+                + " join  Orders o on o.OrderID = od.OrderID\n"
+                + " where o.OrderID = ?";
+
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, orderid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt(1); // get the sum from the result set
+            }
+        } catch (SQLException e) {
+            // handle exception
+        } finally {
+            // close resources
+        }
+
+        return total;
+    }
+
+    public void addServicePacket(int orderId, int packetid[]) throws Exception {
+        String sql = "insert into [orderdetail] values(?,?)";
+
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            for (int packId : packetid) {
+                ps.setInt(1, orderId);
+                ps.setInt(2, packId);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ nếu cần thiết
+            e.printStackTrace();
+
+        }
+    }
+
+    public void addServicePacket(int talentId, String title, String description, int price, int revisions, int deadline) throws Exception {
+        String query = "INSERT INTO ServicePackage(TalentID, Title, Description, Price, Revisions, Type,Deadline)\n"
+                + "VALUES(?,?,?,?,?,'Add',?)";
+
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, talentId);
+            ps.setString(2, title);
+            ps.setString(3, description);
+            ps.setInt(4, price);
+            ps.setInt(5, revisions);
+            ps.setInt(6, deadline);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception as needed
+        }
+    }
+
+    public ServicePackage getServicePackageById(String spid) {
+        String query = "select * from ServicePackage \n"
+                + "where PacketID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, spid);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return new ServicePackage(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8));
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public void updateServicePackage(int packageid, String title, String description, int price, int revisions, int deadline) {
+        String query = "UPDATE ServicePackage\n"
+                + "SET title = ?,Description = ?, Price = ?, Revisions= ?, Deadline = ?\n"
+                + "Where PacketID = ?";
+
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            // Set parameters
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setInt(3, price);
+            ps.setInt(4, revisions);
+            ps.setInt(5, deadline);
+            ps.setInt(6, packageid);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+        }
+
+    }
+
+    public void deleteServicePackage(String id) {
+        String query = " Delete from ServicePackage\n"
+                + "Where PacketID = ?";
+        try {
+            conn = new DBContext().getConnection();//mo ket noi vs sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, id); // Truyền tham số vào câu truy vấn
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+        }
     }
 
     public static void main(String[] args) throws Exception {
