@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -42,20 +43,40 @@ public class Checkout extends HttpServlet {
         try {
             HttpSession session = request.getSession(true);
             int packId = Integer.parseInt(request.getParameter("id"));
-           Account a = (Account) session.getAttribute("user");
-            if (a.getRoleID()==3) {
+            String lidParam = request.getParameter("lid");
+            Account a = (Account) session.getAttribute("user");
+            if (a.getRoleID() == 3) {
+                session.setAttribute("lidParam", lidParam);
                 session.setAttribute("packId", packId);
-            ServicePackageDAO spdao = new ServicePackageDAO();
-            List<ServicePackage> listS = spdao.getServicePackageByID(packId);
-            request.setAttribute("listS", listS);
-            int talentId = spdao.getTalentIDByPackId(packId);
-            session.setAttribute("talentId", talentId);
-            int total = spdao.getPriceByPackId(packId);
-            request.setAttribute("total", total);  
-            request.getRequestDispatcher("checkout.jsp").forward(request, response);
-            } else{
-                  request.setAttribute("mess1", "You are not allow!");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                ServicePackageDAO spdao = new ServicePackageDAO();
+                List<ServicePackage> listS = spdao.getServicePackageByID(packId);
+                request.setAttribute("listS", listS);
+                int talentId = spdao.getTalentIDByPackId(packId);
+                session.setAttribute("talentId", talentId);
+                int total = spdao.getPriceByPackId(packId);
+                request.setAttribute("total", total);
+                if (lidParam != null && !lidParam.isEmpty()) {
+                    // Tách chuỗi lid thành một mảng các ID gói dịch vụ
+                    String[] lidArray = lidParam.split(",");
+                    // Chuyển đổi mảng lidArray thành mảng số nguyên
+                    int[] packageIDs = Arrays.stream(lidArray)
+                            .mapToInt(Integer::parseInt)
+                            .toArray();
+                    List<ServicePackage> listAddMore = spdao.listPackageAdd(packageIDs);
+                    if (listAddMore != null && !listAddMore.isEmpty()) {
+                        for (ServicePackage pkg : listAddMore) {
+                            total += pkg.getPrice();
+                        }
+                    }
+
+                    request.setAttribute("total", total);
+                    request.setAttribute("listAddMore", listAddMore);
+                }
+
+                request.getRequestDispatcher("checkout.jsp").forward(request, response);
+            } else {
+                request.setAttribute("mess1", "You are not allow!");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         } catch (NullPointerException e) {
             System.out.println(e);
@@ -80,7 +101,7 @@ public class Checkout extends HttpServlet {
         if (u == null) {
             request.setAttribute("mess1", "Please signin to continue");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
-        } 
+        }
         try {
             processRequest(request, response);
         } catch (Exception ex) {
